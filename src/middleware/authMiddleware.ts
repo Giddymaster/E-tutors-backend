@@ -3,6 +3,13 @@ import jwt from 'jsonwebtoken'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'dev_secret'
 
+interface JwtPayload {
+  userId: number
+  role: string
+  iat?: number
+  exp?: number
+}
+
 export const authenticate = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization
   if (!authHeader) return res.status(401).json({ error: 'No token provided' })
@@ -14,11 +21,9 @@ export const authenticate = (req: Request, res: Response, next: NextFunction) =>
   if (!/^Bearer$/i.test(scheme)) return res.status(401).json({ error: 'Malformed token' })
 
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as any
-    // attach to request
-    // @ts-ignore
-    req.userId = decoded.userId
-    // @ts-ignore
+    const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload
+    if (!decoded || typeof decoded.userId === 'undefined') return res.status(401).json({ error: 'Invalid token payload' })
+    req.userId = Number(decoded.userId)
     req.userRole = decoded.role
     next()
   } catch (err) {
