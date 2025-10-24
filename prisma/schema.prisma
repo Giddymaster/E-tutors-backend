@@ -10,17 +10,19 @@ datasource db {
 enum Role {
     STUDENT
     TUTOR
-    ADMIN
+    ADMIN 
+    SUPPORT
 }
 
 model User {
-    id           Int           @id @default(autoincrement())
-    name         String
-    email        String        @unique
-    password     String
-    role         Role          @default(STUDENT)
-    tutorProfile TutorProfile?
-    createdAt    DateTime      @default(now())
+    id             Int             @id @default(autoincrement())
+    name           String
+    email          String          @unique
+    password       String
+    role           Role            @default(STUDENT)
+    tutorProfile   TutorProfile?
+    supportProfile SupportProfile?
+    createdAt      DateTime        @default(now())
 }
 
 model TutorProfile {
@@ -43,4 +45,24 @@ model Review {
     comment   String
     createdAt DateTime     @default(now())
     tutor     TutorProfile @relation(fields: [tutorId], references: [id])
+}
+
+model SupportMessage {
+    id          Int      @id @default(autoincrement())
+    text        String
+    userId      Int?
+    userRole    Role?
+    response    String?
+    responderId Int?
+    createdAt   DateTime @default(now())
+}
+
+model SupportProfile {
+    id        Int      @id @default(autoincrement())
+    userId    Int      @unique
+    bio       String?
+    teamTitle String?
+    contact   String?
+    user      User     @relation(fields: [userId], references: [id])
+    createdAt DateTime @default(now())
 }
