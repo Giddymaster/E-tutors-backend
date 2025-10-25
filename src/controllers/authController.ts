@@ -2,6 +2,9 @@ import { Request, Response } from 'express'
 import prisma from '../prismaClient'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import crypto from 'crypto'
+
+const REFRESH_TOKEN_COOKIE = 'refreshToken'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'dev_secret'
 
@@ -20,8 +23,14 @@ export const register = async (req: Request, res: Response) => {
       data: { name, email, password: hashed, role }
     })
 
-    const token = jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, { expiresIn: '7d' })
-    res.json({ token, user: { id: user.id, name: user.name, email: user.email, role: user.role } })
+  // Issue short-lived access token and a refresh token stored as httpOnly cookie
+  const accessToken = jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, { expiresIn: '15m' })
+  const refreshToken = crypto.randomBytes(40).toString('hex')
+  const refreshExpiry = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+  await (prisma as any).refreshToken.create({ data: { token: refreshToken, userId: user.id, expiresAt: refreshExpiry } })
+  // set cookie
+  res.cookie(REFRESH_TOKEN_COOKIE, refreshToken, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax', expires: refreshExpiry })
+  res.json({ token: accessToken, user: { id: user.id, name: user.name, email: user.email, role: user.role } })
   } catch (err) {
     console.error(err)
     res.status(500).json({ error: 'Server error' })
@@ -39,8 +48,12 @@ export const login = async (req: Request, res: Response) => {
     const match = await bcrypt.compare(password, user.password)
     if (!match) return res.status(401).json({ error: 'Invalid credentials' })
 
-    const token = jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, { expiresIn: '7d' })
-    res.json({ token, user: { id: user.id, name: user.name, email: user.email, role: user.role } })
+  const accessToken = jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, { expiresIn: '15m' })
+  const refreshToken = crypto.randomBytes(40).toString('hex')
+  const refreshExpiry = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+  await (prisma as any).refreshToken.create({ data: { token: refreshToken, userId: user.id, expiresAt: refreshExpiry } })
+  res.cookie(REFRESH_TOKEN_COOKIE, refreshToken, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax', expires: refreshExpiry })
+  res.json({ token: accessToken, user: { id: user.id, name: user.name, email: user.email, role: user.role } })
   } catch (err) {
     console.error(err)
     res.status(500).json({ error: 'Server error' })
@@ -54,6 +67,51 @@ export const me = async (req: Request, res: Response) => {
 
   const user = await prisma.user.findUnique({ where: { id: Number(userId) }, select: { id: true, name: true, email: true, role: true } })
   res.json({ user })
+}
+
+// Refresh access token using refresh cookie
+export const refreshToken = async (req: Request, res: Response) => {
+  try {
+    const cookie = req.cookies && req.cookies[REFRESH_TOKEN_COOKIE]
+    if (!cookie) return res.status(401).json({ error: 'No refresh token' })
+
+  const stored = await (prisma as any).refreshToken.findUnique({ where: { token: cookie } })
+    if (!stored) return res.status(401).json({ error: 'Invalid refresh token' })
+    if (stored.expiresAt < new Date()) {
+      // delete expired token
+  await (prisma as any).refreshToken.deleteMany({ where: { token: cookie } })
+      return res.status(401).json({ error: 'Refresh token expired' })
+    }
+
+    const user = await prisma.user.findUnique({ where: { id: stored.userId } })
+    if (!user) return res.status(401).json({ error: 'User not found' })
+
+    const accessToken = jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, { expiresIn: '15m' })
+    // optionally rotate refresh token
+    const newRefresh = crypto.randomBytes(40).toString('hex')
+    const refreshExpiry = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+  await (prisma as any).refreshToken.create({ data: { token: newRefresh, userId: user.id, expiresAt: refreshExpiry } })
+  await (prisma as any).refreshToken.delete({ where: { token: cookie } })
+    res.cookie(REFRESH_TOKEN_COOKIE, newRefresh, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax', expires: refreshExpiry })
+    res.json({ token: accessToken })
+  } catch (err) {
+    console.error('refreshToken error', err)
+    res.status(500).json({ error: 'Server error' })
+  }
+}
+
+export const logout = async (req: Request, res: Response) => {
+  try {
+    const cookie = req.cookies && req.cookies[REFRESH_TOKEN_COOKIE]
+    if (cookie) {
+  await (prisma as any).refreshToken.deleteMany({ where: { token: cookie } }).catch(() => {})
+    }
+    res.clearCookie(REFRESH_TOKEN_COOKIE, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax' })
+    return res.json({ ok: true })
+  } catch (err) {
+    console.error('logout error', err)
+    res.status(500).json({ error: 'Server error' })
+  }
 }
 
 // Google OAuth handlers

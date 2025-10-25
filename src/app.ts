@@ -1,10 +1,13 @@
 import express from 'express'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
+import helmet from 'helmet'
 import path from 'path'
 import fs from 'fs'
 import authRoutes from './routes/authRoutes'
 import tutorRoutes from './routes/tutorRoutes'
 import supportRoutes from './routes/supportRoutes'
+import bookingRoutes from './routes/bookingRoutes'
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -17,12 +20,17 @@ app.use((req, res, next) => {
 	next()
 })
 
-app.use(cors())
+// CORS: allow credentials and a configurable origin for the client
+const clientOrigin = process.env.CLIENT_ORIGIN || 'http://localhost:5173'
+app.use(cors({ origin: clientOrigin, credentials: true }))
+app.use(cookieParser())
+app.use(helmet())
 app.use(express.json())
 
 app.use('/api/auth', authRoutes)
 app.use('/api/tutors', tutorRoutes)
 app.use('/api/support', supportRoutes)
+app.use('/api/bookings', bookingRoutes)
 
 // Simple debug endpoint
 app.get('/api/debug', (req, res) => {

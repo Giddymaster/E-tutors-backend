@@ -10,31 +10,34 @@ datasource db {
 enum Role {
     STUDENT
     TUTOR
-    ADMIN 
+    ADMIN
     SUPPORT
 }
 
 model User {
-    id             Int             @id @default(autoincrement())
-    name           String
-    email          String          @unique
-    password       String
-    role           Role            @default(STUDENT)
-    tutorProfile   TutorProfile?
-    supportProfile SupportProfile?
-    createdAt      DateTime        @default(now())
+    id              Int             @id @default(autoincrement())
+    name            String
+    email           String          @unique
+    password        String
+    role            Role            @default(STUDENT)
+    tutorProfile    TutorProfile?
+    supportProfile  SupportProfile?
+    refreshTokens   RefreshToken[]
+    studentBookings Booking[]       @relation("studentBookings")
+    createdAt       DateTime        @default(now())
 }
 
 model TutorProfile {
-    id           Int      @id @default(autoincrement())
-    userId       Int      @unique
+    id           Int       @id @default(autoincrement())
+    userId       Int       @unique
     bio          String
     subjects     String[]
     hourlyRate   Float
-    rating       Float?   @default(0)
+    rating       Float?    @default(0)
     availability String?
-    user         User     @relation(fields: [userId], references: [id])
+    user         User      @relation(fields: [userId], references: [id])
     reviews      Review[]
+    bookings     Booking[]
 }
 
 model Review {
@@ -65,4 +68,35 @@ model SupportProfile {
     contact   String?
     user      User     @relation(fields: [userId], references: [id])
     createdAt DateTime @default(now())
+}
+
+model RefreshToken {
+    id        Int      @id @default(autoincrement())
+    token     String   @unique
+    userId    Int
+    expiresAt DateTime
+    createdAt DateTime @default(now())
+    user      User     @relation(fields: [userId], references: [id])
+}
+
+enum BookingStatus {
+    PENDING
+    ACCEPTED
+    DECLINED
+    CANCELLED
+}
+
+model Booking {
+    id          Int           @id @default(autoincrement())
+    studentId   Int
+    tutorId     Int
+    subject     String
+    scheduledAt DateTime
+    duration    Int // minutes
+    price       Float
+    status      BookingStatus @default(PENDING)
+    createdAt   DateTime      @default(now())
+
+    student User         @relation("studentBookings", fields: [studentId], references: [id])
+    tutor   TutorProfile @relation(fields: [tutorId], references: [id])
 }
