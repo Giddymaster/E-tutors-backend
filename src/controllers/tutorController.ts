@@ -84,7 +84,7 @@ export const getTutors = async (req: Request, res: Response) => {
       prisma.tutorProfile.count({ where }),
       prisma.tutorProfile.findMany({
         where,
-        include: { user: { select: { id: true, name: true, email: true } }, reviews: true },
+        include: { user: { select: { id: true, name: true, email: true } }, reviews: true, bookings: true },
         skip: (page - 1) * limit,
         take: limit,
         orderBy
