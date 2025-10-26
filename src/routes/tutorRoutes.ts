@@ -4,9 +4,11 @@ import { authenticate } from '../middleware/authMiddleware'
 
 const router = Router()
 
-router.get('/:id', getTutorById)
-
+// List and create
 router.get('/', getTutors)
 router.post('/', authenticate, createTutor)
+
+// Get single tutor by id (placed after collection routes to avoid accidental conflicts)
+router.get('/:id', getTutorById)
 
 export default router
