@@ -15,18 +15,53 @@ export const getTutors = async (req: Request, res: Response) => {
   const minRating = typeof req.query.minRating !== 'undefined' ? Number(req.query.minRating) : undefined
   const sort = (req.query.sort as string | undefined) || 'rating_desc'
 
+    // Synonyms map for common subject tokens. Expand queries to include aliases
+    // so searching for 'math' matches 'mathematics' and 'calculus', etc.
+    const synonymsMap: Record<string, string[]> = {
+      math: ['mathematics', 'calculus', 'algebra'],
+      maths: ['mathematics', 'calculus', 'algebra'],
+      mathematics: ['math', 'calculus'],
+      calculus: ['math', 'mathematics'],
+      algebra: ['math', 'mathematics'],
+      'computer science': ['computer science', 'cs', 'programming'],
+      programming: ['computer science', 'cs']
+    }
+
+    const expandToken = (t: string) => {
+      const k = String(t || '').trim().toLowerCase()
+      const set = new Set<string>()
+      if (!k) return [] as string[]
+      set.add(k)
+      if (synonymsMap[k]) synonymsMap[k].forEach((s) => set.add(s))
+      return Array.from(set)
+    }
+
     if (q) {
-      // Search in tutor bio, subjects, or user name (case-insensitive)
+      // build tokens from each word in the query and expand via synonyms
+      const qTrim = String(q).trim()
+      const words = qTrim.split(/\s+/).map((w) => w.toLowerCase()).filter(Boolean)
+      const expandedSubjects = Array.from(new Set(words.flatMap(expandToken)))
+
+      // Search in tutor bio, subjects (any expanded token), or user name (case-insensitive)
       where.OR = [
-        { bio: { contains: q, mode: 'insensitive' } },
-        { subjects: { has: q } },
-        { user: { name: { contains: q, mode: 'insensitive' } } }
+        { bio: { contains: qTrim, mode: 'insensitive' } },
+        { user: { name: { contains: qTrim, mode: 'insensitive' } } }
       ]
+
+      if (expandedSubjects.length > 0) {
+        // use hasSome so any of the expanded tokens will match the subjects array
+        where.OR.push({ subjects: { hasSome: expandedSubjects } })
+      }
     }
 
     if (subject) {
-      // ensure subject filter (exact subject token)
-      where.subjects = { has: subject }
+      // expand subject via synonyms and match any of them
+      const subs = expandToken(subject)
+      if (subs.length > 0) {
+        where.subjects = { hasSome: subs }
+      } else {
+        where.subjects = { has: subject }
+      }
     }
 
     if (typeof minRate !== 'undefined' && !isNaN(minRate)) {
@@ -83,11 +118,22 @@ export const createTutor = async (req: Request, res: Response) => {
       await prisma.user.update({ where: { id: Number(userId) }, data: { role: 'TUTOR' } })
     }
 
+    // If a tutor profile already exists for this user, return it instead of creating a duplicate
+    const existing = await prisma.tutorProfile.findUnique({ where: { userId: Number(userId) } })
+    if (existing) {
+      return res.json({ tutor: existing, message: 'Tutor profile already exists' })
+    }
+
+    // normalize subjects (trim, lowercase) before saving to make searches reliable
+    const subjectsNormalized = Array.isArray(subjects)
+      ? subjects.map((s: any) => String(s).trim().toLowerCase()).filter(Boolean)
+      : []
+
     const tutor = await prisma.tutorProfile.create({
       data: {
         userId: Number(userId),
         bio,
-        subjects,
+        subjects: subjectsNormalized,
         hourlyRate: typeof hourlyRate === 'number' ? hourlyRate : 0,
         availability: availability || null,
       }
@@ -122,6 +168,63 @@ export const getTutorById = async (req: Request, res: Response) => {
     res.json({ tutor })
   } catch (err) {
     console.error('getTutorById error', err)
+    res.status(500).json({ error: 'Server error' })
+  }
+}
+
+export const getMyTutor = async (req: Request, res: Response) => {
+  try {
+    // @ts-ignore
+    const userId = req.userId
+    if (!userId) return res.status(401).json({ error: 'Unauthorized' })
+
+    const tutor = await prisma.tutorProfile.findUnique({
+      where: { userId: Number(userId) },
+      include: { user: { select: { id: true, name: true, email: true } }, reviews: true }
+    })
+
+    if (!tutor) return res.status(404).json({ error: 'Tutor profile not found' })
+    res.json({ tutor })
+  } catch (err) {
+    console.error('getMyTutor error', err)
+    res.status(500).json({ error: 'Server error' })
+  }
+}
+
+export const updateMyTutor = async (req: Request, res: Response) => {
+  try {
+    // @ts-ignore
+    const userId = req.userId
+    if (!userId) return res.status(401).json({ error: 'Unauthorized' })
+
+    const { bio, subjects, hourlyRate, availability } = req.body
+
+    // basic validation
+    if (bio && typeof bio !== 'string') return res.status(400).json({ error: 'Invalid bio' })
+    if (subjects && !Array.isArray(subjects)) return res.status(400).json({ error: 'Subjects must be an array' })
+
+    // ensure tutor exists
+    const existing = await prisma.tutorProfile.findUnique({ where: { userId: Number(userId) } })
+    if (!existing) return res.status(404).json({ error: 'Tutor profile not found' })
+
+    // normalize subjects if provided
+    const subjectsNormalized = Array.isArray(subjects) && subjects.length > 0
+      ? subjects.map((s: any) => String(s).trim().toLowerCase()).filter(Boolean)
+      : existing.subjects
+
+    const updated = await prisma.tutorProfile.update({
+      where: { userId: Number(userId) },
+      data: {
+        bio: typeof bio === 'string' ? bio : existing.bio,
+        subjects: subjectsNormalized,
+        hourlyRate: typeof hourlyRate === 'number' ? hourlyRate : existing.hourlyRate,
+        availability: typeof availability === 'string' ? availability : existing.availability,
+      }
+    })
+
+    res.json({ tutor: updated })
+  } catch (err) {
+    console.error('updateMyTutor error', err)
     res.status(500).json({ error: 'Server error' })
   }
 }
