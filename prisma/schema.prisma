@@ -22,6 +22,7 @@ model User {
     role            Role            @default(STUDENT)
     tutorProfile    TutorProfile?
     supportProfile  SupportProfile?
+    studentProfile  StudentProfile?
     refreshTokens   RefreshToken[]
     studentBookings Booking[]       @relation("studentBookings")
     createdAt       DateTime        @default(now())
@@ -68,6 +69,21 @@ model SupportProfile {
     contact   String?
     user      User     @relation(fields: [userId], references: [id])
     createdAt DateTime @default(now())
+}
+
+model StudentProfile {
+    id                Int      @id @default(autoincrement())
+    userId            Int      @unique
+    major             String?
+    year              String?
+    interests         String[] @default([])
+    preferredSubjects String[] @default([])
+    bio               String?
+    timezone          String?
+    phone             String?
+    availability      String?
+    user              User     @relation(fields: [userId], references: [id])
+    createdAt         DateTime @default(now())
 }
 
 model RefreshToken {

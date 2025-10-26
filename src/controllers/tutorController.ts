@@ -84,14 +84,48 @@ export const getTutors = async (req: Request, res: Response) => {
       prisma.tutorProfile.count({ where }),
       prisma.tutorProfile.findMany({
         where,
-        include: { user: { select: { id: true, name: true, email: true } }, reviews: true, bookings: true },
+        include: { user: { select: { id: true, name: true, email: true } } },
         skip: (page - 1) * limit,
         take: limit,
         orderBy
       })
     ])
 
-    res.json({ tutors, meta: { total, page, limit } })
+    // compute accepted bookings count and average rating per tutor efficiently
+    const tutorIds = tutors.map((t: any) => t.id)
+
+    let bookingCounts: Array<{ tutorId: number; _count: { _all: number } }> = []
+    let reviewAgg: Array<{ tutorId: number; _avg: { rating: number | null }; _count: { _all: number } }> = []
+
+    if (tutorIds.length > 0) {
+      bookingCounts = (await prisma.booking.groupBy({
+        by: ['tutorId'],
+        where: { tutorId: { in: tutorIds }, status: 'ACCEPTED' },
+        _count: { _all: true }
+      })) as any
+
+      reviewAgg = (await prisma.review.groupBy({
+        by: ['tutorId'],
+        where: { tutorId: { in: tutorIds } },
+        _avg: { rating: true },
+        _count: { _all: true }
+      })) as any
+    }
+
+    const bookingCountMap = new Map<number, number>()
+    bookingCounts.forEach((b) => bookingCountMap.set(b.tutorId, b._count._all))
+    const reviewMap = new Map<number, { avg: number | null; count: number }>()
+    reviewAgg.forEach((r) => reviewMap.set(r.tutorId, { avg: r._avg.rating ?? null, count: r._count._all }))
+
+    // attach computed fields to tutors
+    const tutorsWithMeta = tutors.map((t: any) => ({
+      ...t,
+      completedCount: bookingCountMap.get(t.id) || 0,
+      ratingComputed: (reviewMap.get(t.id)?.avg ?? t.rating) ?? 0,
+      reviewsCount: reviewMap.get(t.id)?.count || 0
+    }))
+
+    res.json({ tutors: tutorsWithMeta, meta: { total, page, limit } })
   } catch (err) {
     console.error(err)
     res.status(500).json({ error: 'Server error' })

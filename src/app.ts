@@ -8,6 +8,7 @@ import authRoutes from './routes/authRoutes'
 import tutorRoutes from './routes/tutorRoutes'
 import supportRoutes from './routes/supportRoutes'
 import bookingRoutes from './routes/bookingRoutes'
+import studentRoutes from './routes/studentRoutes'
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -29,6 +30,7 @@ app.use(express.json())
 
 app.use('/api/auth', authRoutes)
 app.use('/api/tutors', tutorRoutes)
+app.use('/api/students', studentRoutes)
 app.use('/api/support', supportRoutes)
 app.use('/api/bookings', bookingRoutes)
 
