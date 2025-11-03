@@ -21,9 +21,48 @@ app.use((req, res, next) => {
 	next()
 })
 
-// CORS: allow credentials and a configurable origin for the client
+// CORS: allow credentials and a configurable origin for the client.
+// By default in development we use the explicit CLIENT_ORIGIN or localhost.
+// In production, if CLIENT_ORIGIN is not set, we accept the browser request's
+// `Origin` only when its hostname matches the server's hostname. This allows
+// the frontend to be hosted on the same domain (or reverse-proxied) without
+// requiring an env var while avoiding a wildcard-open policy.
 const clientOrigin = process.env.CLIENT_ORIGIN || 'http://localhost:5173'
-app.use(cors({ origin: clientOrigin, credentials: true }))
+
+app.use((req, res, next) => {
+	// If an explicit CLIENT_ORIGIN is configured, use it.
+	if (process.env.CLIENT_ORIGIN) {
+		return cors({ origin: process.env.CLIENT_ORIGIN, credentials: true })(req, res, next)
+	}
+
+	// If not in production, fall back to the configured default (localhost).
+	if (process.env.NODE_ENV !== 'production') {
+		return cors({ origin: clientOrigin, credentials: true })(req, res, next)
+	}
+
+	// Production + no CLIENT_ORIGIN: allow the request's Origin only if it
+	// matches the server's hostname. This is a conservative and secure default
+	// for deployments where the client is served from the same domain.
+	const origin = req.headers.origin as string | undefined
+	if (!origin) {
+		// Non-browser request or same-origin request without Origin header.
+		return cors({ origin: false, credentials: true })(req, res, next)
+	}
+
+	try {
+		const parsed = new URL(origin)
+		// req.hostname comes from the Host header and excludes the port.
+		const reqHost = req.hostname
+		if (parsed.hostname === reqHost) {
+			return cors({ origin: origin, credentials: true })(req, res, next)
+		}
+	} catch (e) {
+		// If parsing fails, fall through to deny CORS.
+	}
+
+	// Deny by default when origin does not match.
+	return cors({ origin: false, credentials: true })(req, res, next)
+})
 app.use(cookieParser())
 app.use(helmet())
 app.use(express.json())
