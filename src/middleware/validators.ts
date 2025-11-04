@@ -10,6 +10,8 @@ export const registerValidators = (): ValidationChain[] => [
     .withMessage('Password must be 8-15 characters long')
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)
     .withMessage('Password must include uppercase, lowercase, and a number'),
+  // optional role field: must match Prisma Role enum values when provided
+  body('role').optional().isIn(['STUDENT', 'TUTOR', 'ADMIN', 'SUPPORT']).withMessage('Invalid role'),
 ]
 
 export const loginValidators = (): ValidationChain[] => [

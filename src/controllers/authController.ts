@@ -19,9 +19,22 @@ export const register = async (req: Request, res: Response) => {
     if (existing) return res.status(400).json({ error: 'Email already in use' })
 
     const hashed = await bcrypt.hash(password, 10)
-    const user = await prisma.user.create({
-      data: { name, email, password: hashed, role }
-    })
+
+    // Normalize and validate role (Prisma expects enum values like 'STUDENT', 'TUTOR')
+    let roleValue: any = undefined
+    if (role && typeof role === 'string') {
+      const up = role.toUpperCase()
+      if (['STUDENT', 'TUTOR', 'ADMIN', 'SUPPORT'].includes(up)) {
+        roleValue = up
+      } else {
+        return res.status(400).json({ error: 'Invalid role' })
+      }
+    }
+
+    const createData: any = { name, email, password: hashed }
+    if (roleValue) createData.role = roleValue
+
+    const user = await prisma.user.create({ data: createData })
 
   // Issue short-lived access token and a refresh token stored as httpOnly cookie
   const accessToken = jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, { expiresIn: '15m' })
