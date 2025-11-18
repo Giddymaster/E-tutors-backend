@@ -23,7 +23,7 @@ export const authenticate = (req: Request, res: Response, next: NextFunction) =>
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload
     if (!decoded || typeof decoded.userId === 'undefined') return res.status(401).json({ error: 'Invalid token payload' })
-    req.userId = Number(decoded.userId)
+    req.userId = String(decoded.userId)
     req.userRole = decoded.role
     next()
   } catch (err) {

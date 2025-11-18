@@ -9,6 +9,11 @@ import tutorRoutes from './routes/tutorRoutes'
 import supportRoutes from './routes/supportRoutes'
 import bookingRoutes from './routes/bookingRoutes'
 import studentRoutes from './routes/studentRoutes'
+import messagingRoutes from './routes/messagingRoutes'
+import availabilityRoutes from './routes/availabilityRoutes'
+import progressRoutes from './routes/progressRoutes'
+import reviewRoutes from './routes/reviewRoutes'
+import notificationRoutes from './routes/notificationRoutes'
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -86,6 +91,11 @@ app.use('/api/tutors', tutorRoutes)
 app.use('/api/students', studentRoutes)
 app.use('/api/support', supportRoutes)
 app.use('/api/bookings', bookingRoutes)
+app.use('/api/messaging', messagingRoutes)
+app.use('/api/availability', availabilityRoutes)
+app.use('/api/progress', progressRoutes)
+app.use('/api/reviews', reviewRoutes)
+app.use('/api/notifications', notificationRoutes)
 
 app.get('/api/debug', (req, res) => {
 	res.json({ ok: true, env: { googleRedirect: process.env.GOOGLE_REDIRECT ? 'set' : 'unset', jwt: process.env.JWT_SECRET ? 'set' : 'unset' } })

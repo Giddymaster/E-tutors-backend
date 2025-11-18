@@ -1,7 +1,7 @@
 declare namespace Express {
   export interface Request {
     /** populated by authentication middleware */
-    userId?: number
+    userId?: string
     /** populated by authentication middleware */
     userRole?: string
   }
