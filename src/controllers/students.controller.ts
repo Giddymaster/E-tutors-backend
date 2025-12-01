@@ -1,38 +1,54 @@
-import { Request, Response } from 'express';
-import { StudentService } from '../services/student.service';
+import { Request, Response } from 'express'
+import { prisma } from '../prisma'
 
-export class StudentController {
-    private studentService: StudentService;
+export const getMyStudent = async (req: Request, res: Response) => {
+  try {
+    // @ts-ignore
+    const rawUserId = req.userId
+    if (!rawUserId) return res.status(401).json({ error: 'Unauthorized' })
+    const userId = String(rawUserId)
 
-    constructor() {
-        this.studentService = new StudentService();
-    }
-
-    public async postAssignment(req: Request, res: Response): Promise<void> {
-        try {
-            const assignmentData = req.body;
-            const newAssignment = await this.studentService.createAssignment(assignmentData);
-            res.status(201).json(newAssignment);
-        } catch (error) {
-            res.status(500).json({ message: 'Error posting assignment', error });
-        }
-    }
-
-    public async manageBookings(req: Request, res: Response): Promise<void> {
-        try {
-            const bookings = await this.studentService.getBookings(req.user.id);
-            res.status(200).json(bookings);
-        } catch (error) {
-            res.status(500).json({ message: 'Error retrieving bookings', error });
-        }
-    }
-
-    public async viewProposals(req: Request, res: Response): Promise<void> {
-        try {
-            const proposals = await this.studentService.getProposals(req.user.id);
-            res.status(200).json(proposals);
-        } catch (error) {
-            res.status(500).json({ message: 'Error retrieving proposals', error });
-        }
-    }
+    const student = await prisma.studentProfile.findUnique({ where: { userId }, include: { user: { select: { id: true, name: true, email: true } } } })
+    if (!student) return res.status(404).json({ error: 'No student profile' })
+    res.json({ student })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: 'Server error' })
+  }
 }
+
+export const upsertMyStudent = async (req: Request, res: Response) => {
+  try {
+    // @ts-ignore
+    const rawUserId = req.userId
+    if (!rawUserId) return res.status(401).json({ error: 'Unauthorized' })
+    const userId = String(rawUserId)
+
+    const { major, year, interests, preferredSubjects, bio, timezone, phone, availability } = req.body
+
+    const payload: Record<string, any> = {}
+    if (major !== undefined) payload.major = major
+    if (year !== undefined) payload.year = year
+    if (interests !== undefined) payload.interests = Array.isArray(interests) ? interests.map((s: any) => String(s).trim().toLowerCase()).filter(Boolean) : []
+    if (preferredSubjects !== undefined) payload.preferredSubjects = Array.isArray(preferredSubjects) ? preferredSubjects.map((s: any) => String(s).trim().toLowerCase()).filter(Boolean) : []
+    if (bio !== undefined) payload.bio = bio
+    if (timezone !== undefined) payload.timezone = timezone
+    if (phone !== undefined) payload.phone = phone
+    if (availability !== undefined) payload.availability = availability
+
+    // Atomic upsert
+    const student = await prisma.studentProfile.upsert({
+      where: { userId },
+      create: { userId, ...payload },
+      update: payload,
+    })
+
+    res.json({ student })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: 'Server error' })
+  }
+}
+
+// add this alias so routes importing `updateMyStudent` find a valid handler
+export const updateMyStudent = upsertMyStudent

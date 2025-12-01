@@ -1,34 +1,32 @@
-import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
-import { User } from '../models/user.model';
+import { Request, Response, NextFunction } from 'express'
+import jwt from 'jsonwebtoken'
 
-const authMiddleware = (roles: string[]) => {
-    return async (req: Request, res: Response, next: NextFunction) => {
-        const token = req.headers['authorization']?.split(' ')[1];
+const JWT_SECRET = process.env.JWT_SECRET || 'dev_secret'
 
-        if (!token) {
-            return res.status(401).json({ message: 'Unauthorized' });
-        }
+interface JwtPayload {
+  userId: number
+  role: string
+  iat?: number
+  exp?: number
+}
 
-        try {
-            const decoded: any = jwt.verify(token, process.env.JWT_SECRET as string);
-            const user = await User.findById(decoded.id);
+export const authenticate = (req: Request, res: Response, next: NextFunction) => {
+  const authHeader = req.headers.authorization
+  if (!authHeader) return res.status(401).json({ error: 'No token provided' })
 
-            if (!user) {
-                return res.status(401).json({ message: 'Unauthorized' });
-            }
+  const parts = authHeader.split(' ')
+  if (parts.length !== 2) return res.status(401).json({ error: 'Token error' })
 
-            req.user = user;
+  const [scheme, token] = parts
+  if (!/^Bearer$/i.test(scheme)) return res.status(401).json({ error: 'Malformed token' })
 
-            if (roles.length && !roles.includes(user.role)) {
-                return res.status(403).json({ message: 'Forbidden' });
-            }
-
-            next();
-        } catch (error) {
-            return res.status(401).json({ message: 'Unauthorized' });
-        }
-    };
-};
-
-export default authMiddleware;
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload
+    if (!decoded || typeof decoded.userId === 'undefined') return res.status(401).json({ error: 'Invalid token payload' })
+    req.userId = String(decoded.userId)
+    req.userRole = decoded.role
+    next()
+  } catch (err) {
+    return res.status(401).json({ error: 'Invalid token' })
+  }
+}
