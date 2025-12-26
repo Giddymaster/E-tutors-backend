@@ -17,8 +17,8 @@ import type * as Prisma from "./prismaNamespace"
 
 const config: runtime.GetPrismaClientConfig = {
   "previewFeatures": [],
-  "clientVersion": "7.0.1",
-  "engineVersion": "f09f2815f091dbba658cdcd2264306d88bb5bda6",
+  "clientVersion": "7.2.0",
+  "engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
   "activeProvider": "postgresql",
   "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nenum Role {\n  STUDENT\n  TUTOR\n  ADMIN\n}\n\nenum VerificationStatus {\n  PENDING\n  VERIFIED\n  REJECTED\n}\n\nenum AssignmentStatus {\n  OPEN\n  ASSIGNED\n  COMPLETED\n  CANCELLED\n}\n\nenum ProposalStatus {\n  PENDING\n  ACCEPTED\n  REJECTED\n}\n\nenum PaymentStatus {\n  PENDING\n  PAID\n  FAILED\n  CANCELLED\n}\n\nenum UploadType {\n  AVATAR\n  ASSIGNMENT\n  DOCUMENT\n}\n\nmodel User {\n  id                 String             @id @default(uuid())\n  name               String?\n  email              String             @unique\n  passwordHash       String?            @map(\"password_hash\")\n  role               Role               @default(STUDENT)\n  avatarUrl          String?            @map(\"avatar_url\")\n  walletBalance      Decimal            @default(0.0) @map(\"wallet_balance\")\n  verified           Boolean            @default(false)\n  verificationStatus VerificationStatus @default(PENDING) @map(\"verification_status\")\n  createdAt          DateTime           @default(now()) @map(\"created_at\")\n  updatedAt          DateTime           @updatedAt @map(\"updated_at\")\n\n  tutorProfile       TutorProfile?\n  studentProfile     StudentProfile?\n  studentAssignments Assignment[]    @relation(\"student_assignments\")\n  tutorAssignments   Assignment[]    @relation(\"tutor_assignments\")\n  studentBookings    Booking[]       @relation(\"student_bookings\")\n  tutorBookings      Booking[]       @relation(\"tutor_bookings\")\n  reviewsGiven       Review[]        @relation(\"reviews_given\")\n  reviewsReceived    Review[]        @relation(\"reviews_received\")\n  payments           Payment[]\n  uploads            Upload[]\n  refreshTokens      RefreshToken[]\n  proposals          Proposal[]\n}\n\nmodel TutorProfile {\n  id           String   @id @default(uuid())\n  userId       String   @unique @map(\"user_id\")\n  shortBio     String?  @map(\"short_bio\")\n  bio          String?\n  subjects     Json?\n  skills       Json?\n  hourlyRate   Decimal? @map(\"hourly_rate\")\n  availability Json?\n  education    Json?\n  degrees      Json?\n  avatarUrl    String?  @map(\"avatar_url\")\n  createdAt    DateTime @default(now()) @map(\"created_at\")\n  updatedAt    DateTime @updatedAt @map(\"updated_at\")\n\n  user User @relation(fields: [userId], references: [id])\n}\n\nmodel StudentProfile {\n  id          String   @id @default(uuid())\n  userId      String   @unique @map(\"user_id\")\n  preferences Json?\n  createdAt   DateTime @default(now()) @map(\"created_at\")\n  updatedAt   DateTime @updatedAt @map(\"updated_at\")\n\n  user User @relation(fields: [userId], references: [id])\n}\n\nmodel Assignment {\n  id          String           @id @default(uuid())\n  title       String\n  description String\n  files       Json?\n  budgetMin   Decimal?         @map(\"budget_min\")\n  budgetMax   Decimal?         @map(\"budget_max\")\n  studentId   String           @map(\"student_id\")\n  tutorId     String?          @map(\"tutor_id\")\n  status      AssignmentStatus @default(OPEN)\n  dueDate     DateTime?        @map(\"due_date\")\n  createdAt   DateTime         @default(now()) @map(\"created_at\")\n  updatedAt   DateTime         @updatedAt @map(\"updated_at\")\n\n  student   User       @relation(\"student_assignments\", fields: [studentId], references: [id])\n  tutor     User?      @relation(\"tutor_assignments\", fields: [tutorId], references: [id])\n  proposals Proposal[]\n  bookings  Booking[]\n}\n\nmodel Proposal {\n  id           String         @id @default(uuid())\n  jobId        String         @map(\"job_id\")\n  tutorId      String         @map(\"tutor_id\")\n  amount       Decimal\n  message      String?\n  deliveryDays Int?           @map(\"delivery_days\")\n  status       ProposalStatus @default(PENDING)\n  createdAt    DateTime       @default(now()) @map(\"created_at\")\n  updatedAt    DateTime       @updatedAt @map(\"updated_at\")\n\n  assignment Assignment @relation(fields: [jobId], references: [id])\n  tutor      User       @relation(fields: [tutorId], references: [id])\n}\n\nmodel Booking {\n  id           String   @id @default(uuid())\n  assignmentId String   @map(\"assignment_id\")\n  studentId    String\n  tutorId      String\n  scheduledAt  DateTime @map(\"scheduled_at\")\n  price        Decimal\n  status       String\n  createdAt    DateTime @default(now()) @map(\"created_at\")\n  updatedAt    DateTime @updatedAt @map(\"updated_at\")\n\n  assignment Assignment @relation(fields: [assignmentId], references: [id])\n  student    User       @relation(\"student_bookings\", fields: [studentId], references: [id])\n  tutor      User       @relation(\"tutor_bookings\", fields: [tutorId], references: [id])\n}\n\nmodel Review {\n  id        String   @id @default(uuid())\n  tutorId   String   @map(\"tutor_id\")\n  studentId String   @map(\"student_id\")\n  rating    Int\n  comment   String?\n  createdAt DateTime @default(now()) @map(\"created_at\")\n\n  tutor   User @relation(\"reviews_received\", fields: [tutorId], references: [id])\n  student User @relation(\"reviews_given\", fields: [studentId], references: [id])\n}\n\nmodel Payment {\n  id               String        @id @default(uuid())\n  sessionId        String?       @map(\"session_id\")\n  userId           String?       @map(\"user_id\")\n  amount           Decimal\n  currency         String\n  status           PaymentStatus @default(PENDING)\n  metadata         Json?\n  providerResponse Json?         @map(\"provider_response\")\n  createdAt        DateTime      @default(now()) @map(\"created_at\")\n  updatedAt        DateTime      @updatedAt @map(\"updated_at\")\n\n  user User? @relation(fields: [userId], references: [id])\n}\n\nmodel Upload {\n  id        String     @id @default(uuid())\n  ownerId   String?    @map(\"owner_id\")\n  url       String\n  mime      String\n  size      Int\n  type      UploadType\n  createdAt DateTime   @default(now()) @map(\"created_at\")\n\n  owner User? @relation(fields: [ownerId], references: [id])\n}\n\nmodel RefreshToken {\n  id        String   @id @default(uuid())\n  userId    String   @map(\"user_id\")\n  tokenHash String   @map(\"token_hash\")\n  expiresAt DateTime @map(\"expires_at\")\n  createdAt DateTime @default(now()) @map(\"created_at\")\n\n  user User @relation(fields: [userId], references: [id])\n}\n",
   "runtimeDataModel": {
@@ -62,7 +62,7 @@ export interface PrismaClientConstructor {
    * const users = await prisma.user.findMany()
    * ```
    * 
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
+   * Read more in our [docs](https://pris.ly/d/client).
    */
 
   new <
@@ -84,7 +84,7 @@ export interface PrismaClientConstructor {
  * const users = await prisma.user.findMany()
  * ```
  * 
- * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
+ * Read more in our [docs](https://pris.ly/d/client).
  */
 
 export interface PrismaClient<
@@ -113,7 +113,7 @@ export interface PrismaClient<
    * const result = await prisma.$executeRaw`UPDATE User SET cool = ${true} WHERE email = ${'user@email.com'};`
    * ```
    *
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
    */
   $executeRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<number>;
 
@@ -125,7 +125,7 @@ export interface PrismaClient<
    * const result = await prisma.$executeRawUnsafe('UPDATE User SET cool = $1 WHERE email = $2 ;', true, 'user@email.com')
    * ```
    *
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
    */
   $executeRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<number>;
 
@@ -136,7 +136,7 @@ export interface PrismaClient<
    * const result = await prisma.$queryRaw`SELECT * FROM User WHERE id = ${1} OR email = ${'user@email.com'};`
    * ```
    *
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
    */
   $queryRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<T>;
 
@@ -148,7 +148,7 @@ export interface PrismaClient<
    * const result = await prisma.$queryRawUnsafe('SELECT * FROM User WHERE id = $1 OR email = $2;', 1, 'user@email.com')
    * ```
    *
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   * Read more in our [docs](https://pris.ly/d/raw-queries).
    */
   $queryRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<T>;
 

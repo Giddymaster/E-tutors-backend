@@ -1,13 +1,13 @@
 import 'dotenv/config';
 import express from 'express';
-import { PrismaClient } from './generated/client';
+import { prisma } from './prisma';
 import { json } from 'body-parser';
 import authRoutes from './routes/auth.routes';
 import apiRoutes from './routes/api.routes';
 import errorMiddleware from './middleware/error.middleware';
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 
 // Middleware
 app.use(json());
@@ -19,8 +19,7 @@ app.use('/api', apiRoutes);
 // Error handling middleware
 app.use(errorMiddleware);
 
-// Database connection (Prisma + Postgres)
-const prisma = new PrismaClient();
+// Database connection (Prisma + Postgres) — using shared `prisma` from ./prisma
 
 const databaseUrl = process.env.DATABASE_URL || process.env.PG_URI || process.env.PGURL;
 if (!databaseUrl) {
