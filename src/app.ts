@@ -8,8 +8,15 @@ import messagesRouter from './routes/messages.routes'
 
 const app = express();
 
-// Middleware
-app.use(cors());
+// Configure CORS for production to allow credentials from frontend origin
+const FRONTEND_URL = process.env.FRONTEND_URL || ''
+if (FRONTEND_URL) {
+  app.use(cors({ origin: FRONTEND_URL, credentials: true }))
+} else {
+  // default to permissive CORS in development
+  app.use(cors())
+}
+
 app.use(json());
 app.use(urlencoded({ extended: true }));
 

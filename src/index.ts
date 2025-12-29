@@ -1,26 +1,13 @@
 import 'dotenv/config';
-import express from 'express';
 import { prisma } from './prisma';
-import { json } from 'body-parser';
-import authRoutes from './routes/auth.routes';
-import apiRoutes from './routes/api.routes';
-import errorMiddleware from './middleware/error.middleware';
+import app from './app';
 
-const app = express();
 const PORT = Number(process.env.PORT) || 4000;
+const FRONTEND_URL = process.env.FRONTEND_URL || ''
 
-// Middleware
-app.use(json());
-
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api', apiRoutes);
-
-// Error handling middleware
-app.use(errorMiddleware);
+if (FRONTEND_URL) console.log(`FRONTEND_URL = ${FRONTEND_URL}`)
 
 // Database connection (Prisma + Postgres) — using shared `prisma` from ./prisma
-
 const databaseUrl = process.env.DATABASE_URL || process.env.PG_URI || process.env.PGURL;
 if (!databaseUrl) {
   console.error('Missing DATABASE_URL. Set DATABASE_URL in .env or environment');
