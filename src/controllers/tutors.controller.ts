@@ -49,8 +49,11 @@ export const getTutors = async (req: Request, res: Response) => {
       ]
 
       if (expandedSubjects.length > 0) {
-        // use hasSome so any of the expanded tokens will match the subjects array
-        where.OR.push({ subjects: { hasSome: expandedSubjects } })
+        // subjects are stored as JSON arrays; use JSON 'contains' to test membership.
+        // For "any of" semantics we add an OR entry per token.
+        where.OR.push(
+          ...expandedSubjects.map((tok: string) => ({ subjects: { contains: tok } }))
+        )
       }
     }
 
@@ -58,9 +61,14 @@ export const getTutors = async (req: Request, res: Response) => {
       // expand subject via synonyms and match any of them
       const subs = expandToken(subject)
       if (subs.length > 0) {
-        where.subjects = { hasSome: subs }
+        // add OR entries for each synonym token using JSON containment
+        where.OR = where.OR || []
+        where.OR.push(
+          ...subs.map((s: string) => ({ subjects: { contains: s } }))
+        )
       } else {
-        where.subjects = { has: subject }
+        // treat as JSON contains single token
+        where.subjects = { contains: subject }
       }
     }
 
@@ -80,22 +88,37 @@ export const getTutors = async (req: Request, res: Response) => {
     else if (sort === 'rating_asc') orderBy = { rating: 'asc' }
     else if (sort === 'rating_desc') orderBy = { rating: 'desc' }
 
-    const [total, tutors] = await Promise.all([
-      prisma.tutorProfile.count({ where }),
-      prisma.tutorProfile.findMany({
+    const ratingSort = sort === 'rating_desc' || sort === 'rating_asc'
+
+    // If client requested sorting by rating (a computed field), fetch all matching tutors,
+    // compute ratings and then sort in-memory before paginating. This avoids ordering by
+    // a non-existent `rating` column in the TutorProfile model.
+    let total = await prisma.tutorProfile.count({ where })
+    let tutors: any[] = []
+
+    if (ratingSort) {
+      // fetch all matching tutors (no pagination) so we can compute rating-based order
+      tutors = await prisma.tutorProfile.findMany({
+        where,
+        include: { user: { select: { id: true, name: true, email: true } } },
+        orderBy: { createdAt: 'desc' }
+      })
+    } else {
+      // let the database handle pagination and ordering for non-rating sorts
+      tutors = await prisma.tutorProfile.findMany({
         where,
         include: { user: { select: { id: true, name: true, email: true } } },
         skip: (page - 1) * limit,
         take: limit,
         orderBy
       })
-    ])
+    }
 
     // compute accepted bookings count and average rating per tutor efficiently
     const tutorIds = tutors.map((t: any) => t.id)
 
-    let bookingCounts: Array<{ tutorId: number; _count: { _all: number } }> = []
-    let reviewAgg: Array<{ tutorId: number; _avg: { rating: number | null }; _count: { _all: number } }> = []
+    let bookingCounts: Array<{ tutorId: string; _count: { _all: number } }> = []
+    let reviewAgg: Array<{ tutorId: string; _avg: { rating: number | null }; _count: { _all: number } }> = []
 
     if (tutorIds.length > 0) {
       bookingCounts = (await prisma.booking.groupBy({
@@ -112,18 +135,31 @@ export const getTutors = async (req: Request, res: Response) => {
       })) as any
     }
 
-    const bookingCountMap = new Map<number, number>()
-    bookingCounts.forEach((b) => bookingCountMap.set(b.tutorId, b._count._all))
-    const reviewMap = new Map<number, { avg: number | null; count: number }>()
-    reviewAgg.forEach((r) => reviewMap.set(r.tutorId, { avg: r._avg.rating ?? null, count: r._count._all }))
+    const bookingCountMap = new Map<string, number>()
+    bookingCounts.forEach((b) => bookingCountMap.set(String(b.tutorId), b._count._all))
+    const reviewMap = new Map<string, { avg: number | null; count: number }>()
+    reviewAgg.forEach((r) => reviewMap.set(String(r.tutorId), { avg: r._avg.rating ?? null, count: r._count._all }))
 
     // attach computed fields to tutors
-    const tutorsWithMeta = tutors.map((t: any) => ({
+    let tutorsWithMeta = tutors.map((t: any) => ({
       ...t,
-      completedCount: bookingCountMap.get(t.id) || 0,
-      ratingComputed: (reviewMap.get(t.id)?.avg ?? t.rating) ?? 0,
-      reviewsCount: reviewMap.get(t.id)?.count || 0
+      completedCount: bookingCountMap.get(String(t.id)) || 0,
+      ratingComputed: (reviewMap.get(String(t.id))?.avg ?? 0) ?? 0,
+      reviewsCount: reviewMap.get(String(t.id))?.count || 0
     }))
+
+    // If rating sort was requested, sort in-memory and then apply pagination
+    if (ratingSort) {
+      tutorsWithMeta.sort((a, b) => {
+        const aRating = Number(a.ratingComputed || 0)
+        const bRating = Number(b.ratingComputed || 0)
+        return sort === 'rating_desc' ? bRating - aRating : aRating - bRating
+      })
+
+      // apply pagination after sorting
+      const start = (page - 1) * limit
+      tutorsWithMeta = tutorsWithMeta.slice(start, start + limit)
+    }
 
     res.json({ tutors: tutorsWithMeta, meta: { total, page, limit } })
   } catch (err) {
@@ -212,18 +248,20 @@ export const getMyTutor = async (req: Request, res: Response) => {
   try {
     // @ts-ignore
     const userId = req.userId
+    if (!userId) return res.status(401).json({ error: 'Unauthorized' })
+
     const tutor = await prisma.tutorProfile.findUnique({
       where: { userId: String(userId) },
       include: { user: { select: { id: true, name: true, email: true } } }
     })
 
-    if (!tutor) return res.status(404).json({ error: 'Tutor profile not found' })
+    // If no tutor profile exists for the current user, return a 200 with tutor: null
+    // so clients can safely check and avoid treating this as an application error.
+    if (!tutor) return res.json({ tutor: null })
 
     // load reviews separately because 'reviews' is not a valid include property on TutorProfile
     const reviews = await prisma.review.findMany({ where: { tutorId: tutor.id } })
-    res.json({ tutor: { ...tutor, reviews } })
-    if (!tutor) return res.status(404).json({ error: 'Tutor profile not found' })
-    res.json({ tutor })
+    return res.json({ tutor: { ...tutor, reviews } })
   } catch (err) {
     console.error('getMyTutor error', err)
     res.status(500).json({ error: 'Server error' })

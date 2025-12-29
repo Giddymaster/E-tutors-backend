@@ -37,6 +37,15 @@ export const register = async (req: Request, res: Response) => {
 
     const user = await prisma.user.create({ data: createData })
 
+    // Ensure a student profile exists for STUDENT users (creates a lightweight profile record)
+    try {
+      if ((user.role || 'STUDENT') === 'STUDENT') {
+        await prisma.studentProfile.create({ data: { userId: user.id } }).catch(() => {})
+      }
+    } catch (e) {
+      // ignore profile creation errors; profile can be created later via upsert endpoint
+    }
+
     // Issue short-lived access token and a refresh token stored as httpOnly cookie
     const accessToken = jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, { expiresIn: '15m' })
     const refreshToken = crypto.randomBytes(40).toString('hex')

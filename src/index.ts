@@ -7,7 +7,7 @@ import apiRoutes from './routes/api.routes';
 import errorMiddleware from './middleware/error.middleware';
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = Number(process.env.PORT) || 4000;
 
 // Middleware
 app.use(json());
@@ -30,9 +30,8 @@ if (!databaseUrl) {
 prisma.$connect()
   .then(() => {
     console.log('Connected to Postgres via Prisma');
-    app.listen(PORT, () => {
-      console.log(`Server is running on http://localhost:${PORT}`);
-    });
+    // Start the HTTP server after DB is connected
+    startServer(PORT);
   })
   .catch(err => {
     console.error('Database connection error:', err);
@@ -43,3 +42,18 @@ process.on('SIGINT', async () => {
   await prisma.$disconnect();
   process.exit(0);
 });
+
+const startServer = (port: number) => {
+  const srv = app.listen(port, () => {
+    console.log(`Server running on port ${port}`)
+  })
+
+  srv.on('error', (err: any) => {
+    if (err && err.code === 'EADDRINUSE') {
+      console.warn(`Port ${port} in use — trying ${port + 1}`)
+      setTimeout(() => startServer(port + 1), 100)
+      return
+    }
+    throw err
+  })
+}
