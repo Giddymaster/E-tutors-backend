@@ -58,11 +58,11 @@ export const register = async (req: Request, res: Response) => {
     // set cookie (raw token sent to client)
     res.cookie(REFRESH_TOKEN_COOKIE, refreshToken, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax', expires: refreshExpiry })
     res.json({ token: accessToken, user: { id: user.id, name: user.name, email: user.email, role: user.role } })
-  } catch (err) {
+  } catch (err: unknown) {
     // Log stack for debugging
-    console.error(err && (err.stack || err))
+    console.error(err instanceof Error ? err.stack : err)
     // TEMP: include message in response to aid debugging; remove this before returning to production
-    res.status(500).json({ error: 'Server error', detail: err && (err.message || String(err)) })
+    res.status(500).json({ error: 'Server error', detail: err instanceof Error ? err.message : String(err) })
   }
 }
 
