@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { createTutor, getTutors, getMyTutor, updateMyTutor } from '../controllers/tutors.controller';
 import { authenticate } from '../middleware/auth.middleware';
-import { getMyStudent, updateMyStudent } from '../controllers/students.controller';
+import { getMyStudent, upsertMyStudent } from '../controllers/students.controller';
 import { processPayment } from '../controllers/payments.controller';
 
 const router = Router();
@@ -28,9 +28,8 @@ import bookingsRoutes from './bookings.routes'
 router.use('/bookings', bookingsRoutes)
 
 // Student routes
-// router.post('/students', createMyStudent);
-router.get('/students', getMyStudent);
-router.put('/students/:id', updateMyStudent);
+router.get('/students/me', authenticate, getMyStudent);
+router.put('/students/me', authenticate, upsertMyStudent);
 // router.delete('/students/:id', deleteMyStudent);
 
 export default router;

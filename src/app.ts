@@ -5,20 +5,19 @@ import  authRoutes  from './routes/auth.routes';
 import  apiRoutes  from './routes/api.routes';
 import  errorHandler  from './middleware/error.middleware';
 import messagesRouter from './routes/messages.routes'
+import getCorsConfig from './middleware/cors.middleware'
+import cookieParser from 'cookie-parser'
 
-const app = express();
+const app = express()
 
-// Configure CORS for production to allow credentials from frontend origin
-const FRONTEND_URL = process.env.FRONTEND_URL || ''
-if (FRONTEND_URL) {
-  app.use(cors({ origin: FRONTEND_URL, credentials: true }))
-} else {
-  // default to permissive CORS in development
-  app.use(cors())
-}
+// Apply CORS
+app.use(getCorsConfig())
 
+// Configure body parser
 app.use(json());
 app.use(urlencoded({ extended: true }));
+app.use(express.json())
+app.use(cookieParser())  // Add this line before your routes
 
 // Routes
 app.use('/api/auth', authRoutes);

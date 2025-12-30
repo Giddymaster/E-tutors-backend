@@ -1,216 +1,223 @@
 generator client {
-    provider = "prisma-client"
-    output   = "../src/generated"
+  provider = "prisma-client"
+  output   = "../src/generated"
 }
 
 datasource db {
-    provider = "postgresql"
+  provider = "postgresql"
 }
 
 enum Role {
-    STUDENT
-    TUTOR
-    ADMIN
+  STUDENT
+  TUTOR
+  ADMIN
 }
 
 enum VerificationStatus {
-    PENDING
-    VERIFIED
-    REJECTED
+  PENDING
+  VERIFIED
+  REJECTED
 }
 
 enum AssignmentStatus {
-    OPEN
-    ASSIGNED
-    COMPLETED
-    CANCELLED
+  OPEN
+  ASSIGNED
+  COMPLETED
+  CANCELLED
 }
 
 enum ProposalStatus {
-    PENDING
-    ACCEPTED
-    REJECTED
+  PENDING
+  ACCEPTED
+  REJECTED
 }
 
 enum PaymentStatus {
-    PENDING
-    PAID
-    FAILED
-    CANCELLED
+  PENDING
+  PAID
+  FAILED
+  CANCELLED
 }
 
 enum UploadType {
-    AVATAR
-    ASSIGNMENT
-    DOCUMENT
+  AVATAR
+  ASSIGNMENT
+  DOCUMENT
 }
 
 model User {
-    id                 String             @id @default(uuid())
-    name               String?
-    email              String             @unique
-    passwordHash       String?            @map("password_hash")
-    role               Role               @default(STUDENT)
-    avatarUrl          String?            @map("avatar_url")
-    walletBalance      Decimal            @default(0.0) @map("wallet_balance")
-    verified           Boolean            @default(false)
-    verificationStatus VerificationStatus @default(PENDING) @map("verification_status")
-    createdAt          DateTime           @default(now()) @map("created_at")
-    updatedAt          DateTime           @updatedAt @map("updated_at")
+  id                 String             @id @default(uuid())
+  name               String?
+  email              String             @unique
+  passwordHash       String?            @map("password_hash")
+  role               Role               @default(STUDENT)
+  avatarUrl          String?            @map("avatar_url")
+  walletBalance      Decimal            @default(0.0) @map("wallet_balance")
+  verified           Boolean            @default(false)
+  verificationStatus VerificationStatus @default(PENDING) @map("verification_status")
+  createdAt          DateTime           @default(now()) @map("created_at")
+  updatedAt          DateTime           @updatedAt @map("updated_at")
 
-    tutorProfile       TutorProfile?
-    studentProfile     StudentProfile?
-    studentAssignments Assignment[]    @relation("student_assignments")
-    tutorAssignments   Assignment[]    @relation("tutor_assignments")
-    studentBookings    Booking[]       @relation("student_bookings")
-    tutorBookings      Booking[]       @relation("tutor_bookings")
-    reviewsGiven       Review[]        @relation("reviews_given")
-    reviewsReceived    Review[]        @relation("reviews_received")
-    payments           Payment[]
-    uploads            Upload[]
-    refreshTokens      RefreshToken[]
-    proposals          Proposal[]
+  tutorProfile           TutorProfile?
+  studentProfile         StudentProfile?
+  studentAssignments     Assignment[]    @relation("student_assignments")
+  tutorAssignments       Assignment[]    @relation("tutor_assignments")
+  studentBookings        Booking[]       @relation("student_bookings")
+  tutorBookings          Booking[]       @relation("tutor_bookings")
+  reviewsGiven           Review[]        @relation("reviews_given")
+  reviewsReceived        Review[]        @relation("reviews_received")
+  payments               Payment[]
+  uploads                Upload[]
+  refreshTokens          RefreshToken[]
+  proposals              Proposal[]
+  conversations          Conversation[]
+  conversationsAsStudent Conversation[]  @relation("ConversationStudent")
+  conversationsAsTutor   Conversation[]  @relation("ConversationTutor")
+  messages               Message[]
 }
 
 model TutorProfile {
-    id           String   @id @default(uuid())
-    userId       String   @unique @map("user_id")
-    shortBio     String?  @map("short_bio")
-    bio          String?
-    subjects     Json?
-    skills       Json?
-    hourlyRate   Decimal? @map("hourly_rate")
-    availability Json?
-    education    Json?
-    degrees      Json?
-    avatarUrl    String?  @map("avatar_url")
-    createdAt    DateTime @default(now()) @map("created_at")
-    updatedAt    DateTime @updatedAt @map("updated_at")
+  id           String   @id @default(uuid())
+  userId       String   @unique @map("user_id")
+  shortBio     String?  @map("short_bio")
+  bio          String?
+  subjects     Json?
+  skills       Json?
+  hourlyRate   Decimal? @map("hourly_rate")
+  availability Json?
+  education    Json?
+  degrees      Json?
+  avatarUrl    String?  @map("avatar_url")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
 
-    user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }
 
 model StudentProfile {
-    id          String   @id @default(uuid())
-    userId      String   @unique @map("user_id")
-    preferences Json?
-    createdAt   DateTime @default(now()) @map("created_at")
-    updatedAt   DateTime @updatedAt @map("updated_at")
+  id          String   @id @default(uuid())
+  userId      String   @unique @map("user_id")
+  preferences Json?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
 
-    user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Assignment {
-    id          String           @id @default(uuid())
-    title       String
-    description String
-    files       Json?
-    budgetMin   Decimal?         @map("budget_min")
-    budgetMax   Decimal?         @map("budget_max")
-    studentId   String           @map("student_id")
-    tutorId     String?          @map("tutor_id")
-    status      AssignmentStatus @default(OPEN)
-    dueDate     DateTime?        @map("due_date")
-    createdAt   DateTime         @default(now()) @map("created_at")
-    updatedAt   DateTime         @updatedAt @map("updated_at")
+  id          String           @id @default(uuid())
+  title       String
+  description String
+  files       Json?
+  budgetMin   Decimal?         @map("budget_min")
+  budgetMax   Decimal?         @map("budget_max")
+  studentId   String           @map("student_id")
+  tutorId     String?          @map("tutor_id")
+  status      AssignmentStatus @default(OPEN)
+  dueDate     DateTime?        @map("due_date")
+  createdAt   DateTime         @default(now()) @map("created_at")
+  updatedAt   DateTime         @updatedAt @map("updated_at")
 
-    student   User       @relation("student_assignments", fields: [studentId], references: [id])
-    tutor     User?      @relation("tutor_assignments", fields: [tutorId], references: [id])
-    proposals Proposal[]
-    bookings  Booking[]
+  student   User       @relation("student_assignments", fields: [studentId], references: [id])
+  tutor     User?      @relation("tutor_assignments", fields: [tutorId], references: [id])
+  proposals Proposal[]
+  bookings  Booking[]
 }
 
 model Proposal {
-    id           String         @id @default(uuid())
-    jobId        String         @map("job_id")
-    tutorId      String         @map("tutor_id")
-    amount       Decimal
-    message      String?
-    deliveryDays Int?           @map("delivery_days")
-    status       ProposalStatus @default(PENDING)
-    createdAt    DateTime       @default(now()) @map("created_at")
-    updatedAt    DateTime       @updatedAt @map("updated_at")
+  id           String         @id @default(uuid())
+  jobId        String         @map("job_id")
+  tutorId      String         @map("tutor_id")
+  amount       Decimal
+  message      String?
+  deliveryDays Int?           @map("delivery_days")
+  status       ProposalStatus @default(PENDING)
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime       @updatedAt @map("updated_at")
 
-    assignment Assignment @relation(fields: [jobId], references: [id])
-    tutor      User       @relation(fields: [tutorId], references: [id])
+  assignment   Assignment    @relation(fields: [jobId], references: [id])
+  tutor        User          @relation(fields: [tutorId], references: [id])
+  conversation Conversation?
 }
 
 model Booking {
-    id           String   @id @default(uuid())
-    assignmentId String   @map("assignment_id")
-    studentId    String
-    tutorId      String
-    scheduledAt  DateTime @map("scheduled_at")
-    price        Decimal
-    status       String
-    createdAt    DateTime @default(now()) @map("created_at")
-    updatedAt    DateTime @updatedAt @map("updated_at")
+  id           String   @id @default(uuid())
+  assignmentId String   @map("assignment_id")
+  studentId    String
+  tutorId      String
+  scheduledAt  DateTime @map("scheduled_at")
+  price        Decimal
+  status       String
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
 
-    assignment Assignment @relation(fields: [assignmentId], references: [id])
-    student    User       @relation("student_bookings", fields: [studentId], references: [id])
-    tutor      User       @relation("tutor_bookings", fields: [tutorId], references: [id])
+  assignment Assignment @relation(fields: [assignmentId], references: [id])
+  student    User       @relation("student_bookings", fields: [studentId], references: [id])
+  tutor      User       @relation("tutor_bookings", fields: [tutorId], references: [id])
 }
 
 model Review {
-    id        String   @id @default(uuid())
-    tutorId   String   @map("tutor_id")
-    studentId String   @map("student_id")
-    rating    Int
-    comment   String?
-    createdAt DateTime @default(now()) @map("created_at")
+  id        String   @id @default(uuid())
+  tutorId   String   @map("tutor_id")
+  studentId String   @map("student_id")
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now()) @map("created_at")
 
-    tutor   User @relation("reviews_received", fields: [tutorId], references: [id])
-    student User @relation("reviews_given", fields: [studentId], references: [id])
+  tutor   User @relation("reviews_received", fields: [tutorId], references: [id])
+  student User @relation("reviews_given", fields: [studentId], references: [id])
 }
 
 model Payment {
-    id               String        @id @default(uuid())
-    sessionId        String?       @map("session_id")
-    userId           String?       @map("user_id")
-    amount           Decimal
-    currency         String
-    status           PaymentStatus @default(PENDING)
-    metadata         Json?
-    providerResponse Json?         @map("provider_response")
-    createdAt        DateTime      @default(now()) @map("created_at")
-    updatedAt        DateTime      @updatedAt @map("updated_at")
+  id               String        @id @default(uuid())
+  sessionId        String?       @map("session_id")
+  userId           String?       @map("user_id")
+  amount           Decimal
+  currency         String
+  status           PaymentStatus @default(PENDING)
+  metadata         Json?
+  providerResponse Json?         @map("provider_response")
+  createdAt        DateTime      @default(now()) @map("created_at")
+  updatedAt        DateTime      @updatedAt @map("updated_at")
 
-    user User? @relation(fields: [userId], references: [id])
+  user User? @relation(fields: [userId], references: [id])
 }
 
 model Upload {
-    id        String     @id @default(uuid())
-    ownerId   String?    @map("owner_id")
-    url       String
-    mime      String
-    size      Int
-    type      UploadType
-    createdAt DateTime   @default(now()) @map("created_at")
+  id        String     @id @default(uuid())
+  ownerId   String?    @map("owner_id")
+  url       String
+  mime      String
+  size      Int
+  type      UploadType
+  createdAt DateTime   @default(now()) @map("created_at")
 
-    owner User? @relation(fields: [ownerId], references: [id])
+  owner User? @relation(fields: [ownerId], references: [id])
 }
 
 model RefreshToken {
-    id        String   @id @default(uuid())
-    userId    String   @map("user_id")
-    tokenHash String   @map("token_hash")
-    expiresAt DateTime @map("expires_at")
-    createdAt DateTime @default(now()) @map("created_at")
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  tokenHash String   @map("token_hash")
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
 
-    user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Conversation {
-  id        String   @id @default(cuid())
-  proposalId String  @unique
-  proposal  Proposal @relation(fields: [proposalId], references: [id], onDelete: Cascade)
-  studentId String
-  student   User     @relation("ConversationStudent", fields: [studentId], references: [id])
-  tutorId   String
-  tutor     User     @relation("ConversationTutor", fields: [tutorId], references: [id])
-  messages  Message[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String    @id @default(cuid())
+  proposalId String    @unique
+  proposal   Proposal  @relation(fields: [proposalId], references: [id], onDelete: Cascade)
+  studentId  String
+  student    User      @relation("ConversationStudent", fields: [studentId], references: [id])
+  tutorId    String
+  tutor      User      @relation("ConversationTutor", fields: [tutorId], references: [id])
+  messages   Message[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  user       User?     @relation(fields: [userId], references: [id])
+  userId     String?
 }
 
 model Message {

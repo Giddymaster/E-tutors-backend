@@ -18,7 +18,7 @@ export const register = async (req: Request, res: Response) => {
     const existing = await prisma.user.findUnique({ where: { email } })
     if (existing) return res.status(400).json({ error: 'Email already in use' })
 
-    const hashed = await bcrypt.hash(password, 10)
+    const hashedPassword = await bcrypt.hash(password, 10)
 
     // Normalize and validate role (Prisma expects enum values like 'STUDENT', 'TUTOR')
     let roleValue: any = undefined
@@ -31,33 +31,36 @@ export const register = async (req: Request, res: Response) => {
       }
     }
 
-    // Prisma model uses `passwordHash`
-    const createData: any = { name, email, passwordHash: hashed }
-    if (roleValue) createData.role = roleValue
-
-    const user = await prisma.user.create({ data: createData })
-
-    // Ensure a student profile exists for STUDENT users (creates a lightweight profile record)
-    try {
-      if ((user.role || 'STUDENT') === 'STUDENT') {
-        await prisma.studentProfile.create({ data: { userId: user.id } }).catch(() => {})
+    // Create user
+    const user = await prisma.user.create({
+      data: {
+        name,
+        email,
+        passwordHash: hashedPassword,
+        role: role || 'STUDENT'
       }
-    } catch (e) {
-      // ignore profile creation errors; profile can be created later via upsert endpoint
+    })
+
+    // Auto-create student or tutor profile
+    if (role === 'STUDENT') {
+      await prisma.studentProfile.create({
+        data: { userId: user.id }
+      })
+    } else if (role === 'TUTOR') {
+      await prisma.tutorProfile.create({
+        data: { 
+          userId: user.id,
+          bio: '',
+          subjects: [],
+          hourlyRate: 0
+        }
+      })
     }
 
-    // Issue short-lived access token and a refresh token stored as httpOnly cookie
-    const accessToken = jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, { expiresIn: '15m' })
-    const refreshToken = crypto.randomBytes(40).toString('hex')
-    const refreshTokenHash = crypto.createHash('sha256').update(refreshToken).digest('hex')
-    const refreshExpiry = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
-
-    // Store only the hashed token in DB (model expects tokenHash)
-    await prisma.refreshToken.create({ data: { tokenHash: refreshTokenHash, userId: user.id, expiresAt: refreshExpiry } })
-
-    // set cookie (raw token sent to client)
-    res.cookie(REFRESH_TOKEN_COOKIE, refreshToken, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax', expires: refreshExpiry })
-    res.json({ token: accessToken, user: { id: user.id, name: user.name, email: user.email, role: user.role } })
+    // Generate tokens and return
+    const token = jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, { expiresIn: '1h' })
+    
+    res.json({ token, user })
   } catch (err: unknown) {
     // Log stack for debugging
     console.error(err instanceof Error ? err.stack : err)
