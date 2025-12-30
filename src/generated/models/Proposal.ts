@@ -254,6 +254,7 @@ export type ProposalWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
   assignment?: Prisma.XOR<Prisma.AssignmentScalarRelationFilter, Prisma.AssignmentWhereInput>
   tutor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  conversation?: Prisma.XOR<Prisma.ConversationNullableScalarRelationFilter, Prisma.ConversationWhereInput> | null
 }
 
 export type ProposalOrderByWithRelationInput = {
@@ -268,6 +269,7 @@ export type ProposalOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   assignment?: Prisma.AssignmentOrderByWithRelationInput
   tutor?: Prisma.UserOrderByWithRelationInput
+  conversation?: Prisma.ConversationOrderByWithRelationInput
 }
 
 export type ProposalWhereUniqueInput = Prisma.AtLeast<{
@@ -285,6 +287,7 @@ export type ProposalWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
   assignment?: Prisma.XOR<Prisma.AssignmentScalarRelationFilter, Prisma.AssignmentWhereInput>
   tutor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  conversation?: Prisma.XOR<Prisma.ConversationNullableScalarRelationFilter, Prisma.ConversationWhereInput> | null
 }, "id">
 
 export type ProposalOrderByWithAggregationInput = {
@@ -329,6 +332,7 @@ export type ProposalCreateInput = {
   updatedAt?: Date | string
   assignment: Prisma.AssignmentCreateNestedOneWithoutProposalsInput
   tutor: Prisma.UserCreateNestedOneWithoutProposalsInput
+  conversation?: Prisma.ConversationCreateNestedOneWithoutProposalInput
 }
 
 export type ProposalUncheckedCreateInput = {
@@ -341,6 +345,7 @@ export type ProposalUncheckedCreateInput = {
   status?: $Enums.ProposalStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  conversation?: Prisma.ConversationUncheckedCreateNestedOneWithoutProposalInput
 }
 
 export type ProposalUpdateInput = {
@@ -353,6 +358,7 @@ export type ProposalUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignment?: Prisma.AssignmentUpdateOneRequiredWithoutProposalsNestedInput
   tutor?: Prisma.UserUpdateOneRequiredWithoutProposalsNestedInput
+  conversation?: Prisma.ConversationUpdateOneWithoutProposalNestedInput
 }
 
 export type ProposalUncheckedUpdateInput = {
@@ -365,6 +371,7 @@ export type ProposalUncheckedUpdateInput = {
   status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  conversation?: Prisma.ConversationUncheckedUpdateOneWithoutProposalNestedInput
 }
 
 export type ProposalCreateManyInput = {
@@ -455,6 +462,11 @@ export type ProposalMinOrderByAggregateInput = {
 export type ProposalSumOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   deliveryDays?: Prisma.SortOrder
+}
+
+export type ProposalScalarRelationFilter = {
+  is?: Prisma.ProposalWhereInput
+  isNot?: Prisma.ProposalWhereInput
 }
 
 export type ProposalCreateNestedManyWithoutTutorInput = {
@@ -553,6 +565,20 @@ export type EnumProposalStatusFieldUpdateOperationsInput = {
   set?: $Enums.ProposalStatus
 }
 
+export type ProposalCreateNestedOneWithoutConversationInput = {
+  create?: Prisma.XOR<Prisma.ProposalCreateWithoutConversationInput, Prisma.ProposalUncheckedCreateWithoutConversationInput>
+  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutConversationInput
+  connect?: Prisma.ProposalWhereUniqueInput
+}
+
+export type ProposalUpdateOneRequiredWithoutConversationNestedInput = {
+  create?: Prisma.XOR<Prisma.ProposalCreateWithoutConversationInput, Prisma.ProposalUncheckedCreateWithoutConversationInput>
+  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutConversationInput
+  upsert?: Prisma.ProposalUpsertWithoutConversationInput
+  connect?: Prisma.ProposalWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProposalUpdateToOneWithWhereWithoutConversationInput, Prisma.ProposalUpdateWithoutConversationInput>, Prisma.ProposalUncheckedUpdateWithoutConversationInput>
+}
+
 export type ProposalCreateWithoutTutorInput = {
   id?: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -562,6 +588,7 @@ export type ProposalCreateWithoutTutorInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   assignment: Prisma.AssignmentCreateNestedOneWithoutProposalsInput
+  conversation?: Prisma.ConversationCreateNestedOneWithoutProposalInput
 }
 
 export type ProposalUncheckedCreateWithoutTutorInput = {
@@ -573,6 +600,7 @@ export type ProposalUncheckedCreateWithoutTutorInput = {
   status?: $Enums.ProposalStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  conversation?: Prisma.ConversationUncheckedCreateNestedOneWithoutProposalInput
 }
 
 export type ProposalCreateOrConnectWithoutTutorInput = {
@@ -625,6 +653,7 @@ export type ProposalCreateWithoutAssignmentInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tutor: Prisma.UserCreateNestedOneWithoutProposalsInput
+  conversation?: Prisma.ConversationCreateNestedOneWithoutProposalInput
 }
 
 export type ProposalUncheckedCreateWithoutAssignmentInput = {
@@ -636,6 +665,7 @@ export type ProposalUncheckedCreateWithoutAssignmentInput = {
   status?: $Enums.ProposalStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  conversation?: Prisma.ConversationUncheckedCreateNestedOneWithoutProposalInput
 }
 
 export type ProposalCreateOrConnectWithoutAssignmentInput = {
@@ -664,6 +694,70 @@ export type ProposalUpdateManyWithWhereWithoutAssignmentInput = {
   data: Prisma.XOR<Prisma.ProposalUpdateManyMutationInput, Prisma.ProposalUncheckedUpdateManyWithoutAssignmentInput>
 }
 
+export type ProposalCreateWithoutConversationInput = {
+  id?: string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  message?: string | null
+  deliveryDays?: number | null
+  status?: $Enums.ProposalStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  assignment: Prisma.AssignmentCreateNestedOneWithoutProposalsInput
+  tutor: Prisma.UserCreateNestedOneWithoutProposalsInput
+}
+
+export type ProposalUncheckedCreateWithoutConversationInput = {
+  id?: string
+  jobId: string
+  tutorId: string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  message?: string | null
+  deliveryDays?: number | null
+  status?: $Enums.ProposalStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ProposalCreateOrConnectWithoutConversationInput = {
+  where: Prisma.ProposalWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProposalCreateWithoutConversationInput, Prisma.ProposalUncheckedCreateWithoutConversationInput>
+}
+
+export type ProposalUpsertWithoutConversationInput = {
+  update: Prisma.XOR<Prisma.ProposalUpdateWithoutConversationInput, Prisma.ProposalUncheckedUpdateWithoutConversationInput>
+  create: Prisma.XOR<Prisma.ProposalCreateWithoutConversationInput, Prisma.ProposalUncheckedCreateWithoutConversationInput>
+  where?: Prisma.ProposalWhereInput
+}
+
+export type ProposalUpdateToOneWithWhereWithoutConversationInput = {
+  where?: Prisma.ProposalWhereInput
+  data: Prisma.XOR<Prisma.ProposalUpdateWithoutConversationInput, Prisma.ProposalUncheckedUpdateWithoutConversationInput>
+}
+
+export type ProposalUpdateWithoutConversationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  assignment?: Prisma.AssignmentUpdateOneRequiredWithoutProposalsNestedInput
+  tutor?: Prisma.UserUpdateOneRequiredWithoutProposalsNestedInput
+}
+
+export type ProposalUncheckedUpdateWithoutConversationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  tutorId?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type ProposalCreateManyTutorInput = {
   id?: string
   jobId: string
@@ -684,6 +778,7 @@ export type ProposalUpdateWithoutTutorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignment?: Prisma.AssignmentUpdateOneRequiredWithoutProposalsNestedInput
+  conversation?: Prisma.ConversationUpdateOneWithoutProposalNestedInput
 }
 
 export type ProposalUncheckedUpdateWithoutTutorInput = {
@@ -695,6 +790,7 @@ export type ProposalUncheckedUpdateWithoutTutorInput = {
   status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  conversation?: Prisma.ConversationUncheckedUpdateOneWithoutProposalNestedInput
 }
 
 export type ProposalUncheckedUpdateManyWithoutTutorInput = {
@@ -728,6 +824,7 @@ export type ProposalUpdateWithoutAssignmentInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tutor?: Prisma.UserUpdateOneRequiredWithoutProposalsNestedInput
+  conversation?: Prisma.ConversationUpdateOneWithoutProposalNestedInput
 }
 
 export type ProposalUncheckedUpdateWithoutAssignmentInput = {
@@ -739,6 +836,7 @@ export type ProposalUncheckedUpdateWithoutAssignmentInput = {
   status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  conversation?: Prisma.ConversationUncheckedUpdateOneWithoutProposalNestedInput
 }
 
 export type ProposalUncheckedUpdateManyWithoutAssignmentInput = {
@@ -766,6 +864,7 @@ export type ProposalSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   updatedAt?: boolean
   assignment?: boolean | Prisma.AssignmentDefaultArgs<ExtArgs>
   tutor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  conversation?: boolean | Prisma.Proposal$conversationArgs<ExtArgs>
 }, ExtArgs["result"]["proposal"]>
 
 export type ProposalSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -812,6 +911,7 @@ export type ProposalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 export type ProposalInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   assignment?: boolean | Prisma.AssignmentDefaultArgs<ExtArgs>
   tutor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  conversation?: boolean | Prisma.Proposal$conversationArgs<ExtArgs>
 }
 export type ProposalIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   assignment?: boolean | Prisma.AssignmentDefaultArgs<ExtArgs>
@@ -827,6 +927,7 @@ export type $ProposalPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   objects: {
     assignment: Prisma.$AssignmentPayload<ExtArgs>
     tutor: Prisma.$UserPayload<ExtArgs>
+    conversation: Prisma.$ConversationPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1234,6 +1335,7 @@ export interface Prisma__ProposalClient<T, Null = never, ExtArgs extends runtime
   readonly [Symbol.toStringTag]: "PrismaPromise"
   assignment<T extends Prisma.AssignmentDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AssignmentDefaultArgs<ExtArgs>>): Prisma.Prisma__AssignmentClient<runtime.Types.Result.GetResult<Prisma.$AssignmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   tutor<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  conversation<T extends Prisma.Proposal$conversationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proposal$conversationArgs<ExtArgs>>): Prisma.Prisma__ConversationClient<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1665,6 +1767,25 @@ export type ProposalDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Limit how many Proposals to delete.
    */
   limit?: number
+}
+
+/**
+ * Proposal.conversation
+ */
+export type Proposal$conversationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Conversation
+   */
+  select?: Prisma.ConversationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Conversation
+   */
+  omit?: Prisma.ConversationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConversationInclude<ExtArgs> | null
+  where?: Prisma.ConversationWhereInput
 }
 
 /**

@@ -24,8 +24,8 @@ import assignmentsRoutes from './assignments.routes'
 router.use('/assignments', assignmentsRoutes)
 
 // Bookings
-import bookingsRoutes from './bookings.routes'
-router.use('/bookings', bookingsRoutes)
+import bookingsRouter from './bookings.routes'
+router.use('/bookings', bookingsRouter)
 
 // Student routes
 router.get('/students/me', authenticate, getMyStudent);

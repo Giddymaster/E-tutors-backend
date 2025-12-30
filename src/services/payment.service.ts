@@ -1,18 +1,11 @@
 import { Stripe } from 'stripe';
-import { PaymentSessionModel } from '../models/session.model'; // Adjusted to use named export
+import { PaymentSession } from '../models/session.model';
 
-const stripeKey = process.env.STRIPE_SECRET_KEY!; // Add ! to assert it's not undefined
+const stripeKey = process.env.STRIPE_SECRET_KEY!;
 
 const stripe = new Stripe(stripeKey, {
   apiVersion: '2020-08-27',
 });
-
-interface PaymentSession {
-  session_id: string;
-  user_id: string;
-  amount: number;
-  status: string;
-}
 
 export const createPaymentSession = async (amount: number, userId: string) => {
   const session = await stripe.checkout.sessions.create({
@@ -34,14 +27,6 @@ export const createPaymentSession = async (amount: number, userId: string) => {
     cancel_url: `${process.env.FRONTEND_URL}/cancel`,
   });
 
-  const paymentSession: PaymentSession = {
-    session_id: session.id,
-    user_id: userId,
-    amount,
-    status: 'pending',
-  };
-
-  await PaymentSessionModel.create(paymentSession); // Ensure create method is available
 
   return session;
 };

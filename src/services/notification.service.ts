@@ -93,7 +93,11 @@ export class NotificationService {
 
     for (const key of allowedKeys) {
       if ((updates as any)[key] !== undefined) {
-        await prisma.$executeRaw`UPDATE "notification_settings" SET ${prisma.raw(`"${key}"`)} = ${ (updates as any)[key] } WHERE user_id = ${userId}`
+        await prisma.$executeRawUnsafe(
+          `UPDATE "notification_settings" SET "${key}" = $1 WHERE user_id = $2`,
+          (updates as any)[key],
+          userId
+        )
       }
     }
 
@@ -204,6 +208,12 @@ export class NotificationService {
     } else {
       await prisma.$executeRaw`UPDATE "notification_queue" SET retry_count = ${existing.retry_count + 1}, next_retry_at = ${new Date(Date.now() + 5 * 60 * 1000).toISOString()}, error_log = ${errorLog ?? null}, updated_at = now() WHERE id = ${notificationId}`
     }
+  }
+
+  async getNotifications(userId: string) {
+    const notifications = await prisma.notification.findMany()
+
+    return notifications
   }
 }
 

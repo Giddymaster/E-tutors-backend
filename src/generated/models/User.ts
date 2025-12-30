@@ -276,6 +276,11 @@ export type UserWhereInput = {
   uploads?: Prisma.UploadListRelationFilter
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
   proposals?: Prisma.ProposalListRelationFilter
+  conversations?: Prisma.ConversationListRelationFilter
+  conversationsAsStudent?: Prisma.ConversationListRelationFilter
+  conversationsAsTutor?: Prisma.ConversationListRelationFilter
+  messages?: Prisma.MessageListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -302,6 +307,11 @@ export type UserOrderByWithRelationInput = {
   uploads?: Prisma.UploadOrderByRelationAggregateInput
   refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput
   proposals?: Prisma.ProposalOrderByRelationAggregateInput
+  conversations?: Prisma.ConversationOrderByRelationAggregateInput
+  conversationsAsStudent?: Prisma.ConversationOrderByRelationAggregateInput
+  conversationsAsTutor?: Prisma.ConversationOrderByRelationAggregateInput
+  messages?: Prisma.MessageOrderByRelationAggregateInput
+  notifications?: Prisma.NotificationOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -331,6 +341,11 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   uploads?: Prisma.UploadListRelationFilter
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
   proposals?: Prisma.ProposalListRelationFilter
+  conversations?: Prisma.ConversationListRelationFilter
+  conversationsAsStudent?: Prisma.ConversationListRelationFilter
+  conversationsAsTutor?: Prisma.ConversationListRelationFilter
+  messages?: Prisma.MessageListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -393,6 +408,11 @@ export type UserCreateInput = {
   uploads?: Prisma.UploadCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -419,6 +439,11 @@ export type UserUncheckedCreateInput = {
   uploads?: Prisma.UploadUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -445,6 +470,11 @@ export type UserUpdateInput = {
   uploads?: Prisma.UploadUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -471,6 +501,11 @@ export type UserUncheckedUpdateInput = {
   uploads?: Prisma.UploadUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -781,6 +816,78 @@ export type UserUpdateOneRequiredWithoutRefreshTokensNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRefreshTokensInput, Prisma.UserUpdateWithoutRefreshTokensInput>, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>
 }
 
+export type UserCreateNestedOneWithoutConversationsAsStudentInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationsAsStudentInput, Prisma.UserUncheckedCreateWithoutConversationsAsStudentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationsAsStudentInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutConversationsAsTutorInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationsAsTutorInput, Prisma.UserUncheckedCreateWithoutConversationsAsTutorInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationsAsTutorInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutConversationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationsInput, Prisma.UserUncheckedCreateWithoutConversationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutConversationsAsStudentNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationsAsStudentInput, Prisma.UserUncheckedCreateWithoutConversationsAsStudentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationsAsStudentInput
+  upsert?: Prisma.UserUpsertWithoutConversationsAsStudentInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutConversationsAsStudentInput, Prisma.UserUpdateWithoutConversationsAsStudentInput>, Prisma.UserUncheckedUpdateWithoutConversationsAsStudentInput>
+}
+
+export type UserUpdateOneRequiredWithoutConversationsAsTutorNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationsAsTutorInput, Prisma.UserUncheckedCreateWithoutConversationsAsTutorInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationsAsTutorInput
+  upsert?: Prisma.UserUpsertWithoutConversationsAsTutorInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutConversationsAsTutorInput, Prisma.UserUpdateWithoutConversationsAsTutorInput>, Prisma.UserUncheckedUpdateWithoutConversationsAsTutorInput>
+}
+
+export type UserUpdateOneWithoutConversationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationsInput, Prisma.UserUncheckedCreateWithoutConversationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationsInput
+  upsert?: Prisma.UserUpsertWithoutConversationsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutConversationsInput, Prisma.UserUpdateWithoutConversationsInput>, Prisma.UserUncheckedUpdateWithoutConversationsInput>
+}
+
+export type UserCreateNestedOneWithoutMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesInput, Prisma.UserUncheckedCreateWithoutMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesInput, Prisma.UserUncheckedCreateWithoutMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesInput
+  upsert?: Prisma.UserUpsertWithoutMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMessagesInput, Prisma.UserUpdateWithoutMessagesInput>, Prisma.UserUncheckedUpdateWithoutMessagesInput>
+}
+
+export type UserCreateNestedOneWithoutNotificationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  upsert?: Prisma.UserUpsertWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsInput, Prisma.UserUpdateWithoutNotificationsInput>, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+}
+
 export type UserCreateWithoutTutorProfileInput = {
   id?: string
   name?: string | null
@@ -804,6 +911,11 @@ export type UserCreateWithoutTutorProfileInput = {
   uploads?: Prisma.UploadCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTutorProfileInput = {
@@ -829,6 +941,11 @@ export type UserUncheckedCreateWithoutTutorProfileInput = {
   uploads?: Prisma.UploadUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTutorProfileInput = {
@@ -870,6 +987,11 @@ export type UserUpdateWithoutTutorProfileInput = {
   uploads?: Prisma.UploadUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTutorProfileInput = {
@@ -895,6 +1017,11 @@ export type UserUncheckedUpdateWithoutTutorProfileInput = {
   uploads?: Prisma.UploadUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStudentProfileInput = {
@@ -920,6 +1047,11 @@ export type UserCreateWithoutStudentProfileInput = {
   uploads?: Prisma.UploadCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStudentProfileInput = {
@@ -945,6 +1077,11 @@ export type UserUncheckedCreateWithoutStudentProfileInput = {
   uploads?: Prisma.UploadUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStudentProfileInput = {
@@ -986,6 +1123,11 @@ export type UserUpdateWithoutStudentProfileInput = {
   uploads?: Prisma.UploadUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStudentProfileInput = {
@@ -1011,6 +1153,11 @@ export type UserUncheckedUpdateWithoutStudentProfileInput = {
   uploads?: Prisma.UploadUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStudentAssignmentsInput = {
@@ -1036,6 +1183,11 @@ export type UserCreateWithoutStudentAssignmentsInput = {
   uploads?: Prisma.UploadCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStudentAssignmentsInput = {
@@ -1061,6 +1213,11 @@ export type UserUncheckedCreateWithoutStudentAssignmentsInput = {
   uploads?: Prisma.UploadUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStudentAssignmentsInput = {
@@ -1091,6 +1248,11 @@ export type UserCreateWithoutTutorAssignmentsInput = {
   uploads?: Prisma.UploadCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTutorAssignmentsInput = {
@@ -1116,6 +1278,11 @@ export type UserUncheckedCreateWithoutTutorAssignmentsInput = {
   uploads?: Prisma.UploadUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTutorAssignmentsInput = {
@@ -1157,6 +1324,11 @@ export type UserUpdateWithoutStudentAssignmentsInput = {
   uploads?: Prisma.UploadUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStudentAssignmentsInput = {
@@ -1182,6 +1354,11 @@ export type UserUncheckedUpdateWithoutStudentAssignmentsInput = {
   uploads?: Prisma.UploadUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutTutorAssignmentsInput = {
@@ -1218,6 +1395,11 @@ export type UserUpdateWithoutTutorAssignmentsInput = {
   uploads?: Prisma.UploadUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTutorAssignmentsInput = {
@@ -1243,6 +1425,11 @@ export type UserUncheckedUpdateWithoutTutorAssignmentsInput = {
   uploads?: Prisma.UploadUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProposalsInput = {
@@ -1268,6 +1455,11 @@ export type UserCreateWithoutProposalsInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   uploads?: Prisma.UploadCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProposalsInput = {
@@ -1293,6 +1485,11 @@ export type UserUncheckedCreateWithoutProposalsInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   uploads?: Prisma.UploadUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProposalsInput = {
@@ -1334,6 +1531,11 @@ export type UserUpdateWithoutProposalsInput = {
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   uploads?: Prisma.UploadUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProposalsInput = {
@@ -1359,6 +1561,11 @@ export type UserUncheckedUpdateWithoutProposalsInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   uploads?: Prisma.UploadUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStudentBookingsInput = {
@@ -1384,6 +1591,11 @@ export type UserCreateWithoutStudentBookingsInput = {
   uploads?: Prisma.UploadCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStudentBookingsInput = {
@@ -1409,6 +1621,11 @@ export type UserUncheckedCreateWithoutStudentBookingsInput = {
   uploads?: Prisma.UploadUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStudentBookingsInput = {
@@ -1439,6 +1656,11 @@ export type UserCreateWithoutTutorBookingsInput = {
   uploads?: Prisma.UploadCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTutorBookingsInput = {
@@ -1464,6 +1686,11 @@ export type UserUncheckedCreateWithoutTutorBookingsInput = {
   uploads?: Prisma.UploadUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTutorBookingsInput = {
@@ -1505,6 +1732,11 @@ export type UserUpdateWithoutStudentBookingsInput = {
   uploads?: Prisma.UploadUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStudentBookingsInput = {
@@ -1530,6 +1762,11 @@ export type UserUncheckedUpdateWithoutStudentBookingsInput = {
   uploads?: Prisma.UploadUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutTutorBookingsInput = {
@@ -1566,6 +1803,11 @@ export type UserUpdateWithoutTutorBookingsInput = {
   uploads?: Prisma.UploadUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTutorBookingsInput = {
@@ -1591,6 +1833,11 @@ export type UserUncheckedUpdateWithoutTutorBookingsInput = {
   uploads?: Prisma.UploadUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReviewsReceivedInput = {
@@ -1616,6 +1863,11 @@ export type UserCreateWithoutReviewsReceivedInput = {
   uploads?: Prisma.UploadCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsReceivedInput = {
@@ -1641,6 +1893,11 @@ export type UserUncheckedCreateWithoutReviewsReceivedInput = {
   uploads?: Prisma.UploadUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsReceivedInput = {
@@ -1671,6 +1928,11 @@ export type UserCreateWithoutReviewsGivenInput = {
   uploads?: Prisma.UploadCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsGivenInput = {
@@ -1696,6 +1958,11 @@ export type UserUncheckedCreateWithoutReviewsGivenInput = {
   uploads?: Prisma.UploadUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsGivenInput = {
@@ -1737,6 +2004,11 @@ export type UserUpdateWithoutReviewsReceivedInput = {
   uploads?: Prisma.UploadUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
@@ -1762,6 +2034,11 @@ export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
   uploads?: Prisma.UploadUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReviewsGivenInput = {
@@ -1798,6 +2075,11 @@ export type UserUpdateWithoutReviewsGivenInput = {
   uploads?: Prisma.UploadUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsGivenInput = {
@@ -1823,6 +2105,11 @@ export type UserUncheckedUpdateWithoutReviewsGivenInput = {
   uploads?: Prisma.UploadUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPaymentsInput = {
@@ -1848,6 +2135,11 @@ export type UserCreateWithoutPaymentsInput = {
   uploads?: Prisma.UploadCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentsInput = {
@@ -1873,6 +2165,11 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   uploads?: Prisma.UploadUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentsInput = {
@@ -1914,6 +2211,11 @@ export type UserUpdateWithoutPaymentsInput = {
   uploads?: Prisma.UploadUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentsInput = {
@@ -1939,6 +2241,11 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   uploads?: Prisma.UploadUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutUploadsInput = {
@@ -1964,6 +2271,11 @@ export type UserCreateWithoutUploadsInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutUploadsInput = {
@@ -1989,6 +2301,11 @@ export type UserUncheckedCreateWithoutUploadsInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutUploadsInput = {
@@ -2030,6 +2347,11 @@ export type UserUpdateWithoutUploadsInput = {
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUploadsInput = {
@@ -2055,6 +2377,11 @@ export type UserUncheckedUpdateWithoutUploadsInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRefreshTokensInput = {
@@ -2080,6 +2407,11 @@ export type UserCreateWithoutRefreshTokensInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   uploads?: Prisma.UploadCreateNestedManyWithoutOwnerInput
   proposals?: Prisma.ProposalCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -2105,6 +2437,11 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   uploads?: Prisma.UploadUncheckedCreateNestedManyWithoutOwnerInput
   proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -2146,6 +2483,11 @@ export type UserUpdateWithoutRefreshTokensInput = {
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   uploads?: Prisma.UploadUpdateManyWithoutOwnerNestedInput
   proposals?: Prisma.ProposalUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -2171,6 +2513,691 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   uploads?: Prisma.UploadUncheckedUpdateManyWithoutOwnerNestedInput
   proposals?: Prisma.ProposalUncheckedUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutConversationsAsStudentInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash?: string | null
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: boolean
+  verificationStatus?: $Enums.VerificationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tutorProfile?: Prisma.TutorProfileCreateNestedOneWithoutUserInput
+  studentProfile?: Prisma.StudentProfileCreateNestedOneWithoutUserInput
+  studentAssignments?: Prisma.AssignmentCreateNestedManyWithoutStudentInput
+  tutorAssignments?: Prisma.AssignmentCreateNestedManyWithoutTutorInput
+  studentBookings?: Prisma.BookingCreateNestedManyWithoutStudentInput
+  tutorBookings?: Prisma.BookingCreateNestedManyWithoutTutorInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutStudentInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTutorInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  uploads?: Prisma.UploadCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  proposals?: Prisma.ProposalCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutUserInput
+  conversationsAsTutor?: Prisma.ConversationCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutConversationsAsStudentInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash?: string | null
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: boolean
+  verificationStatus?: $Enums.VerificationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tutorProfile?: Prisma.TutorProfileUncheckedCreateNestedOneWithoutUserInput
+  studentProfile?: Prisma.StudentProfileUncheckedCreateNestedOneWithoutUserInput
+  studentAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutStudentInput
+  tutorAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutTutorInput
+  studentBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutStudentInput
+  tutorBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTutorInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutStudentInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTutorInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  uploads?: Prisma.UploadUncheckedCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutConversationsAsStudentInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationsAsStudentInput, Prisma.UserUncheckedCreateWithoutConversationsAsStudentInput>
+}
+
+export type UserCreateWithoutConversationsAsTutorInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash?: string | null
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: boolean
+  verificationStatus?: $Enums.VerificationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tutorProfile?: Prisma.TutorProfileCreateNestedOneWithoutUserInput
+  studentProfile?: Prisma.StudentProfileCreateNestedOneWithoutUserInput
+  studentAssignments?: Prisma.AssignmentCreateNestedManyWithoutStudentInput
+  tutorAssignments?: Prisma.AssignmentCreateNestedManyWithoutTutorInput
+  studentBookings?: Prisma.BookingCreateNestedManyWithoutStudentInput
+  tutorBookings?: Prisma.BookingCreateNestedManyWithoutTutorInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutStudentInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTutorInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  uploads?: Prisma.UploadCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  proposals?: Prisma.ProposalCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutConversationsAsTutorInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash?: string | null
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: boolean
+  verificationStatus?: $Enums.VerificationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tutorProfile?: Prisma.TutorProfileUncheckedCreateNestedOneWithoutUserInput
+  studentProfile?: Prisma.StudentProfileUncheckedCreateNestedOneWithoutUserInput
+  studentAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutStudentInput
+  tutorAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutTutorInput
+  studentBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutStudentInput
+  tutorBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTutorInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutStudentInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTutorInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  uploads?: Prisma.UploadUncheckedCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutConversationsAsTutorInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationsAsTutorInput, Prisma.UserUncheckedCreateWithoutConversationsAsTutorInput>
+}
+
+export type UserCreateWithoutConversationsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash?: string | null
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: boolean
+  verificationStatus?: $Enums.VerificationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tutorProfile?: Prisma.TutorProfileCreateNestedOneWithoutUserInput
+  studentProfile?: Prisma.StudentProfileCreateNestedOneWithoutUserInput
+  studentAssignments?: Prisma.AssignmentCreateNestedManyWithoutStudentInput
+  tutorAssignments?: Prisma.AssignmentCreateNestedManyWithoutTutorInput
+  studentBookings?: Prisma.BookingCreateNestedManyWithoutStudentInput
+  tutorBookings?: Prisma.BookingCreateNestedManyWithoutTutorInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutStudentInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTutorInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  uploads?: Prisma.UploadCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  proposals?: Prisma.ProposalCreateNestedManyWithoutTutorInput
+  conversationsAsStudent?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutConversationsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash?: string | null
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: boolean
+  verificationStatus?: $Enums.VerificationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tutorProfile?: Prisma.TutorProfileUncheckedCreateNestedOneWithoutUserInput
+  studentProfile?: Prisma.StudentProfileUncheckedCreateNestedOneWithoutUserInput
+  studentAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutStudentInput
+  tutorAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutTutorInput
+  studentBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutStudentInput
+  tutorBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTutorInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutStudentInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTutorInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  uploads?: Prisma.UploadUncheckedCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutTutorInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutConversationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationsInput, Prisma.UserUncheckedCreateWithoutConversationsInput>
+}
+
+export type UserUpsertWithoutConversationsAsStudentInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutConversationsAsStudentInput, Prisma.UserUncheckedUpdateWithoutConversationsAsStudentInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationsAsStudentInput, Prisma.UserUncheckedCreateWithoutConversationsAsStudentInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutConversationsAsStudentInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutConversationsAsStudentInput, Prisma.UserUncheckedUpdateWithoutConversationsAsStudentInput>
+}
+
+export type UserUpdateWithoutConversationsAsStudentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tutorProfile?: Prisma.TutorProfileUpdateOneWithoutUserNestedInput
+  studentProfile?: Prisma.StudentProfileUpdateOneWithoutUserNestedInput
+  studentAssignments?: Prisma.AssignmentUpdateManyWithoutStudentNestedInput
+  tutorAssignments?: Prisma.AssignmentUpdateManyWithoutTutorNestedInput
+  studentBookings?: Prisma.BookingUpdateManyWithoutStudentNestedInput
+  tutorBookings?: Prisma.BookingUpdateManyWithoutTutorNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutStudentNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTutorNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  uploads?: Prisma.UploadUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  proposals?: Prisma.ProposalUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutUserNestedInput
+  conversationsAsTutor?: Prisma.ConversationUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutConversationsAsStudentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tutorProfile?: Prisma.TutorProfileUncheckedUpdateOneWithoutUserNestedInput
+  studentProfile?: Prisma.StudentProfileUncheckedUpdateOneWithoutUserNestedInput
+  studentAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutStudentNestedInput
+  tutorAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutTutorNestedInput
+  studentBookings?: Prisma.BookingUncheckedUpdateManyWithoutStudentNestedInput
+  tutorBookings?: Prisma.BookingUncheckedUpdateManyWithoutTutorNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutStudentNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTutorNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  uploads?: Prisma.UploadUncheckedUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  proposals?: Prisma.ProposalUncheckedUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutUserNestedInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutConversationsAsTutorInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutConversationsAsTutorInput, Prisma.UserUncheckedUpdateWithoutConversationsAsTutorInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationsAsTutorInput, Prisma.UserUncheckedCreateWithoutConversationsAsTutorInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutConversationsAsTutorInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutConversationsAsTutorInput, Prisma.UserUncheckedUpdateWithoutConversationsAsTutorInput>
+}
+
+export type UserUpdateWithoutConversationsAsTutorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tutorProfile?: Prisma.TutorProfileUpdateOneWithoutUserNestedInput
+  studentProfile?: Prisma.StudentProfileUpdateOneWithoutUserNestedInput
+  studentAssignments?: Prisma.AssignmentUpdateManyWithoutStudentNestedInput
+  tutorAssignments?: Prisma.AssignmentUpdateManyWithoutTutorNestedInput
+  studentBookings?: Prisma.BookingUpdateManyWithoutStudentNestedInput
+  tutorBookings?: Prisma.BookingUpdateManyWithoutTutorNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutStudentNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTutorNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  uploads?: Prisma.UploadUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  proposals?: Prisma.ProposalUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutConversationsAsTutorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tutorProfile?: Prisma.TutorProfileUncheckedUpdateOneWithoutUserNestedInput
+  studentProfile?: Prisma.StudentProfileUncheckedUpdateOneWithoutUserNestedInput
+  studentAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutStudentNestedInput
+  tutorAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutTutorNestedInput
+  studentBookings?: Prisma.BookingUncheckedUpdateManyWithoutStudentNestedInput
+  tutorBookings?: Prisma.BookingUncheckedUpdateManyWithoutTutorNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutStudentNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTutorNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  uploads?: Prisma.UploadUncheckedUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  proposals?: Prisma.ProposalUncheckedUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutConversationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutConversationsInput, Prisma.UserUncheckedUpdateWithoutConversationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationsInput, Prisma.UserUncheckedCreateWithoutConversationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutConversationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutConversationsInput, Prisma.UserUncheckedUpdateWithoutConversationsInput>
+}
+
+export type UserUpdateWithoutConversationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tutorProfile?: Prisma.TutorProfileUpdateOneWithoutUserNestedInput
+  studentProfile?: Prisma.StudentProfileUpdateOneWithoutUserNestedInput
+  studentAssignments?: Prisma.AssignmentUpdateManyWithoutStudentNestedInput
+  tutorAssignments?: Prisma.AssignmentUpdateManyWithoutTutorNestedInput
+  studentBookings?: Prisma.BookingUpdateManyWithoutStudentNestedInput
+  tutorBookings?: Prisma.BookingUpdateManyWithoutTutorNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutStudentNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTutorNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  uploads?: Prisma.UploadUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  proposals?: Prisma.ProposalUpdateManyWithoutTutorNestedInput
+  conversationsAsStudent?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutConversationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tutorProfile?: Prisma.TutorProfileUncheckedUpdateOneWithoutUserNestedInput
+  studentProfile?: Prisma.StudentProfileUncheckedUpdateOneWithoutUserNestedInput
+  studentAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutStudentNestedInput
+  tutorAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutTutorNestedInput
+  studentBookings?: Prisma.BookingUncheckedUpdateManyWithoutStudentNestedInput
+  tutorBookings?: Prisma.BookingUncheckedUpdateManyWithoutTutorNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutStudentNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTutorNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  uploads?: Prisma.UploadUncheckedUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  proposals?: Prisma.ProposalUncheckedUpdateManyWithoutTutorNestedInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutMessagesInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash?: string | null
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: boolean
+  verificationStatus?: $Enums.VerificationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tutorProfile?: Prisma.TutorProfileCreateNestedOneWithoutUserInput
+  studentProfile?: Prisma.StudentProfileCreateNestedOneWithoutUserInput
+  studentAssignments?: Prisma.AssignmentCreateNestedManyWithoutStudentInput
+  tutorAssignments?: Prisma.AssignmentCreateNestedManyWithoutTutorInput
+  studentBookings?: Prisma.BookingCreateNestedManyWithoutStudentInput
+  tutorBookings?: Prisma.BookingCreateNestedManyWithoutTutorInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutStudentInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTutorInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  uploads?: Prisma.UploadCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  proposals?: Prisma.ProposalCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationCreateNestedManyWithoutTutorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutMessagesInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash?: string | null
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: boolean
+  verificationStatus?: $Enums.VerificationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tutorProfile?: Prisma.TutorProfileUncheckedCreateNestedOneWithoutUserInput
+  studentProfile?: Prisma.StudentProfileUncheckedCreateNestedOneWithoutUserInput
+  studentAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutStudentInput
+  tutorAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutTutorInput
+  studentBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutStudentInput
+  tutorBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTutorInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutStudentInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTutorInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  uploads?: Prisma.UploadUncheckedCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedCreateNestedManyWithoutTutorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessagesInput, Prisma.UserUncheckedCreateWithoutMessagesInput>
+}
+
+export type UserUpsertWithoutMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMessagesInput, Prisma.UserUncheckedUpdateWithoutMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessagesInput, Prisma.UserUncheckedCreateWithoutMessagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMessagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMessagesInput, Prisma.UserUncheckedUpdateWithoutMessagesInput>
+}
+
+export type UserUpdateWithoutMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tutorProfile?: Prisma.TutorProfileUpdateOneWithoutUserNestedInput
+  studentProfile?: Prisma.StudentProfileUpdateOneWithoutUserNestedInput
+  studentAssignments?: Prisma.AssignmentUpdateManyWithoutStudentNestedInput
+  tutorAssignments?: Prisma.AssignmentUpdateManyWithoutTutorNestedInput
+  studentBookings?: Prisma.BookingUpdateManyWithoutStudentNestedInput
+  tutorBookings?: Prisma.BookingUpdateManyWithoutTutorNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutStudentNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTutorNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  uploads?: Prisma.UploadUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  proposals?: Prisma.ProposalUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUpdateManyWithoutTutorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tutorProfile?: Prisma.TutorProfileUncheckedUpdateOneWithoutUserNestedInput
+  studentProfile?: Prisma.StudentProfileUncheckedUpdateOneWithoutUserNestedInput
+  studentAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutStudentNestedInput
+  tutorAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutTutorNestedInput
+  studentBookings?: Prisma.BookingUncheckedUpdateManyWithoutStudentNestedInput
+  tutorBookings?: Prisma.BookingUncheckedUpdateManyWithoutTutorNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutStudentNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTutorNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  uploads?: Prisma.UploadUncheckedUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  proposals?: Prisma.ProposalUncheckedUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedUpdateManyWithoutTutorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutNotificationsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash?: string | null
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: boolean
+  verificationStatus?: $Enums.VerificationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tutorProfile?: Prisma.TutorProfileCreateNestedOneWithoutUserInput
+  studentProfile?: Prisma.StudentProfileCreateNestedOneWithoutUserInput
+  studentAssignments?: Prisma.AssignmentCreateNestedManyWithoutStudentInput
+  tutorAssignments?: Prisma.AssignmentCreateNestedManyWithoutTutorInput
+  studentBookings?: Prisma.BookingCreateNestedManyWithoutStudentInput
+  tutorBookings?: Prisma.BookingCreateNestedManyWithoutTutorInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutStudentInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTutorInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  uploads?: Prisma.UploadCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  proposals?: Prisma.ProposalCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+}
+
+export type UserUncheckedCreateWithoutNotificationsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash?: string | null
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: boolean
+  verificationStatus?: $Enums.VerificationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tutorProfile?: Prisma.TutorProfileUncheckedCreateNestedOneWithoutUserInput
+  studentProfile?: Prisma.StudentProfileUncheckedCreateNestedOneWithoutUserInput
+  studentAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutStudentInput
+  tutorAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutTutorInput
+  studentBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutStudentInput
+  tutorBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTutorInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutStudentInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTutorInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  uploads?: Prisma.UploadUncheckedCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+}
+
+export type UserCreateOrConnectWithoutNotificationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+}
+
+export type UserUpsertWithoutNotificationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+}
+
+export type UserUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tutorProfile?: Prisma.TutorProfileUpdateOneWithoutUserNestedInput
+  studentProfile?: Prisma.StudentProfileUpdateOneWithoutUserNestedInput
+  studentAssignments?: Prisma.AssignmentUpdateManyWithoutStudentNestedInput
+  tutorAssignments?: Prisma.AssignmentUpdateManyWithoutTutorNestedInput
+  studentBookings?: Prisma.BookingUpdateManyWithoutStudentNestedInput
+  tutorBookings?: Prisma.BookingUpdateManyWithoutTutorNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutStudentNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTutorNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  uploads?: Prisma.UploadUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  proposals?: Prisma.ProposalUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+}
+
+export type UserUncheckedUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tutorProfile?: Prisma.TutorProfileUncheckedUpdateOneWithoutUserNestedInput
+  studentProfile?: Prisma.StudentProfileUncheckedUpdateOneWithoutUserNestedInput
+  studentAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutStudentNestedInput
+  tutorAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutTutorNestedInput
+  studentBookings?: Prisma.BookingUncheckedUpdateManyWithoutStudentNestedInput
+  tutorBookings?: Prisma.BookingUncheckedUpdateManyWithoutTutorNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutStudentNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTutorNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  uploads?: Prisma.UploadUncheckedUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  proposals?: Prisma.ProposalUncheckedUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
 }
 
 
@@ -2189,6 +3216,11 @@ export type UserCountOutputType = {
   uploads: number
   refreshTokens: number
   proposals: number
+  conversations: number
+  conversationsAsStudent: number
+  conversationsAsTutor: number
+  messages: number
+  notifications: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2202,6 +3234,11 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   uploads?: boolean | UserCountOutputTypeCountUploadsArgs
   refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
   proposals?: boolean | UserCountOutputTypeCountProposalsArgs
+  conversations?: boolean | UserCountOutputTypeCountConversationsArgs
+  conversationsAsStudent?: boolean | UserCountOutputTypeCountConversationsAsStudentArgs
+  conversationsAsTutor?: boolean | UserCountOutputTypeCountConversationsAsTutorArgs
+  messages?: boolean | UserCountOutputTypeCountMessagesArgs
+  notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
 }
 
 /**
@@ -2284,6 +3321,41 @@ export type UserCountOutputTypeCountProposalsArgs<ExtArgs extends runtime.Types.
   where?: Prisma.ProposalWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountConversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConversationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountConversationsAsStudentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConversationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountConversationsAsTutorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConversationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.NotificationWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2309,6 +3381,11 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   uploads?: boolean | Prisma.User$uploadsArgs<ExtArgs>
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   proposals?: boolean | Prisma.User$proposalsArgs<ExtArgs>
+  conversations?: boolean | Prisma.User$conversationsArgs<ExtArgs>
+  conversationsAsStudent?: boolean | Prisma.User$conversationsAsStudentArgs<ExtArgs>
+  conversationsAsTutor?: boolean | Prisma.User$conversationsAsTutorArgs<ExtArgs>
+  messages?: boolean | Prisma.User$messagesArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2368,6 +3445,11 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   uploads?: boolean | Prisma.User$uploadsArgs<ExtArgs>
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   proposals?: boolean | Prisma.User$proposalsArgs<ExtArgs>
+  conversations?: boolean | Prisma.User$conversationsArgs<ExtArgs>
+  conversationsAsStudent?: boolean | Prisma.User$conversationsAsStudentArgs<ExtArgs>
+  conversationsAsTutor?: boolean | Prisma.User$conversationsAsTutorArgs<ExtArgs>
+  messages?: boolean | Prisma.User$messagesArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2388,6 +3470,11 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     uploads: Prisma.$UploadPayload<ExtArgs>[]
     refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
     proposals: Prisma.$ProposalPayload<ExtArgs>[]
+    conversations: Prisma.$ConversationPayload<ExtArgs>[]
+    conversationsAsStudent: Prisma.$ConversationPayload<ExtArgs>[]
+    conversationsAsTutor: Prisma.$ConversationPayload<ExtArgs>[]
+    messages: Prisma.$MessagePayload<ExtArgs>[]
+    notifications: Prisma.$NotificationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2807,6 +3894,11 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   uploads<T extends Prisma.User$uploadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$uploadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UploadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   refreshTokens<T extends Prisma.User$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   proposals<T extends Prisma.User$proposalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$proposalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProposalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conversations<T extends Prisma.User$conversationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$conversationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conversationsAsStudent<T extends Prisma.User$conversationsAsStudentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$conversationsAsStudentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conversationsAsTutor<T extends Prisma.User$conversationsAsTutorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$conversationsAsTutorArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  messages<T extends Prisma.User$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3510,6 +4602,126 @@ export type User$proposalsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.ProposalScalarFieldEnum | Prisma.ProposalScalarFieldEnum[]
+}
+
+/**
+ * User.conversations
+ */
+export type User$conversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Conversation
+   */
+  select?: Prisma.ConversationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Conversation
+   */
+  omit?: Prisma.ConversationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConversationInclude<ExtArgs> | null
+  where?: Prisma.ConversationWhereInput
+  orderBy?: Prisma.ConversationOrderByWithRelationInput | Prisma.ConversationOrderByWithRelationInput[]
+  cursor?: Prisma.ConversationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConversationScalarFieldEnum | Prisma.ConversationScalarFieldEnum[]
+}
+
+/**
+ * User.conversationsAsStudent
+ */
+export type User$conversationsAsStudentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Conversation
+   */
+  select?: Prisma.ConversationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Conversation
+   */
+  omit?: Prisma.ConversationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConversationInclude<ExtArgs> | null
+  where?: Prisma.ConversationWhereInput
+  orderBy?: Prisma.ConversationOrderByWithRelationInput | Prisma.ConversationOrderByWithRelationInput[]
+  cursor?: Prisma.ConversationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConversationScalarFieldEnum | Prisma.ConversationScalarFieldEnum[]
+}
+
+/**
+ * User.conversationsAsTutor
+ */
+export type User$conversationsAsTutorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Conversation
+   */
+  select?: Prisma.ConversationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Conversation
+   */
+  omit?: Prisma.ConversationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConversationInclude<ExtArgs> | null
+  where?: Prisma.ConversationWhereInput
+  orderBy?: Prisma.ConversationOrderByWithRelationInput | Prisma.ConversationOrderByWithRelationInput[]
+  cursor?: Prisma.ConversationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConversationScalarFieldEnum | Prisma.ConversationScalarFieldEnum[]
+}
+
+/**
+ * User.messages
+ */
+export type User$messagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Message
+   */
+  select?: Prisma.MessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Message
+   */
+  omit?: Prisma.MessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
+  where?: Prisma.MessageWhereInput
+  orderBy?: Prisma.MessageOrderByWithRelationInput | Prisma.MessageOrderByWithRelationInput[]
+  cursor?: Prisma.MessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
+}
+
+/**
+ * User.notifications
+ */
+export type User$notificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Notification
+   */
+  select?: Prisma.NotificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Notification
+   */
+  omit?: Prisma.NotificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NotificationInclude<ExtArgs> | null
+  where?: Prisma.NotificationWhereInput
+  orderBy?: Prisma.NotificationOrderByWithRelationInput | Prisma.NotificationOrderByWithRelationInput[]
+  cursor?: Prisma.NotificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
 }
 
 /**
