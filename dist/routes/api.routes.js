@@ -27,8 +27,7 @@ router.use('/assignments', assignments_routes_1.default);
 const bookings_routes_1 = __importDefault(require("./bookings.routes"));
 router.use('/bookings', bookings_routes_1.default);
 // Student routes
-// router.post('/students', createMyStudent);
-router.get('/students', students_controller_1.getMyStudent);
-router.put('/students/:id', students_controller_1.updateMyStudent);
+router.get('/students/me', auth_middleware_1.authenticate, students_controller_1.getMyStudent);
+router.put('/students/me', auth_middleware_1.authenticate, students_controller_1.upsertMyStudent);
 // router.delete('/students/:id', deleteMyStudent);
 exports.default = router;

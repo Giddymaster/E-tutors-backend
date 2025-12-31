@@ -48,7 +48,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.JsonNullValueFilter = exports.NullsOrder = exports.QueryMode = exports.NullableJsonNullValueInput = exports.SortOrder = exports.RefreshTokenScalarFieldEnum = exports.UploadScalarFieldEnum = exports.PaymentScalarFieldEnum = exports.ReviewScalarFieldEnum = exports.BookingScalarFieldEnum = exports.ProposalScalarFieldEnum = exports.AssignmentScalarFieldEnum = exports.StudentProfileScalarFieldEnum = exports.TutorProfileScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.Decimal = void 0;
+exports.JsonNullValueFilter = exports.NullsOrder = exports.QueryMode = exports.NullableJsonNullValueInput = exports.SortOrder = exports.NotificationScalarFieldEnum = exports.MessageScalarFieldEnum = exports.ConversationScalarFieldEnum = exports.RefreshTokenScalarFieldEnum = exports.UploadScalarFieldEnum = exports.PaymentScalarFieldEnum = exports.ReviewScalarFieldEnum = exports.BookingScalarFieldEnum = exports.ProposalScalarFieldEnum = exports.AssignmentScalarFieldEnum = exports.StudentProfileScalarFieldEnum = exports.TutorProfileScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.Decimal = void 0;
 const runtime = __importStar(require("@prisma/client/runtime/index-browser"));
 exports.Decimal = runtime.Decimal;
 exports.NullTypes = {
@@ -84,7 +84,10 @@ exports.ModelName = {
     Review: 'Review',
     Payment: 'Payment',
     Upload: 'Upload',
-    RefreshToken: 'RefreshToken'
+    RefreshToken: 'RefreshToken',
+    Conversation: 'Conversation',
+    Message: 'Message',
+    Notification: 'Notification'
 };
 /*
  * Enums
@@ -201,6 +204,31 @@ exports.RefreshTokenScalarFieldEnum = {
     tokenHash: 'tokenHash',
     expiresAt: 'expiresAt',
     createdAt: 'createdAt'
+};
+exports.ConversationScalarFieldEnum = {
+    id: 'id',
+    proposalId: 'proposalId',
+    studentId: 'studentId',
+    tutorId: 'tutorId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    userId: 'userId'
+};
+exports.MessageScalarFieldEnum = {
+    id: 'id',
+    conversationId: 'conversationId',
+    senderId: 'senderId',
+    content: 'content',
+    createdAt: 'createdAt'
+};
+exports.NotificationScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    title: 'title',
+    message: 'message',
+    isRead: 'isRead',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
 };
 exports.SortOrder = {
     asc: 'asc',

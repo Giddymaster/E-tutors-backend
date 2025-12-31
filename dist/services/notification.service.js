@@ -64,7 +64,7 @@ class NotificationService {
             template += ` WHERE user_id = \${userId} RETURNING *`;
             for (const key of allowedKeys) {
                 if (updates[key] !== undefined) {
-                    yield prisma_1.prisma.$executeRaw `UPDATE "notification_settings" SET ${prisma_1.prisma.raw(`"${key}"`)} = ${updates[key]} WHERE user_id = ${userId}`;
+                    yield prisma_1.prisma.$executeRawUnsafe(`UPDATE "notification_settings" SET "${key}" = $1 WHERE user_id = $2`, updates[key], userId);
                 }
             }
             const rows = (yield prisma_1.prisma.$queryRaw `SELECT * FROM "notification_settings" WHERE user_id = ${userId} LIMIT 1`) || [];
@@ -134,6 +134,12 @@ class NotificationService {
             else {
                 yield prisma_1.prisma.$executeRaw `UPDATE "notification_queue" SET retry_count = ${existing.retry_count + 1}, next_retry_at = ${new Date(Date.now() + 5 * 60 * 1000).toISOString()}, error_log = ${errorLog !== null && errorLog !== void 0 ? errorLog : null}, updated_at = now() WHERE id = ${notificationId}`;
             }
+        });
+    }
+    getNotifications(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const notifications = yield prisma_1.prisma.notification.findMany();
+            return notifications;
         });
     }
 }

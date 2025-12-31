@@ -11,7 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleWebhook = exports.createPaymentSession = void 0;
 const stripe_1 = require("stripe");
-const stripe = new stripe_1.Stripe(process.env.STRIPE_SECRET_KEY, {
+const stripeKey = process.env.STRIPE_SECRET_KEY;
+const stripe = new stripe_1.Stripe(stripeKey, {
     apiVersion: '2020-08-27',
 });
 const createPaymentSession = (amount, userId) => __awaiter(void 0, void 0, void 0, function* () {
@@ -32,12 +33,6 @@ const createPaymentSession = (amount, userId) => __awaiter(void 0, void 0, void 
         mode: 'payment',
         success_url: `${process.env.FRONTEND_URL}/success`,
         cancel_url: `${process.env.FRONTEND_URL}/cancel`,
-    });
-    yield session_model_1.PaymentSession.create({
-        session_id: session.id,
-        user_id: userId,
-        amount,
-        status: 'pending',
     });
     return session;
 });

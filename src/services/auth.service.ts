@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import { prisma } from '../prisma';
-import { User } from '@prisma/client';
+import { User } from '../generated/client';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 

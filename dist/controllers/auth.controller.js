@@ -28,7 +28,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const existing = yield prisma_1.prisma.user.findUnique({ where: { email } });
         if (existing)
             return res.status(400).json({ error: 'Email already in use' });
-        const hashed = yield bcrypt_1.default.hash(password, 10);
+        const hashedPassword = yield bcrypt_1.default.hash(password, 10);
         // Normalize and validate role (Prisma expects enum values like 'STUDENT', 'TUTOR')
         let roleValue = undefined;
         if (role && typeof role === 'string') {
@@ -40,30 +40,34 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 return res.status(400).json({ error: 'Invalid role' });
             }
         }
-        // Prisma model uses `passwordHash`
-        const createData = { name, email, passwordHash: hashed };
-        if (roleValue)
-            createData.role = roleValue;
-        const user = yield prisma_1.prisma.user.create({ data: createData });
-        // Ensure a student profile exists for STUDENT users (creates a lightweight profile record)
-        try {
-            if ((user.role || 'STUDENT') === 'STUDENT') {
-                yield prisma_1.prisma.studentProfile.create({ data: { userId: user.id } }).catch(() => { });
+        // Create user
+        const user = yield prisma_1.prisma.user.create({
+            data: {
+                name,
+                email,
+                passwordHash: hashedPassword,
+                role: role || 'STUDENT'
             }
+        });
+        // Auto-create student or tutor profile
+        if (role === 'STUDENT') {
+            yield prisma_1.prisma.studentProfile.create({
+                data: { userId: user.id }
+            });
         }
-        catch (e) {
-            // ignore profile creation errors; profile can be created later via upsert endpoint
+        else if (role === 'TUTOR') {
+            yield prisma_1.prisma.tutorProfile.create({
+                data: {
+                    userId: user.id,
+                    bio: '',
+                    subjects: [],
+                    hourlyRate: 0
+                }
+            });
         }
-        // Issue short-lived access token and a refresh token stored as httpOnly cookie
-        const accessToken = jsonwebtoken_1.default.sign({ userId: user.id, role: user.role }, JWT_SECRET, { expiresIn: '15m' });
-        const refreshToken = crypto_1.default.randomBytes(40).toString('hex');
-        const refreshTokenHash = crypto_1.default.createHash('sha256').update(refreshToken).digest('hex');
-        const refreshExpiry = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
-        // Store only the hashed token in DB (model expects tokenHash)
-        yield prisma_1.prisma.refreshToken.create({ data: { tokenHash: refreshTokenHash, userId: user.id, expiresAt: refreshExpiry } });
-        // set cookie (raw token sent to client)
-        res.cookie(REFRESH_TOKEN_COOKIE, refreshToken, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax', expires: refreshExpiry });
-        res.json({ token: accessToken, user: { id: user.id, name: user.name, email: user.email, role: user.role } });
+        // Generate tokens and return
+        const token = jsonwebtoken_1.default.sign({ userId: user.id, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
+        res.json({ token, user });
     }
     catch (err) {
         // Log stack for debugging

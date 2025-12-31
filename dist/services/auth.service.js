@@ -12,23 +12,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyToken = exports.loginUser = exports.registerUser = void 0;
-const user_model_1 = require("../models/user.model");
+exports.findUserById = exports.findUserByEmail = exports.verifyToken = exports.loginUser = exports.registerUser = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const prisma_1 = require("../prisma");
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 const registerUser = (userData) => __awaiter(void 0, void 0, void 0, function* () {
     const hashedPassword = yield bcrypt_1.default.hash(userData.password, 10);
-    const newUser = new user_model_1.User(Object.assign(Object.assign({}, userData), { password_hash: hashedPassword }));
-    return yield newUser.save();
+    const newUser = yield prisma_1.prisma.user.create({
+        data: Object.assign(Object.assign({}, userData), { passwordHash: hashedPassword }),
+    });
+    return newUser;
 });
 exports.registerUser = registerUser;
 const loginUser = (email, password) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield user_model_1.User.findOne({ email });
-    if (user && (yield bcrypt_1.default.compare(password, user.password_hash))) {
-        return generateToken(user);
+    const user = yield prisma_1.prisma.user.findUnique({ where: { email } });
+    if (!user || !user.passwordHash) {
+        throw new Error('Invalid email or password');
     }
-    return null;
+    const isPasswordValid = yield bcrypt_1.default.compare(password, user.passwordHash);
+    if (!isPasswordValid) {
+        throw new Error('Invalid email or password');
+    }
+    return generateToken(user);
 });
 exports.loginUser = loginUser;
 const generateToken = (user) => {
@@ -43,3 +49,11 @@ const verifyToken = (token) => {
     }
 };
 exports.verifyToken = verifyToken;
+const findUserByEmail = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield prisma_1.prisma.user.findUnique({ where: { email } });
+});
+exports.findUserByEmail = findUserByEmail;
+const findUserById = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield prisma_1.prisma.user.findUnique({ where: { id } });
+});
+exports.findUserById = findUserById;
