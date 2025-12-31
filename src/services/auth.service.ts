@@ -17,12 +17,16 @@ export const registerUser = async (userData: any): Promise<User> => {
     return newUser;
 };
 
-export const loginUser = async (email: string, password: string): Promise<string | null> => {
+export const loginUser = async (email: string, password: string): Promise<string> => {
     const user = await prisma.user.findUnique({ where: { email } });
-    if (user && bcrypt.compare(password, user.passwordHash)) {
-        return generateToken(user);
+    if (!user || !user.passwordHash) {
+        throw new Error('Invalid email or password');
     }
-    return null;
+    const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+    if (!isPasswordValid) {
+        throw new Error('Invalid email or password');
+    }
+    return generateToken(user);
 };
 
 const generateToken = (user: User): string => {
