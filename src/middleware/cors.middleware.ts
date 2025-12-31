@@ -10,6 +10,7 @@ const getCorsConfig = () => {
     production: [FRONTEND_URL].filter(Boolean),
     staging: [
       'https://staging.tutors-frontend.vercel.app',
+      'https://e-tutors-fronted.vercel.app',
       FRONTEND_URL
     ].filter(Boolean),
     development: [
