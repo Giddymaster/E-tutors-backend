@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createTutor, getTutors, getMyTutor, updateMyTutor } from '../controllers/tutors.controller';
+import { createTutor, getTutors, getMyTutor, updateMyTutor, getTutorById } from '../controllers/tutors.controller';
 import { authenticate } from '../middleware/auth.middleware';
 import { getMyStudent, upsertMyStudent } from '../controllers/students.controller';
 import { processPayment } from '../controllers/payments.controller';
@@ -7,13 +7,13 @@ import { processPayment } from '../controllers/payments.controller';
 const router = Router();
 
 // Tutor routes
-router.post('/tutors', authenticate, createTutor);
 router.get('/tutors', getTutors);
-// Get tutor by id (public)
-import { getTutorById } from '../controllers/tutors.controller';
-router.get('/tutors/:id', getTutorById);
+router.post('/tutors', authenticate, createTutor);
+// Specific routes (me) must come before parameterized routes (:id)
 router.get('/tutors/me', authenticate, getMyTutor);
-router.put('/tutors/:id', updateMyTutor);
+router.patch('/tutors/me', authenticate, updateMyTutor);
+// Get tutor by id (public) - must come after /me
+router.get('/tutors/:id', getTutorById);
 // router.delete('/tutors/:id', deleteMyTutor);
 
 // Payments (demo)
