@@ -141,12 +141,21 @@ export const getTutors = async (req: Request, res: Response) => {
     reviewAgg.forEach((r) => reviewMap.set(String(r.tutorId), { avg: r._avg.rating ?? null, count: r._count._all }))
 
     // attach computed fields to tutors
-    let tutorsWithMeta = tutors.map((t: any) => ({
-      ...t,
-      completedCount: bookingCountMap.get(String(t.id)) || 0,
-      ratingComputed: (reviewMap.get(String(t.id))?.avg ?? 0) ?? 0,
-      reviewsCount: reviewMap.get(String(t.id))?.count || 0
-    }))
+    let tutorsWithMeta = tutors.map((t: any) => {
+      const subjects = Array.isArray(t.subjects) ? t.subjects : []
+      const hourlyRate = t.hourlyRate !== null && t.hourlyRate !== undefined
+        ? Number(t.hourlyRate)
+        : 0
+
+      return {
+        ...t,
+        subjects,
+        hourlyRate,
+        completedCount: bookingCountMap.get(String(t.id)) || 0,
+        ratingComputed: (reviewMap.get(String(t.id))?.avg ?? 0) ?? 0,
+        reviewsCount: reviewMap.get(String(t.id))?.count || 0
+      }
+    })
 
     // If rating sort was requested, sort in-memory and then apply pagination
     if (ratingSort) {
@@ -174,7 +183,7 @@ export const createTutor = async (req: Request, res: Response) => {
     const userId = req.userId
     if (!userId) return res.status(401).json({ error: 'Unauthorized' })
 
-    const { bio, subjects, hourlyRate, availability } = req.body
+    const { bio, subjects, hourlyRate, availability, shortBio } = req.body
     if (!bio || !subjects || !Array.isArray(subjects) || subjects.length === 0) {
       return res.status(400).json({ error: 'bio and subjects are required' })
     }
@@ -199,12 +208,18 @@ export const createTutor = async (req: Request, res: Response) => {
       ? subjects.map((s: any) => String(s).trim().toLowerCase()).filter(Boolean)
       : []
 
+    const hourlyRateNumber = (() => {
+      const n = Number(hourlyRate)
+      return isNaN(n) ? 0 : n
+    })()
+
     const tutor = await prisma.tutorProfile.create({
       data: {
         userId: String(userId),
         bio,
+        shortBio: shortBio || null,
         subjects: subjectsNormalized,
-        hourlyRate: typeof hourlyRate === 'number' ? hourlyRate : 0,
+        hourlyRate: hourlyRateNumber,
         availability: availability || null,
       }
     })
