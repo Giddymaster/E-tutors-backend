@@ -33,4 +33,8 @@ router.get('/students/me', authenticate, getMyStudent);
 router.put('/students/me', authenticate, upsertMyStudent);
 // router.delete('/students/:id', deleteMyStudent);
 
+// AI Tutor routes
+import aiTutorRouter from './ai-tutor.routes'
+router.use('/ai-tutor', aiTutorRouter)
+
 export default router;

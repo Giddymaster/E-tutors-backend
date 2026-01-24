@@ -396,7 +396,9 @@ export const ModelName = {
   RefreshToken: 'RefreshToken',
   Conversation: 'Conversation',
   Message: 'Message',
-  Notification: 'Notification'
+  Notification: 'Notification',
+  AISession: 'AISession',
+  AIMessage: 'AIMessage'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -412,7 +414,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "tutorProfile" | "studentProfile" | "assignment" | "proposal" | "booking" | "review" | "payment" | "upload" | "refreshToken" | "conversation" | "message" | "notification"
+    modelProps: "user" | "tutorProfile" | "studentProfile" | "assignment" | "proposal" | "booking" | "review" | "payment" | "upload" | "refreshToken" | "conversation" | "message" | "notification" | "aISession" | "aIMessage"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1378,6 +1380,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    AISession: {
+      payload: Prisma.$AISessionPayload<ExtArgs>
+      fields: Prisma.AISessionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AISessionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AISessionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AISessionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AISessionPayload>
+        }
+        findFirst: {
+          args: Prisma.AISessionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AISessionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AISessionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AISessionPayload>
+        }
+        findMany: {
+          args: Prisma.AISessionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AISessionPayload>[]
+        }
+        create: {
+          args: Prisma.AISessionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AISessionPayload>
+        }
+        createMany: {
+          args: Prisma.AISessionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AISessionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AISessionPayload>[]
+        }
+        delete: {
+          args: Prisma.AISessionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AISessionPayload>
+        }
+        update: {
+          args: Prisma.AISessionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AISessionPayload>
+        }
+        deleteMany: {
+          args: Prisma.AISessionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AISessionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AISessionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AISessionPayload>[]
+        }
+        upsert: {
+          args: Prisma.AISessionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AISessionPayload>
+        }
+        aggregate: {
+          args: Prisma.AISessionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAISession>
+        }
+        groupBy: {
+          args: Prisma.AISessionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AISessionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AISessionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AISessionCountAggregateOutputType> | number
+        }
+      }
+    }
+    AIMessage: {
+      payload: Prisma.$AIMessagePayload<ExtArgs>
+      fields: Prisma.AIMessageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AIMessageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AIMessageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload>
+        }
+        findFirst: {
+          args: Prisma.AIMessageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AIMessageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload>
+        }
+        findMany: {
+          args: Prisma.AIMessageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload>[]
+        }
+        create: {
+          args: Prisma.AIMessageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload>
+        }
+        createMany: {
+          args: Prisma.AIMessageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AIMessageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload>[]
+        }
+        delete: {
+          args: Prisma.AIMessageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload>
+        }
+        update: {
+          args: Prisma.AIMessageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload>
+        }
+        deleteMany: {
+          args: Prisma.AIMessageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AIMessageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AIMessageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload>[]
+        }
+        upsert: {
+          args: Prisma.AIMessageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AIMessagePayload>
+        }
+        aggregate: {
+          args: Prisma.AIMessageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAIMessage>
+        }
+        groupBy: {
+          args: Prisma.AIMessageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AIMessageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AIMessageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AIMessageCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1425,6 +1575,7 @@ export const UserScalarFieldEnum = {
   role: 'role',
   avatarUrl: 'avatarUrl',
   walletBalance: 'walletBalance',
+  aiCredits: 'aiCredits',
   verified: 'verified',
   verificationStatus: 'verificationStatus',
   createdAt: 'createdAt',
@@ -1601,6 +1752,33 @@ export const NotificationScalarFieldEnum = {
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
 
 
+export const AISessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  subject: 'subject',
+  status: 'status',
+  title: 'title',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  endedAt: 'endedAt'
+} as const
+
+export type AISessionScalarFieldEnum = (typeof AISessionScalarFieldEnum)[keyof typeof AISessionScalarFieldEnum]
+
+
+export const AIMessageScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  userId: 'userId',
+  role: 'role',
+  content: 'content',
+  credits: 'credits',
+  createdAt: 'createdAt'
+} as const
+
+export type AIMessageScalarFieldEnum = (typeof AIMessageScalarFieldEnum)[keyof typeof AIMessageScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1691,6 +1869,20 @@ export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMo
 
 
 /**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -1754,20 +1946,6 @@ export type ListEnumAssignmentStatusFieldRefInput<$PrismaModel> = FieldRefInputT
 
 
 /**
- * Reference to a field of type 'Int'
- */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-/**
- * Reference to a field of type 'Int[]'
- */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-/**
  * Reference to a field of type 'ProposalStatus'
  */
 export type EnumProposalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProposalStatus'>
@@ -1806,6 +1984,34 @@ export type EnumUploadTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Prism
  * Reference to a field of type 'UploadType[]'
  */
 export type ListEnumUploadTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UploadType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AITutorSubject'
+ */
+export type EnumAITutorSubjectFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AITutorSubject'>
+    
+
+
+/**
+ * Reference to a field of type 'AITutorSubject[]'
+ */
+export type ListEnumAITutorSubjectFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AITutorSubject[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AISessionStatus'
+ */
+export type EnumAISessionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AISessionStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'AISessionStatus[]'
+ */
+export type ListEnumAISessionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AISessionStatus[]'>
     
 
 
@@ -1930,6 +2136,8 @@ export type GlobalOmitConfig = {
   conversation?: Prisma.ConversationOmit
   message?: Prisma.MessageOmit
   notification?: Prisma.NotificationOmit
+  aISession?: Prisma.AISessionOmit
+  aIMessage?: Prisma.AIMessageOmit
 }
 
 /* Types for Logging */

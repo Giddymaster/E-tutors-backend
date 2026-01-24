@@ -102,3 +102,13 @@ export type Message = Prisma.MessageModel
  * 
  */
 export type Notification = Prisma.NotificationModel
+/**
+ * Model AISession
+ * 
+ */
+export type AISession = Prisma.AISessionModel
+/**
+ * Model AIMessage
+ * 
+ */
+export type AIMessage = Prisma.AIMessageModel

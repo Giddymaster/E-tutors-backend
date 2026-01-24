@@ -63,7 +63,9 @@ export const ModelName = {
   RefreshToken: 'RefreshToken',
   Conversation: 'Conversation',
   Message: 'Message',
-  Notification: 'Notification'
+  Notification: 'Notification',
+  AISession: 'AISession',
+  AIMessage: 'AIMessage'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -90,6 +92,7 @@ export const UserScalarFieldEnum = {
   role: 'role',
   avatarUrl: 'avatarUrl',
   walletBalance: 'walletBalance',
+  aiCredits: 'aiCredits',
   verified: 'verified',
   verificationStatus: 'verificationStatus',
   createdAt: 'createdAt',
@@ -264,6 +267,33 @@ export const NotificationScalarFieldEnum = {
 } as const
 
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const AISessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  subject: 'subject',
+  status: 'status',
+  title: 'title',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  endedAt: 'endedAt'
+} as const
+
+export type AISessionScalarFieldEnum = (typeof AISessionScalarFieldEnum)[keyof typeof AISessionScalarFieldEnum]
+
+
+export const AIMessageScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  userId: 'userId',
+  role: 'role',
+  content: 'content',
+  credits: 'credits',
+  createdAt: 'createdAt'
+} as const
+
+export type AIMessageScalarFieldEnum = (typeof AIMessageScalarFieldEnum)[keyof typeof AIMessageScalarFieldEnum]
 
 
 export const SortOrder = {

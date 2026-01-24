@@ -63,3 +63,27 @@ export const UploadType = {
 } as const
 
 export type UploadType = (typeof UploadType)[keyof typeof UploadType]
+
+
+export const AITutorSubject = {
+  MATH: 'MATH',
+  PHYSICS: 'PHYSICS',
+  CHEMISTRY: 'CHEMISTRY',
+  BIOLOGY: 'BIOLOGY',
+  ENGLISH: 'ENGLISH',
+  HISTORY: 'HISTORY',
+  COMPUTER_SCIENCE: 'COMPUTER_SCIENCE',
+  ECONOMICS: 'ECONOMICS',
+  GENERAL: 'GENERAL'
+} as const
+
+export type AITutorSubject = (typeof AITutorSubject)[keyof typeof AITutorSubject]
+
+
+export const AISessionStatus = {
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type AISessionStatus = (typeof AISessionStatus)[keyof typeof AISessionStatus]
