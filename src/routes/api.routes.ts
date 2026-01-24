@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { createTutor, getTutors, getMyTutor, updateMyTutor, getTutorById } from '../controllers/tutors.controller';
 import { authenticate } from '../middleware/auth.middleware';
 import { getMyStudent, upsertMyStudent } from '../controllers/students.controller';
-import { processPayment } from '../controllers/payments.controller';
+import { processPayment, verifyPaystackPayment } from '../controllers/payments.controller';
 
 const router = Router();
 
@@ -18,6 +18,7 @@ router.get('/tutors/:id', getTutorById);
 
 // Payments (demo)
 router.post('/payments/process', processPayment);
+router.post('/payments/verify-paystack', verifyPaystackPayment);
 
 // Assignments & proposals
 import assignmentsRoutes from './assignments.routes'
