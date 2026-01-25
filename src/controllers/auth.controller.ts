@@ -89,7 +89,9 @@ export const login = async (req: Request, res: Response) => {
     // Store hashed token only
     await prisma.refreshToken.create({ data: { tokenHash: refreshTokenHash, userId: user.id, expiresAt: refreshExpiry } })
 
-    res.cookie(REFRESH_TOKEN_COOKIE, refreshToken, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax', expires: refreshExpiry })
+    // Cookie settings: secure only if explicitly on HTTPS
+    const isSecure = process.env.NODE_ENV === 'production' && process.env.HTTPS === 'true'
+    res.cookie(REFRESH_TOKEN_COOKIE, refreshToken, { httpOnly: true, secure: isSecure, sameSite: 'lax', expires: refreshExpiry })
     res.json({ token: accessToken, user: { id: user.id, name: user.name, email: user.email, role: user.role } })
   } catch (err) {
     console.error(err)
@@ -136,7 +138,9 @@ export const refreshToken = async (req: Request, res: Response) => {
     // remove old hashed token
     await prisma.refreshToken.deleteMany({ where: { tokenHash: cookieHash } })
 
-    res.cookie(REFRESH_TOKEN_COOKIE, newRefresh, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax', expires: refreshExpiry })
+    // Cookie settings: secure only if explicitly on HTTPS
+    const isSecure = process.env.NODE_ENV === 'production' && process.env.HTTPS === 'true'
+    res.cookie(REFRESH_TOKEN_COOKIE, newRefresh, { httpOnly: true, secure: isSecure, sameSite: 'lax', expires: refreshExpiry })
     res.json({ token: accessToken })
   } catch (err) {
     console.error('refreshToken error', err)
