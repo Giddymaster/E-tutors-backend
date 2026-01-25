@@ -25,6 +25,7 @@ export const authenticate = (req: Request, res: Response, next: NextFunction) =>
     if (!decoded || typeof decoded.userId === 'undefined') return res.status(401).json({ error: 'Invalid token payload' })
     ;(req as any).userId = String(decoded.userId)
     ;(req as any).userRole = decoded.role
+    ;(req as any).user = { id: String(decoded.userId), role: decoded.role }
     next()
   } catch (err) {
     return res.status(401).json({ error: 'Invalid token' })

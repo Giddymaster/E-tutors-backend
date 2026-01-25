@@ -4,7 +4,7 @@ import * as aiTutorService from '../services/ai-tutor.service'
 // Create new AI session
 export const createSession = async (req: Request, res: Response) => {
   try {
-    const userId = req.user?.id
+    const userId = req.userId
     const { subject } = req.body
 
     if (!userId) {
@@ -26,7 +26,7 @@ export const createSession = async (req: Request, res: Response) => {
 // Get all sessions for user
 export const getSessions = async (req: Request, res: Response) => {
   try {
-    const userId = req.user?.id
+    const userId = req.userId
 
     if (!userId) {
       return res.status(401).json({ error: 'Unauthorized' })
@@ -43,7 +43,7 @@ export const getSessions = async (req: Request, res: Response) => {
 // Get specific session with messages
 export const getSession = async (req: Request, res: Response) => {
   try {
-    const userId = req.user?.id
+    const userId = req.userId
     const { sessionId } = req.params
 
     if (!userId) {
@@ -66,7 +66,7 @@ export const getSession = async (req: Request, res: Response) => {
 // Send message to AI
 export const sendMessage = async (req: Request, res: Response) => {
   try {
-    const userId = req.user?.id
+    const userId = req.userId
     const { sessionId } = req.params
     const { message } = req.body
 
@@ -94,7 +94,7 @@ export const sendMessage = async (req: Request, res: Response) => {
 // End session
 export const endSession = async (req: Request, res: Response) => {
   try {
-    const userId = req.user?.id
+    const userId = req.userId
     const { sessionId } = req.params
 
     if (!userId) {
@@ -112,7 +112,7 @@ export const endSession = async (req: Request, res: Response) => {
 // Get user's credit balance
 export const getCredits = async (req: Request, res: Response) => {
   try {
-    const userId = req.user?.id
+    const userId = req.userId
 
     if (!userId) {
       return res.status(401).json({ error: 'Unauthorized' })
@@ -129,7 +129,7 @@ export const getCredits = async (req: Request, res: Response) => {
 // Purchase credits
 export const purchaseCredits = async (req: Request, res: Response) => {
   try {
-    const userId = req.user?.id
+    const userId = req.userId
     const { credits } = req.body
 
     if (!userId) {
