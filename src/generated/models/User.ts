@@ -28,12 +28,18 @@ export type AggregateUser = {
 
 export type UserAvgAggregateOutputType = {
   walletBalance: runtime.Decimal | null
+  earnedFunds: runtime.Decimal | null
+  pendingFunds: runtime.Decimal | null
   aiCredits: number | null
+  withdrawalLimit: runtime.Decimal | null
 }
 
 export type UserSumAggregateOutputType = {
   walletBalance: runtime.Decimal | null
+  earnedFunds: runtime.Decimal | null
+  pendingFunds: runtime.Decimal | null
   aiCredits: number | null
+  withdrawalLimit: runtime.Decimal | null
 }
 
 export type UserMinAggregateOutputType = {
@@ -44,7 +50,10 @@ export type UserMinAggregateOutputType = {
   role: $Enums.Role | null
   avatarUrl: string | null
   walletBalance: runtime.Decimal | null
+  earnedFunds: runtime.Decimal | null
+  pendingFunds: runtime.Decimal | null
   aiCredits: number | null
+  withdrawalLimit: runtime.Decimal | null
   verified: boolean | null
   verificationStatus: $Enums.VerificationStatus | null
   createdAt: Date | null
@@ -59,7 +68,10 @@ export type UserMaxAggregateOutputType = {
   role: $Enums.Role | null
   avatarUrl: string | null
   walletBalance: runtime.Decimal | null
+  earnedFunds: runtime.Decimal | null
+  pendingFunds: runtime.Decimal | null
   aiCredits: number | null
+  withdrawalLimit: runtime.Decimal | null
   verified: boolean | null
   verificationStatus: $Enums.VerificationStatus | null
   createdAt: Date | null
@@ -74,7 +86,10 @@ export type UserCountAggregateOutputType = {
   role: number
   avatarUrl: number
   walletBalance: number
+  earnedFunds: number
+  pendingFunds: number
   aiCredits: number
+  withdrawalLimit: number
   verified: number
   verificationStatus: number
   createdAt: number
@@ -85,12 +100,18 @@ export type UserCountAggregateOutputType = {
 
 export type UserAvgAggregateInputType = {
   walletBalance?: true
+  earnedFunds?: true
+  pendingFunds?: true
   aiCredits?: true
+  withdrawalLimit?: true
 }
 
 export type UserSumAggregateInputType = {
   walletBalance?: true
+  earnedFunds?: true
+  pendingFunds?: true
   aiCredits?: true
+  withdrawalLimit?: true
 }
 
 export type UserMinAggregateInputType = {
@@ -101,7 +122,10 @@ export type UserMinAggregateInputType = {
   role?: true
   avatarUrl?: true
   walletBalance?: true
+  earnedFunds?: true
+  pendingFunds?: true
   aiCredits?: true
+  withdrawalLimit?: true
   verified?: true
   verificationStatus?: true
   createdAt?: true
@@ -116,7 +140,10 @@ export type UserMaxAggregateInputType = {
   role?: true
   avatarUrl?: true
   walletBalance?: true
+  earnedFunds?: true
+  pendingFunds?: true
   aiCredits?: true
+  withdrawalLimit?: true
   verified?: true
   verificationStatus?: true
   createdAt?: true
@@ -131,7 +158,10 @@ export type UserCountAggregateInputType = {
   role?: true
   avatarUrl?: true
   walletBalance?: true
+  earnedFunds?: true
+  pendingFunds?: true
   aiCredits?: true
+  withdrawalLimit?: true
   verified?: true
   verificationStatus?: true
   createdAt?: true
@@ -233,7 +263,10 @@ export type UserGroupByOutputType = {
   role: $Enums.Role
   avatarUrl: string | null
   walletBalance: runtime.Decimal
+  earnedFunds: runtime.Decimal
+  pendingFunds: runtime.Decimal
   aiCredits: number
+  withdrawalLimit: runtime.Decimal
   verified: boolean
   verificationStatus: $Enums.VerificationStatus
   createdAt: Date
@@ -271,7 +304,10 @@ export type UserWhereInput = {
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   walletBalance?: Prisma.DecimalFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFilter<"User"> | number
+  withdrawalLimit?: Prisma.DecimalFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFilter<"User"> | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFilter<"User"> | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -296,6 +332,7 @@ export type UserWhereInput = {
   aiSessions?: Prisma.AISessionListRelationFilter
   aiMessages?: Prisma.AIMessageListRelationFilter
   walletTransactions?: Prisma.WalletTransactionListRelationFilter
+  withdrawalRequests?: Prisma.WithdrawalRequestListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -306,7 +343,10 @@ export type UserOrderByWithRelationInput = {
   role?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   walletBalance?: Prisma.SortOrder
+  earnedFunds?: Prisma.SortOrder
+  pendingFunds?: Prisma.SortOrder
   aiCredits?: Prisma.SortOrder
+  withdrawalLimit?: Prisma.SortOrder
   verified?: Prisma.SortOrder
   verificationStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -331,6 +371,7 @@ export type UserOrderByWithRelationInput = {
   aiSessions?: Prisma.AISessionOrderByRelationAggregateInput
   aiMessages?: Prisma.AIMessageOrderByRelationAggregateInput
   walletTransactions?: Prisma.WalletTransactionOrderByRelationAggregateInput
+  withdrawalRequests?: Prisma.WithdrawalRequestOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -344,7 +385,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   walletBalance?: Prisma.DecimalFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFilter<"User"> | number
+  withdrawalLimit?: Prisma.DecimalFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFilter<"User"> | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFilter<"User"> | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -369,6 +413,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   aiSessions?: Prisma.AISessionListRelationFilter
   aiMessages?: Prisma.AIMessageListRelationFilter
   walletTransactions?: Prisma.WalletTransactionListRelationFilter
+  withdrawalRequests?: Prisma.WithdrawalRequestListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -379,7 +424,10 @@ export type UserOrderByWithAggregationInput = {
   role?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   walletBalance?: Prisma.SortOrder
+  earnedFunds?: Prisma.SortOrder
+  pendingFunds?: Prisma.SortOrder
   aiCredits?: Prisma.SortOrder
+  withdrawalLimit?: Prisma.SortOrder
   verified?: Prisma.SortOrder
   verificationStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -402,7 +450,10 @@ export type UserScalarWhereWithAggregatesInput = {
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   avatarUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   walletBalance?: Prisma.DecimalWithAggregatesFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalWithAggregatesFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalWithAggregatesFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntWithAggregatesFilter<"User"> | number
+  withdrawalLimit?: Prisma.DecimalWithAggregatesFilter<"User"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   verificationStatus?: Prisma.EnumVerificationStatusWithAggregatesFilter<"User"> | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -417,7 +468,10 @@ export type UserCreateInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -442,6 +496,7 @@ export type UserCreateInput = {
   aiSessions?: Prisma.AISessionCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -452,7 +507,10 @@ export type UserUncheckedCreateInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -477,6 +535,7 @@ export type UserUncheckedCreateInput = {
   aiSessions?: Prisma.AISessionUncheckedCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -487,7 +546,10 @@ export type UserUpdateInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -512,6 +574,7 @@ export type UserUpdateInput = {
   aiSessions?: Prisma.AISessionUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -522,7 +585,10 @@ export type UserUncheckedUpdateInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -547,6 +613,7 @@ export type UserUncheckedUpdateInput = {
   aiSessions?: Prisma.AISessionUncheckedUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -557,7 +624,10 @@ export type UserCreateManyInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -572,7 +642,10 @@ export type UserUpdateManyMutationInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -587,7 +660,10 @@ export type UserUncheckedUpdateManyInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -602,7 +678,10 @@ export type UserCountOrderByAggregateInput = {
   role?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrder
   walletBalance?: Prisma.SortOrder
+  earnedFunds?: Prisma.SortOrder
+  pendingFunds?: Prisma.SortOrder
   aiCredits?: Prisma.SortOrder
+  withdrawalLimit?: Prisma.SortOrder
   verified?: Prisma.SortOrder
   verificationStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -611,7 +690,10 @@ export type UserCountOrderByAggregateInput = {
 
 export type UserAvgOrderByAggregateInput = {
   walletBalance?: Prisma.SortOrder
+  earnedFunds?: Prisma.SortOrder
+  pendingFunds?: Prisma.SortOrder
   aiCredits?: Prisma.SortOrder
+  withdrawalLimit?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -622,7 +704,10 @@ export type UserMaxOrderByAggregateInput = {
   role?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrder
   walletBalance?: Prisma.SortOrder
+  earnedFunds?: Prisma.SortOrder
+  pendingFunds?: Prisma.SortOrder
   aiCredits?: Prisma.SortOrder
+  withdrawalLimit?: Prisma.SortOrder
   verified?: Prisma.SortOrder
   verificationStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -637,7 +722,10 @@ export type UserMinOrderByAggregateInput = {
   role?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrder
   walletBalance?: Prisma.SortOrder
+  earnedFunds?: Prisma.SortOrder
+  pendingFunds?: Prisma.SortOrder
   aiCredits?: Prisma.SortOrder
+  withdrawalLimit?: Prisma.SortOrder
   verified?: Prisma.SortOrder
   verificationStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -646,7 +734,10 @@ export type UserMinOrderByAggregateInput = {
 
 export type UserSumOrderByAggregateInput = {
   walletBalance?: Prisma.SortOrder
+  earnedFunds?: Prisma.SortOrder
+  pendingFunds?: Prisma.SortOrder
   aiCredits?: Prisma.SortOrder
+  withdrawalLimit?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -987,6 +1078,20 @@ export type UserUpdateOneRequiredWithoutWalletTransactionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWalletTransactionsInput, Prisma.UserUpdateWithoutWalletTransactionsInput>, Prisma.UserUncheckedUpdateWithoutWalletTransactionsInput>
 }
 
+export type UserCreateNestedOneWithoutWithdrawalRequestsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWithdrawalRequestsInput, Prisma.UserUncheckedCreateWithoutWithdrawalRequestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWithdrawalRequestsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutWithdrawalRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWithdrawalRequestsInput, Prisma.UserUncheckedCreateWithoutWithdrawalRequestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWithdrawalRequestsInput
+  upsert?: Prisma.UserUpsertWithoutWithdrawalRequestsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWithdrawalRequestsInput, Prisma.UserUpdateWithoutWithdrawalRequestsInput>, Prisma.UserUncheckedUpdateWithoutWithdrawalRequestsInput>
+}
+
 export type UserCreateWithoutTutorProfileInput = {
   id?: string
   name?: string | null
@@ -995,7 +1100,10 @@ export type UserCreateWithoutTutorProfileInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -1019,6 +1127,7 @@ export type UserCreateWithoutTutorProfileInput = {
   aiSessions?: Prisma.AISessionCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTutorProfileInput = {
@@ -1029,7 +1138,10 @@ export type UserUncheckedCreateWithoutTutorProfileInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -1053,6 +1165,7 @@ export type UserUncheckedCreateWithoutTutorProfileInput = {
   aiSessions?: Prisma.AISessionUncheckedCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTutorProfileInput = {
@@ -1079,7 +1192,10 @@ export type UserUpdateWithoutTutorProfileInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1103,6 +1219,7 @@ export type UserUpdateWithoutTutorProfileInput = {
   aiSessions?: Prisma.AISessionUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTutorProfileInput = {
@@ -1113,7 +1230,10 @@ export type UserUncheckedUpdateWithoutTutorProfileInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1137,6 +1257,7 @@ export type UserUncheckedUpdateWithoutTutorProfileInput = {
   aiSessions?: Prisma.AISessionUncheckedUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStudentProfileInput = {
@@ -1147,7 +1268,10 @@ export type UserCreateWithoutStudentProfileInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -1171,6 +1295,7 @@ export type UserCreateWithoutStudentProfileInput = {
   aiSessions?: Prisma.AISessionCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStudentProfileInput = {
@@ -1181,7 +1306,10 @@ export type UserUncheckedCreateWithoutStudentProfileInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -1205,6 +1333,7 @@ export type UserUncheckedCreateWithoutStudentProfileInput = {
   aiSessions?: Prisma.AISessionUncheckedCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStudentProfileInput = {
@@ -1231,7 +1360,10 @@ export type UserUpdateWithoutStudentProfileInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1255,6 +1387,7 @@ export type UserUpdateWithoutStudentProfileInput = {
   aiSessions?: Prisma.AISessionUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStudentProfileInput = {
@@ -1265,7 +1398,10 @@ export type UserUncheckedUpdateWithoutStudentProfileInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1289,6 +1425,7 @@ export type UserUncheckedUpdateWithoutStudentProfileInput = {
   aiSessions?: Prisma.AISessionUncheckedUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStudentAssignmentsInput = {
@@ -1299,7 +1436,10 @@ export type UserCreateWithoutStudentAssignmentsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -1323,6 +1463,7 @@ export type UserCreateWithoutStudentAssignmentsInput = {
   aiSessions?: Prisma.AISessionCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStudentAssignmentsInput = {
@@ -1333,7 +1474,10 @@ export type UserUncheckedCreateWithoutStudentAssignmentsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -1357,6 +1501,7 @@ export type UserUncheckedCreateWithoutStudentAssignmentsInput = {
   aiSessions?: Prisma.AISessionUncheckedCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStudentAssignmentsInput = {
@@ -1372,7 +1517,10 @@ export type UserCreateWithoutTutorAssignmentsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -1396,6 +1544,7 @@ export type UserCreateWithoutTutorAssignmentsInput = {
   aiSessions?: Prisma.AISessionCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTutorAssignmentsInput = {
@@ -1406,7 +1555,10 @@ export type UserUncheckedCreateWithoutTutorAssignmentsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -1430,6 +1582,7 @@ export type UserUncheckedCreateWithoutTutorAssignmentsInput = {
   aiSessions?: Prisma.AISessionUncheckedCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTutorAssignmentsInput = {
@@ -1456,7 +1609,10 @@ export type UserUpdateWithoutStudentAssignmentsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1480,6 +1636,7 @@ export type UserUpdateWithoutStudentAssignmentsInput = {
   aiSessions?: Prisma.AISessionUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStudentAssignmentsInput = {
@@ -1490,7 +1647,10 @@ export type UserUncheckedUpdateWithoutStudentAssignmentsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1514,6 +1674,7 @@ export type UserUncheckedUpdateWithoutStudentAssignmentsInput = {
   aiSessions?: Prisma.AISessionUncheckedUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutTutorAssignmentsInput = {
@@ -1535,7 +1696,10 @@ export type UserUpdateWithoutTutorAssignmentsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1559,6 +1723,7 @@ export type UserUpdateWithoutTutorAssignmentsInput = {
   aiSessions?: Prisma.AISessionUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTutorAssignmentsInput = {
@@ -1569,7 +1734,10 @@ export type UserUncheckedUpdateWithoutTutorAssignmentsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1593,6 +1761,7 @@ export type UserUncheckedUpdateWithoutTutorAssignmentsInput = {
   aiSessions?: Prisma.AISessionUncheckedUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProposalsInput = {
@@ -1603,7 +1772,10 @@ export type UserCreateWithoutProposalsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -1627,6 +1799,7 @@ export type UserCreateWithoutProposalsInput = {
   aiSessions?: Prisma.AISessionCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProposalsInput = {
@@ -1637,7 +1810,10 @@ export type UserUncheckedCreateWithoutProposalsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -1661,6 +1837,7 @@ export type UserUncheckedCreateWithoutProposalsInput = {
   aiSessions?: Prisma.AISessionUncheckedCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProposalsInput = {
@@ -1687,7 +1864,10 @@ export type UserUpdateWithoutProposalsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1711,6 +1891,7 @@ export type UserUpdateWithoutProposalsInput = {
   aiSessions?: Prisma.AISessionUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProposalsInput = {
@@ -1721,7 +1902,10 @@ export type UserUncheckedUpdateWithoutProposalsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1745,6 +1929,7 @@ export type UserUncheckedUpdateWithoutProposalsInput = {
   aiSessions?: Prisma.AISessionUncheckedUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStudentBookingsInput = {
@@ -1755,7 +1940,10 @@ export type UserCreateWithoutStudentBookingsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -1779,6 +1967,7 @@ export type UserCreateWithoutStudentBookingsInput = {
   aiSessions?: Prisma.AISessionCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStudentBookingsInput = {
@@ -1789,7 +1978,10 @@ export type UserUncheckedCreateWithoutStudentBookingsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -1813,6 +2005,7 @@ export type UserUncheckedCreateWithoutStudentBookingsInput = {
   aiSessions?: Prisma.AISessionUncheckedCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStudentBookingsInput = {
@@ -1828,7 +2021,10 @@ export type UserCreateWithoutTutorBookingsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -1852,6 +2048,7 @@ export type UserCreateWithoutTutorBookingsInput = {
   aiSessions?: Prisma.AISessionCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTutorBookingsInput = {
@@ -1862,7 +2059,10 @@ export type UserUncheckedCreateWithoutTutorBookingsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -1886,6 +2086,7 @@ export type UserUncheckedCreateWithoutTutorBookingsInput = {
   aiSessions?: Prisma.AISessionUncheckedCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTutorBookingsInput = {
@@ -1912,7 +2113,10 @@ export type UserUpdateWithoutStudentBookingsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1936,6 +2140,7 @@ export type UserUpdateWithoutStudentBookingsInput = {
   aiSessions?: Prisma.AISessionUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStudentBookingsInput = {
@@ -1946,7 +2151,10 @@ export type UserUncheckedUpdateWithoutStudentBookingsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1970,6 +2178,7 @@ export type UserUncheckedUpdateWithoutStudentBookingsInput = {
   aiSessions?: Prisma.AISessionUncheckedUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutTutorBookingsInput = {
@@ -1991,7 +2200,10 @@ export type UserUpdateWithoutTutorBookingsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2015,6 +2227,7 @@ export type UserUpdateWithoutTutorBookingsInput = {
   aiSessions?: Prisma.AISessionUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTutorBookingsInput = {
@@ -2025,7 +2238,10 @@ export type UserUncheckedUpdateWithoutTutorBookingsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2049,6 +2265,7 @@ export type UserUncheckedUpdateWithoutTutorBookingsInput = {
   aiSessions?: Prisma.AISessionUncheckedUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReviewsReceivedInput = {
@@ -2059,7 +2276,10 @@ export type UserCreateWithoutReviewsReceivedInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -2083,6 +2303,7 @@ export type UserCreateWithoutReviewsReceivedInput = {
   aiSessions?: Prisma.AISessionCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsReceivedInput = {
@@ -2093,7 +2314,10 @@ export type UserUncheckedCreateWithoutReviewsReceivedInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -2117,6 +2341,7 @@ export type UserUncheckedCreateWithoutReviewsReceivedInput = {
   aiSessions?: Prisma.AISessionUncheckedCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsReceivedInput = {
@@ -2132,7 +2357,10 @@ export type UserCreateWithoutReviewsGivenInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -2156,6 +2384,7 @@ export type UserCreateWithoutReviewsGivenInput = {
   aiSessions?: Prisma.AISessionCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsGivenInput = {
@@ -2166,7 +2395,10 @@ export type UserUncheckedCreateWithoutReviewsGivenInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -2190,6 +2422,7 @@ export type UserUncheckedCreateWithoutReviewsGivenInput = {
   aiSessions?: Prisma.AISessionUncheckedCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsGivenInput = {
@@ -2216,7 +2449,10 @@ export type UserUpdateWithoutReviewsReceivedInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2240,6 +2476,7 @@ export type UserUpdateWithoutReviewsReceivedInput = {
   aiSessions?: Prisma.AISessionUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
@@ -2250,7 +2487,10 @@ export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2274,6 +2514,7 @@ export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
   aiSessions?: Prisma.AISessionUncheckedUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReviewsGivenInput = {
@@ -2295,7 +2536,10 @@ export type UserUpdateWithoutReviewsGivenInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2319,6 +2563,7 @@ export type UserUpdateWithoutReviewsGivenInput = {
   aiSessions?: Prisma.AISessionUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsGivenInput = {
@@ -2329,7 +2574,10 @@ export type UserUncheckedUpdateWithoutReviewsGivenInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2353,6 +2601,7 @@ export type UserUncheckedUpdateWithoutReviewsGivenInput = {
   aiSessions?: Prisma.AISessionUncheckedUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPaymentsInput = {
@@ -2363,7 +2612,10 @@ export type UserCreateWithoutPaymentsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -2387,6 +2639,7 @@ export type UserCreateWithoutPaymentsInput = {
   aiSessions?: Prisma.AISessionCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentsInput = {
@@ -2397,7 +2650,10 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -2421,6 +2677,7 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   aiSessions?: Prisma.AISessionUncheckedCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentsInput = {
@@ -2447,7 +2704,10 @@ export type UserUpdateWithoutPaymentsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2471,6 +2731,7 @@ export type UserUpdateWithoutPaymentsInput = {
   aiSessions?: Prisma.AISessionUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentsInput = {
@@ -2481,7 +2742,10 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2505,6 +2769,7 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   aiSessions?: Prisma.AISessionUncheckedUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutUploadsInput = {
@@ -2515,7 +2780,10 @@ export type UserCreateWithoutUploadsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -2539,6 +2807,7 @@ export type UserCreateWithoutUploadsInput = {
   aiSessions?: Prisma.AISessionCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutUploadsInput = {
@@ -2549,7 +2818,10 @@ export type UserUncheckedCreateWithoutUploadsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -2573,6 +2845,7 @@ export type UserUncheckedCreateWithoutUploadsInput = {
   aiSessions?: Prisma.AISessionUncheckedCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutUploadsInput = {
@@ -2599,7 +2872,10 @@ export type UserUpdateWithoutUploadsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2623,6 +2899,7 @@ export type UserUpdateWithoutUploadsInput = {
   aiSessions?: Prisma.AISessionUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUploadsInput = {
@@ -2633,7 +2910,10 @@ export type UserUncheckedUpdateWithoutUploadsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2657,6 +2937,7 @@ export type UserUncheckedUpdateWithoutUploadsInput = {
   aiSessions?: Prisma.AISessionUncheckedUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRefreshTokensInput = {
@@ -2667,7 +2948,10 @@ export type UserCreateWithoutRefreshTokensInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -2691,6 +2975,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   aiSessions?: Prisma.AISessionCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -2701,7 +2986,10 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -2725,6 +3013,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   aiSessions?: Prisma.AISessionUncheckedCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -2751,7 +3040,10 @@ export type UserUpdateWithoutRefreshTokensInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2775,6 +3067,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   aiSessions?: Prisma.AISessionUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -2785,7 +3078,10 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2809,6 +3105,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   aiSessions?: Prisma.AISessionUncheckedUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutConversationsAsStudentInput = {
@@ -2819,7 +3116,10 @@ export type UserCreateWithoutConversationsAsStudentInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -2843,6 +3143,7 @@ export type UserCreateWithoutConversationsAsStudentInput = {
   aiSessions?: Prisma.AISessionCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutConversationsAsStudentInput = {
@@ -2853,7 +3154,10 @@ export type UserUncheckedCreateWithoutConversationsAsStudentInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -2877,6 +3181,7 @@ export type UserUncheckedCreateWithoutConversationsAsStudentInput = {
   aiSessions?: Prisma.AISessionUncheckedCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutConversationsAsStudentInput = {
@@ -2892,7 +3197,10 @@ export type UserCreateWithoutConversationsAsTutorInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -2916,6 +3224,7 @@ export type UserCreateWithoutConversationsAsTutorInput = {
   aiSessions?: Prisma.AISessionCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutConversationsAsTutorInput = {
@@ -2926,7 +3235,10 @@ export type UserUncheckedCreateWithoutConversationsAsTutorInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -2950,6 +3262,7 @@ export type UserUncheckedCreateWithoutConversationsAsTutorInput = {
   aiSessions?: Prisma.AISessionUncheckedCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutConversationsAsTutorInput = {
@@ -2965,7 +3278,10 @@ export type UserCreateWithoutConversationsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -2989,6 +3305,7 @@ export type UserCreateWithoutConversationsInput = {
   aiSessions?: Prisma.AISessionCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutConversationsInput = {
@@ -2999,7 +3316,10 @@ export type UserUncheckedCreateWithoutConversationsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -3023,6 +3343,7 @@ export type UserUncheckedCreateWithoutConversationsInput = {
   aiSessions?: Prisma.AISessionUncheckedCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutConversationsInput = {
@@ -3049,7 +3370,10 @@ export type UserUpdateWithoutConversationsAsStudentInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3073,6 +3397,7 @@ export type UserUpdateWithoutConversationsAsStudentInput = {
   aiSessions?: Prisma.AISessionUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConversationsAsStudentInput = {
@@ -3083,7 +3408,10 @@ export type UserUncheckedUpdateWithoutConversationsAsStudentInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3107,6 +3435,7 @@ export type UserUncheckedUpdateWithoutConversationsAsStudentInput = {
   aiSessions?: Prisma.AISessionUncheckedUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutConversationsAsTutorInput = {
@@ -3128,7 +3457,10 @@ export type UserUpdateWithoutConversationsAsTutorInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3152,6 +3484,7 @@ export type UserUpdateWithoutConversationsAsTutorInput = {
   aiSessions?: Prisma.AISessionUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConversationsAsTutorInput = {
@@ -3162,7 +3495,10 @@ export type UserUncheckedUpdateWithoutConversationsAsTutorInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3186,6 +3522,7 @@ export type UserUncheckedUpdateWithoutConversationsAsTutorInput = {
   aiSessions?: Prisma.AISessionUncheckedUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutConversationsInput = {
@@ -3207,7 +3544,10 @@ export type UserUpdateWithoutConversationsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3231,6 +3571,7 @@ export type UserUpdateWithoutConversationsInput = {
   aiSessions?: Prisma.AISessionUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConversationsInput = {
@@ -3241,7 +3582,10 @@ export type UserUncheckedUpdateWithoutConversationsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3265,6 +3609,7 @@ export type UserUncheckedUpdateWithoutConversationsInput = {
   aiSessions?: Prisma.AISessionUncheckedUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMessagesInput = {
@@ -3275,7 +3620,10 @@ export type UserCreateWithoutMessagesInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -3299,6 +3647,7 @@ export type UserCreateWithoutMessagesInput = {
   aiSessions?: Prisma.AISessionCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMessagesInput = {
@@ -3309,7 +3658,10 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -3333,6 +3685,7 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   aiSessions?: Prisma.AISessionUncheckedCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMessagesInput = {
@@ -3359,7 +3712,10 @@ export type UserUpdateWithoutMessagesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3383,6 +3739,7 @@ export type UserUpdateWithoutMessagesInput = {
   aiSessions?: Prisma.AISessionUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessagesInput = {
@@ -3393,7 +3750,10 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3417,6 +3777,7 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   aiSessions?: Prisma.AISessionUncheckedUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -3427,7 +3788,10 @@ export type UserCreateWithoutNotificationsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -3451,6 +3815,7 @@ export type UserCreateWithoutNotificationsInput = {
   aiSessions?: Prisma.AISessionCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -3461,7 +3826,10 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -3485,6 +3853,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   aiSessions?: Prisma.AISessionUncheckedCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -3511,7 +3880,10 @@ export type UserUpdateWithoutNotificationsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3535,6 +3907,7 @@ export type UserUpdateWithoutNotificationsInput = {
   aiSessions?: Prisma.AISessionUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -3545,7 +3918,10 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3569,6 +3945,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   aiSessions?: Prisma.AISessionUncheckedUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAiSessionsInput = {
@@ -3579,7 +3956,10 @@ export type UserCreateWithoutAiSessionsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -3603,6 +3983,7 @@ export type UserCreateWithoutAiSessionsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAiSessionsInput = {
@@ -3613,7 +3994,10 @@ export type UserUncheckedCreateWithoutAiSessionsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -3637,6 +4021,7 @@ export type UserUncheckedCreateWithoutAiSessionsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAiSessionsInput = {
@@ -3663,7 +4048,10 @@ export type UserUpdateWithoutAiSessionsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3687,6 +4075,7 @@ export type UserUpdateWithoutAiSessionsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAiSessionsInput = {
@@ -3697,7 +4086,10 @@ export type UserUncheckedUpdateWithoutAiSessionsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3721,6 +4113,7 @@ export type UserUncheckedUpdateWithoutAiSessionsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAiMessagesInput = {
@@ -3731,7 +4124,10 @@ export type UserCreateWithoutAiMessagesInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -3755,6 +4151,7 @@ export type UserCreateWithoutAiMessagesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   aiSessions?: Prisma.AISessionCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAiMessagesInput = {
@@ -3765,7 +4162,10 @@ export type UserUncheckedCreateWithoutAiMessagesInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -3789,6 +4189,7 @@ export type UserUncheckedCreateWithoutAiMessagesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   aiSessions?: Prisma.AISessionUncheckedCreateNestedManyWithoutUserInput
   walletTransactions?: Prisma.WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAiMessagesInput = {
@@ -3815,7 +4216,10 @@ export type UserUpdateWithoutAiMessagesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3839,6 +4243,7 @@ export type UserUpdateWithoutAiMessagesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   aiSessions?: Prisma.AISessionUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAiMessagesInput = {
@@ -3849,7 +4254,10 @@ export type UserUncheckedUpdateWithoutAiMessagesInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3873,6 +4281,7 @@ export type UserUncheckedUpdateWithoutAiMessagesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   aiSessions?: Prisma.AISessionUncheckedUpdateManyWithoutUserNestedInput
   walletTransactions?: Prisma.WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWalletTransactionsInput = {
@@ -3883,7 +4292,10 @@ export type UserCreateWithoutWalletTransactionsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -3907,6 +4319,7 @@ export type UserCreateWithoutWalletTransactionsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   aiSessions?: Prisma.AISessionCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWalletTransactionsInput = {
@@ -3917,7 +4330,10 @@ export type UserUncheckedCreateWithoutWalletTransactionsInput = {
   role?: $Enums.Role
   avatarUrl?: string | null
   walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: boolean
   verificationStatus?: $Enums.VerificationStatus
   createdAt?: Date | string
@@ -3941,6 +4357,7 @@ export type UserUncheckedCreateWithoutWalletTransactionsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   aiSessions?: Prisma.AISessionUncheckedCreateNestedManyWithoutUserInput
   aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWalletTransactionsInput = {
@@ -3967,7 +4384,10 @@ export type UserUpdateWithoutWalletTransactionsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3991,6 +4411,7 @@ export type UserUpdateWithoutWalletTransactionsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   aiSessions?: Prisma.AISessionUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWalletTransactionsInput = {
@@ -4001,7 +4422,10 @@ export type UserUncheckedUpdateWithoutWalletTransactionsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -4025,6 +4449,175 @@ export type UserUncheckedUpdateWithoutWalletTransactionsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   aiSessions?: Prisma.AISessionUncheckedUpdateManyWithoutUserNestedInput
   aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  withdrawalRequests?: Prisma.WithdrawalRequestUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutWithdrawalRequestsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash?: string | null
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: boolean
+  verificationStatus?: $Enums.VerificationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tutorProfile?: Prisma.TutorProfileCreateNestedOneWithoutUserInput
+  studentProfile?: Prisma.StudentProfileCreateNestedOneWithoutUserInput
+  studentAssignments?: Prisma.AssignmentCreateNestedManyWithoutStudentInput
+  tutorAssignments?: Prisma.AssignmentCreateNestedManyWithoutTutorInput
+  studentBookings?: Prisma.BookingCreateNestedManyWithoutStudentInput
+  tutorBookings?: Prisma.BookingCreateNestedManyWithoutTutorInput
+  reviewsGiven?: Prisma.ReviewCreateNestedManyWithoutStudentInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutTutorInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  uploads?: Prisma.UploadCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  proposals?: Prisma.ProposalCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  aiSessions?: Prisma.AISessionCreateNestedManyWithoutUserInput
+  aiMessages?: Prisma.AIMessageCreateNestedManyWithoutUserInput
+  walletTransactions?: Prisma.WalletTransactionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutWithdrawalRequestsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash?: string | null
+  role?: $Enums.Role
+  avatarUrl?: string | null
+  walletBalance?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  aiCredits?: number
+  withdrawalLimit?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: boolean
+  verificationStatus?: $Enums.VerificationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tutorProfile?: Prisma.TutorProfileUncheckedCreateNestedOneWithoutUserInput
+  studentProfile?: Prisma.StudentProfileUncheckedCreateNestedOneWithoutUserInput
+  studentAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutStudentInput
+  tutorAssignments?: Prisma.AssignmentUncheckedCreateNestedManyWithoutTutorInput
+  studentBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutStudentInput
+  tutorBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTutorInput
+  reviewsGiven?: Prisma.ReviewUncheckedCreateNestedManyWithoutStudentInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutTutorInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  uploads?: Prisma.UploadUncheckedCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutTutorInput
+  conversations?: Prisma.ConversationUncheckedCreateNestedManyWithoutUserInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedCreateNestedManyWithoutStudentInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedCreateNestedManyWithoutTutorInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  aiSessions?: Prisma.AISessionUncheckedCreateNestedManyWithoutUserInput
+  aiMessages?: Prisma.AIMessageUncheckedCreateNestedManyWithoutUserInput
+  walletTransactions?: Prisma.WalletTransactionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutWithdrawalRequestsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutWithdrawalRequestsInput, Prisma.UserUncheckedCreateWithoutWithdrawalRequestsInput>
+}
+
+export type UserUpsertWithoutWithdrawalRequestsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutWithdrawalRequestsInput, Prisma.UserUncheckedUpdateWithoutWithdrawalRequestsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutWithdrawalRequestsInput, Prisma.UserUncheckedCreateWithoutWithdrawalRequestsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutWithdrawalRequestsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutWithdrawalRequestsInput, Prisma.UserUncheckedUpdateWithoutWithdrawalRequestsInput>
+}
+
+export type UserUpdateWithoutWithdrawalRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tutorProfile?: Prisma.TutorProfileUpdateOneWithoutUserNestedInput
+  studentProfile?: Prisma.StudentProfileUpdateOneWithoutUserNestedInput
+  studentAssignments?: Prisma.AssignmentUpdateManyWithoutStudentNestedInput
+  tutorAssignments?: Prisma.AssignmentUpdateManyWithoutTutorNestedInput
+  studentBookings?: Prisma.BookingUpdateManyWithoutStudentNestedInput
+  tutorBookings?: Prisma.BookingUpdateManyWithoutTutorNestedInput
+  reviewsGiven?: Prisma.ReviewUpdateManyWithoutStudentNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutTutorNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  uploads?: Prisma.UploadUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  proposals?: Prisma.ProposalUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  aiSessions?: Prisma.AISessionUpdateManyWithoutUserNestedInput
+  aiMessages?: Prisma.AIMessageUpdateManyWithoutUserNestedInput
+  walletTransactions?: Prisma.WalletTransactionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutWithdrawalRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  walletBalance?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  earnedFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  pendingFunds?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  aiCredits?: Prisma.IntFieldUpdateOperationsInput | number
+  withdrawalLimit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  verificationStatus?: Prisma.EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tutorProfile?: Prisma.TutorProfileUncheckedUpdateOneWithoutUserNestedInput
+  studentProfile?: Prisma.StudentProfileUncheckedUpdateOneWithoutUserNestedInput
+  studentAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutStudentNestedInput
+  tutorAssignments?: Prisma.AssignmentUncheckedUpdateManyWithoutTutorNestedInput
+  studentBookings?: Prisma.BookingUncheckedUpdateManyWithoutStudentNestedInput
+  tutorBookings?: Prisma.BookingUncheckedUpdateManyWithoutTutorNestedInput
+  reviewsGiven?: Prisma.ReviewUncheckedUpdateManyWithoutStudentNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutTutorNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  uploads?: Prisma.UploadUncheckedUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  proposals?: Prisma.ProposalUncheckedUpdateManyWithoutTutorNestedInput
+  conversations?: Prisma.ConversationUncheckedUpdateManyWithoutUserNestedInput
+  conversationsAsStudent?: Prisma.ConversationUncheckedUpdateManyWithoutStudentNestedInput
+  conversationsAsTutor?: Prisma.ConversationUncheckedUpdateManyWithoutTutorNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  aiSessions?: Prisma.AISessionUncheckedUpdateManyWithoutUserNestedInput
+  aiMessages?: Prisma.AIMessageUncheckedUpdateManyWithoutUserNestedInput
+  walletTransactions?: Prisma.WalletTransactionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -4051,6 +4644,7 @@ export type UserCountOutputType = {
   aiSessions: number
   aiMessages: number
   walletTransactions: number
+  withdrawalRequests: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4072,6 +4666,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   aiSessions?: boolean | UserCountOutputTypeCountAiSessionsArgs
   aiMessages?: boolean | UserCountOutputTypeCountAiMessagesArgs
   walletTransactions?: boolean | UserCountOutputTypeCountWalletTransactionsArgs
+  withdrawalRequests?: boolean | UserCountOutputTypeCountWithdrawalRequestsArgs
 }
 
 /**
@@ -4210,6 +4805,13 @@ export type UserCountOutputTypeCountWalletTransactionsArgs<ExtArgs extends runti
   where?: Prisma.WalletTransactionWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountWithdrawalRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WithdrawalRequestWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -4219,7 +4821,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   role?: boolean
   avatarUrl?: boolean
   walletBalance?: boolean
+  earnedFunds?: boolean
+  pendingFunds?: boolean
   aiCredits?: boolean
+  withdrawalLimit?: boolean
   verified?: boolean
   verificationStatus?: boolean
   createdAt?: boolean
@@ -4244,6 +4849,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   aiSessions?: boolean | Prisma.User$aiSessionsArgs<ExtArgs>
   aiMessages?: boolean | Prisma.User$aiMessagesArgs<ExtArgs>
   walletTransactions?: boolean | Prisma.User$walletTransactionsArgs<ExtArgs>
+  withdrawalRequests?: boolean | Prisma.User$withdrawalRequestsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -4255,7 +4861,10 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   role?: boolean
   avatarUrl?: boolean
   walletBalance?: boolean
+  earnedFunds?: boolean
+  pendingFunds?: boolean
   aiCredits?: boolean
+  withdrawalLimit?: boolean
   verified?: boolean
   verificationStatus?: boolean
   createdAt?: boolean
@@ -4270,7 +4879,10 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   role?: boolean
   avatarUrl?: boolean
   walletBalance?: boolean
+  earnedFunds?: boolean
+  pendingFunds?: boolean
   aiCredits?: boolean
+  withdrawalLimit?: boolean
   verified?: boolean
   verificationStatus?: boolean
   createdAt?: boolean
@@ -4285,14 +4897,17 @@ export type UserSelectScalar = {
   role?: boolean
   avatarUrl?: boolean
   walletBalance?: boolean
+  earnedFunds?: boolean
+  pendingFunds?: boolean
   aiCredits?: boolean
+  withdrawalLimit?: boolean
   verified?: boolean
   verificationStatus?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "avatarUrl" | "walletBalance" | "aiCredits" | "verified" | "verificationStatus" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "avatarUrl" | "walletBalance" | "earnedFunds" | "pendingFunds" | "aiCredits" | "withdrawalLimit" | "verified" | "verificationStatus" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tutorProfile?: boolean | Prisma.User$tutorProfileArgs<ExtArgs>
   studentProfile?: boolean | Prisma.User$studentProfileArgs<ExtArgs>
@@ -4314,6 +4929,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   aiSessions?: boolean | Prisma.User$aiSessionsArgs<ExtArgs>
   aiMessages?: boolean | Prisma.User$aiMessagesArgs<ExtArgs>
   walletTransactions?: boolean | Prisma.User$walletTransactionsArgs<ExtArgs>
+  withdrawalRequests?: boolean | Prisma.User$withdrawalRequestsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -4342,6 +4958,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     aiSessions: Prisma.$AISessionPayload<ExtArgs>[]
     aiMessages: Prisma.$AIMessagePayload<ExtArgs>[]
     walletTransactions: Prisma.$WalletTransactionPayload<ExtArgs>[]
+    withdrawalRequests: Prisma.$WithdrawalRequestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4351,7 +4968,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     role: $Enums.Role
     avatarUrl: string | null
     walletBalance: runtime.Decimal
+    earnedFunds: runtime.Decimal
+    pendingFunds: runtime.Decimal
     aiCredits: number
+    withdrawalLimit: runtime.Decimal
     verified: boolean
     verificationStatus: $Enums.VerificationStatus
     createdAt: Date
@@ -4770,6 +5390,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   aiSessions<T extends Prisma.User$aiSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aiSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AISessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   aiMessages<T extends Prisma.User$aiMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aiMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AIMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   walletTransactions<T extends Prisma.User$walletTransactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$walletTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WalletTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  withdrawalRequests<T extends Prisma.User$withdrawalRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$withdrawalRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WithdrawalRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4806,7 +5427,10 @@ export interface UserFieldRefs {
   readonly role: Prisma.FieldRef<"User", 'Role'>
   readonly avatarUrl: Prisma.FieldRef<"User", 'String'>
   readonly walletBalance: Prisma.FieldRef<"User", 'Decimal'>
+  readonly earnedFunds: Prisma.FieldRef<"User", 'Decimal'>
+  readonly pendingFunds: Prisma.FieldRef<"User", 'Decimal'>
   readonly aiCredits: Prisma.FieldRef<"User", 'Int'>
+  readonly withdrawalLimit: Prisma.FieldRef<"User", 'Decimal'>
   readonly verified: Prisma.FieldRef<"User", 'Boolean'>
   readonly verificationStatus: Prisma.FieldRef<"User", 'VerificationStatus'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
@@ -5666,6 +6290,30 @@ export type User$walletTransactionsArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.WalletTransactionScalarFieldEnum | Prisma.WalletTransactionScalarFieldEnum[]
+}
+
+/**
+ * User.withdrawalRequests
+ */
+export type User$withdrawalRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WithdrawalRequest
+   */
+  select?: Prisma.WithdrawalRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WithdrawalRequest
+   */
+  omit?: Prisma.WithdrawalRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WithdrawalRequestInclude<ExtArgs> | null
+  where?: Prisma.WithdrawalRequestWhereInput
+  orderBy?: Prisma.WithdrawalRequestOrderByWithRelationInput | Prisma.WithdrawalRequestOrderByWithRelationInput[]
+  cursor?: Prisma.WithdrawalRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WithdrawalRequestScalarFieldEnum | Prisma.WithdrawalRequestScalarFieldEnum[]
 }
 
 /**

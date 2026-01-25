@@ -67,7 +67,8 @@ export const ModelName = {
   AISession: 'AISession',
   AIMessage: 'AIMessage',
   Newsletter: 'Newsletter',
-  WalletTransaction: 'WalletTransaction'
+  WalletTransaction: 'WalletTransaction',
+  WithdrawalRequest: 'WithdrawalRequest'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -94,7 +95,10 @@ export const UserScalarFieldEnum = {
   role: 'role',
   avatarUrl: 'avatarUrl',
   walletBalance: 'walletBalance',
+  earnedFunds: 'earnedFunds',
+  pendingFunds: 'pendingFunds',
   aiCredits: 'aiCredits',
+  withdrawalLimit: 'withdrawalLimit',
   verified: 'verified',
   verificationStatus: 'verificationStatus',
   createdAt: 'createdAt',
@@ -320,12 +324,30 @@ export const WalletTransactionScalarFieldEnum = {
   reason: 'reason',
   relatedId: 'relatedId',
   description: 'description',
+  status: 'status',
   balanceBefore: 'balanceBefore',
   balanceAfter: 'balanceAfter',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  approvedAt: 'approvedAt',
+  approvedBy: 'approvedBy'
 } as const
 
 export type WalletTransactionScalarFieldEnum = (typeof WalletTransactionScalarFieldEnum)[keyof typeof WalletTransactionScalarFieldEnum]
+
+
+export const WithdrawalRequestScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  amount: 'amount',
+  status: 'status',
+  reason: 'reason',
+  createdAt: 'createdAt',
+  approvedAt: 'approvedAt',
+  approvedBy: 'approvedBy',
+  notes: 'notes'
+} as const
+
+export type WithdrawalRequestScalarFieldEnum = (typeof WithdrawalRequestScalarFieldEnum)[keyof typeof WithdrawalRequestScalarFieldEnum]
 
 
 export const SortOrder = {

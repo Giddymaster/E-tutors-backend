@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { prisma } from '../prisma'
+import { tutorEarningsService } from '../services/tutor-earnings.service'
 
 export const listAssignments = async (req: Request, res: Response) => {
   try {
@@ -101,11 +102,21 @@ export const acceptProposal = async (req: Request, res: Response) => {
     const proposal = await prisma.proposal.findUnique({ where: { id: proposalId } })
     if (!proposal) return res.status(404).json({ error: 'Proposal not found' })
 
+    // Transfer funds from student wallet to tutor (on hold) when proposal is accepted
+    const tutorId = proposal.tutorId
+    const bidAmount = proposal.amount
+
+    try {
+      await tutorEarningsService.captureProposalFunds(studentId, tutorId, proposalId, Number(bidAmount))
+    } catch (fundErr: any) {
+      return res.status(402).json({ error: fundErr.message || 'Failed to process payment for proposal' })
+    }
+
     await prisma.proposal.updateMany({ where: { jobId: assignmentId, id: { not: proposalId } }, data: { status: 'REJECTED' } })
     await prisma.proposal.update({ where: { id: proposalId }, data: { status: 'ACCEPTED' } })
     await prisma.assignment.update({ where: { id: assignmentId }, data: { tutorId: proposal.tutorId, status: 'ASSIGNED' } })
 
-    res.json({ ok: true })
+    res.json({ ok: true, message: 'Proposal accepted. Funds transferred to tutor (on hold pending completion).' })
   } catch (err) {
     console.error('acceptProposal error', err)
     res.status(500).json({ error: 'Server error' })

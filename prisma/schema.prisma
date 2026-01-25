@@ -63,6 +63,20 @@ enum AISessionStatus {
   CANCELLED
 }
 
+enum TransactionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  WITHDRAWN
+}
+
+enum WithdrawalStatus {
+  REQUESTED
+  APPROVED
+  REJECTED
+  COMPLETED
+}
+
 model User {
   id                 String             @id @default(uuid())
   name               String?
@@ -71,7 +85,10 @@ model User {
   role               Role               @default(STUDENT)
   avatarUrl          String?            @map("avatar_url")
   walletBalance      Decimal            @default(0.0) @map("wallet_balance")
+  earnedFunds        Decimal            @default(0.0) @map("earned_funds") // For tutors: total earned
+  pendingFunds       Decimal            @default(0.0) @map("pending_funds") // For tutors: funds on hold
   aiCredits          Int                @default(0) @map("ai_credits")
+  withdrawalLimit    Decimal            @default(1000.0) @map("withdrawal_limit") // Admin-controlled max per withdrawal
   verified           Boolean            @default(false)
   verificationStatus VerificationStatus @default(PENDING) @map("verification_status")
   createdAt          DateTime           @default(now()) @map("created_at")
@@ -97,6 +114,7 @@ model User {
   aiSessions             AISession[]
   aiMessages             AIMessage[]
   walletTransactions     WalletTransaction[]
+  withdrawalRequests     WithdrawalRequest[]
 }
 
 model TutorProfile {
@@ -308,20 +326,41 @@ model Newsletter {
 }
 
 model WalletTransaction {
-  id            String   @id @default(uuid())
-  userId        String   @map("user_id")
+  id            String            @id @default(uuid())
+  userId        String            @map("user_id")
   amount        Decimal
-  type          String // 'credit', 'debit', 'refund'
-  reason        String // 'add_funds', 'book_tutor', 'post_assignment', 'ai_tutor', 'refund'
-  relatedId     String?  @map("related_id") // bookingId, assignmentId, etc
+  type          String // 'credit', 'debit', 'refund', 'earning'
+  reason        String // 'add_funds', 'book_tutor', 'post_assignment', 'ai_tutor', 'refund', 'proposal_accepted'
+  relatedId     String?           @map("related_id") // bookingId, proposalId, assignmentId, etc
   description   String?
-  balanceBefore Decimal  @map("balance_before")
-  balanceAfter  Decimal  @map("balance_after")
-  createdAt     DateTime @default(now()) @map("created_at")
+  status        TransactionStatus @default(PENDING) // PENDING, APPROVED, REJECTED, WITHDRAWN
+  balanceBefore Decimal           @map("balance_before")
+  balanceAfter  Decimal           @map("balance_after")
+  createdAt     DateTime          @default(now()) @map("created_at")
+  approvedAt    DateTime?         @map("approved_at")
+  approvedBy    String?           @map("approved_by")
 
   user User @relation(fields: [userId], references: [id])
 
   @@index([userId])
   @@index([createdAt])
   @@map("wallet_transactions")
+}
+
+model WithdrawalRequest {
+  id         String           @id @default(uuid())
+  userId     String           @map("user_id")
+  amount     Decimal
+  status     WithdrawalStatus @default(REQUESTED)
+  reason     String? // Optional reason from tutor
+  createdAt  DateTime         @default(now()) @map("created_at")
+  approvedAt DateTime?        @map("approved_at")
+  approvedBy String?          @map("approved_by") // Admin ID
+  notes      String? // Admin notes
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([status])
+  @@map("withdrawal_requests")
 }

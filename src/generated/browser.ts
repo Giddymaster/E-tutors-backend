@@ -102,3 +102,8 @@ export type Newsletter = Prisma.NewsletterModel
  * 
  */
 export type WalletTransaction = Prisma.WalletTransactionModel
+/**
+ * Model WithdrawalRequest
+ * 
+ */
+export type WithdrawalRequest = Prisma.WithdrawalRequestModel

@@ -49,4 +49,8 @@ router.use('/newsletter', newsletterRouter)
 import aiTutorRouter from './ai-tutor.routes'
 router.use('/ai-tutor', aiTutorRouter)
 
+// Tutor Earnings routes
+import tutorEarningsRouter from './tutor-earnings.routes'
+router.use('/tutor-earnings', tutorEarningsRouter)
+
 export default router;
