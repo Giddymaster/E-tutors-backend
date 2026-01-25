@@ -86,6 +86,10 @@ export const sendMessage = async (req: Request, res: Response) => {
     if (error.message.includes('Insufficient')) {
       return res.status(402).json({ error: error.message })
     }
+    if (error.message.includes('AI service not configured')) {
+      // 503 Service Unavailable when OPENAI_API_KEY is missing
+      return res.status(503).json({ error: 'AI service not configured. Please set OPENAI_API_KEY.' })
+    }
     
     return res.status(500).json({ error: error.message || 'Failed to send message' })
   }

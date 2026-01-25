@@ -1,9 +1,18 @@
 import OpenAI from 'openai'
 import { prisma } from '../prisma'
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-})
+let openaiClient: OpenAI | null = null
+function getOpenAI() {
+  const apiKey = process.env.OPENAI_API_KEY
+  if (!apiKey) {
+    // Throw a controlled error so the server doesn't crash on startup
+    throw new Error('AI service not configured: missing OPENAI_API_KEY')
+  }
+  if (!openaiClient) {
+    openaiClient = new OpenAI({ apiKey })
+  }
+  return openaiClient
+}
 
 // Subject-specific system prompts
 const SUBJECT_PROMPTS: Record<string, string> = {
@@ -126,7 +135,8 @@ export const sendAIMessage = async (
 
   try {
     // Call OpenAI API
-    const completion = await openai.chat.completions.create({
+    const client = getOpenAI()
+    const completion = await client.chat.completions.create({
       model: 'gpt-4o-mini', // Using mini for cost-effectiveness
       messages: messages as any,
       temperature: 0.7,
@@ -169,6 +179,10 @@ export const sendAIMessage = async (
     }
   } catch (error: any) {
     console.error('OpenAI API error:', error)
+    // Bubble up a clearer error for missing configuration
+    if (String(error?.message || '').includes('AI service not configured')) {
+      throw new Error('AI service not configured: missing OPENAI_API_KEY')
+    }
     throw new Error('Failed to get AI response: ' + error.message)
   }
 }
