@@ -79,23 +79,24 @@ model User {
 
   tutorProfile           TutorProfile?
   studentProfile         StudentProfile?
-  studentAssignments     Assignment[]    @relation("student_assignments")
-  tutorAssignments       Assignment[]    @relation("tutor_assignments")
-  studentBookings        Booking[]       @relation("student_bookings")
-  tutorBookings          Booking[]       @relation("tutor_bookings")
-  reviewsGiven           Review[]        @relation("reviews_given")
-  reviewsReceived        Review[]        @relation("reviews_received")
+  studentAssignments     Assignment[]        @relation("student_assignments")
+  tutorAssignments       Assignment[]        @relation("tutor_assignments")
+  studentBookings        Booking[]           @relation("student_bookings")
+  tutorBookings          Booking[]           @relation("tutor_bookings")
+  reviewsGiven           Review[]            @relation("reviews_given")
+  reviewsReceived        Review[]            @relation("reviews_received")
   payments               Payment[]
   uploads                Upload[]
   refreshTokens          RefreshToken[]
   proposals              Proposal[]
   conversations          Conversation[]
-  conversationsAsStudent Conversation[]  @relation("ConversationStudent")
-  conversationsAsTutor   Conversation[]  @relation("ConversationTutor")
+  conversationsAsStudent Conversation[]      @relation("ConversationStudent")
+  conversationsAsTutor   Conversation[]      @relation("ConversationTutor")
   messages               Message[]
   notifications          Notification[]
   aiSessions             AISession[]
   aiMessages             AIMessage[]
+  walletTransactions     WalletTransaction[]
 }
 
 model TutorProfile {
@@ -304,4 +305,23 @@ model Newsletter {
   updatedAt         DateTime  @updatedAt @map("updated_at")
 
   @@map("newsletters")
+}
+
+model WalletTransaction {
+  id            String   @id @default(uuid())
+  userId        String   @map("user_id")
+  amount        Decimal
+  type          String // 'credit', 'debit', 'refund'
+  reason        String // 'add_funds', 'book_tutor', 'post_assignment', 'ai_tutor', 'refund'
+  relatedId     String?  @map("related_id") // bookingId, assignmentId, etc
+  description   String?
+  balanceBefore Decimal  @map("balance_before")
+  balanceAfter  Decimal  @map("balance_after")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([createdAt])
+  @@map("wallet_transactions")
 }

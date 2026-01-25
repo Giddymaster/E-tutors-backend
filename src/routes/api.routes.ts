@@ -3,6 +3,7 @@ import { createTutor, getTutors, getMyTutor, updateMyTutor, getTutorById } from 
 import { authenticate } from '../middleware/auth.middleware';
 import { getMyStudent, upsertMyStudent } from '../controllers/students.controller';
 import { processPayment, verifyPaystackPayment } from '../controllers/payments.controller';
+import walletRouter from './wallet.routes'
 
 const router = Router();
 
@@ -19,6 +20,9 @@ router.get('/tutors/:id', getTutorById);
 // Payments (demo)
 router.post('/payments/process', processPayment);
 router.post('/payments/verify-paystack', verifyPaystackPayment);
+
+// Wallet
+router.use('/wallet', walletRouter)
 
 // Assignments & proposals
 import assignmentsRoutes from './assignments.routes'

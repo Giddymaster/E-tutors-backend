@@ -97,3 +97,8 @@ export type AIMessage = Prisma.AIMessageModel
  * 
  */
 export type Newsletter = Prisma.NewsletterModel
+/**
+ * Model WalletTransaction
+ * 
+ */
+export type WalletTransaction = Prisma.WalletTransactionModel
