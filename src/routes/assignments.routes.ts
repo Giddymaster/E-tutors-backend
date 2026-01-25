@@ -1,12 +1,13 @@
 import { Router } from 'express'
 import { listAssignments, createAssignment, createProposal, acceptProposal, getAssignment } from '../controllers/assignments.controller'
 import { authenticate } from '../middleware/auth.middleware'
+import { requirePositiveWalletBalance } from '../middleware/wallet.middleware'
 import { prisma } from '../prisma'
 
 const router = Router()
 
 router.get('/', listAssignments)
-router.post('/', authenticate, createAssignment)
+router.post('/', authenticate, requirePositiveWalletBalance, createAssignment)
 router.get('/:id', getAssignment)
 router.post('/:id/proposals', authenticate, createProposal)
 router.post('/:id/proposals/:proposalId/accept', authenticate, acceptProposal)
