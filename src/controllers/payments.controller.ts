@@ -60,8 +60,8 @@ export const verifyPaystackPayment = async (req: Request, res: Response) => {
       })
     }
 
-    // Check amount (amount is in cents for USD, so 3000 cents = $30)
-    const expectedAmount = 3000 // $30 USD in cents
+    // Check amount (amount is in cents for USD, so 100 cents = $1)
+    const expectedAmount = 100 // $1 USD in cents (testing)
     if (data.amount !== expectedAmount) {
       return res.status(400).json({
         success: false,
