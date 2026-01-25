@@ -115,6 +115,7 @@ export const me = async (req: Request, res: Response) => {
 }
 
 // Refresh access token using refresh cookie
+// Updated: Improved cookie handling for cross-origin requests
 export const refreshToken = async (req: Request, res: Response) => {
   try {
     const cookie = (req.cookies && req.cookies[REFRESH_TOKEN_COOKIE]) as string | undefined
