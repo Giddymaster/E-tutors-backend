@@ -118,7 +118,10 @@ export const me = async (req: Request, res: Response) => {
 export const refreshToken = async (req: Request, res: Response) => {
   try {
     const cookie = (req.cookies && req.cookies[REFRESH_TOKEN_COOKIE]) as string | undefined
-    if (!cookie) return res.status(401).json({ error: 'No refresh token' })
+    if (!cookie) {
+      console.warn('[refresh] No refresh token found in cookies. Available cookies:', Object.keys(req.cookies || {}))
+      return res.status(401).json({ error: 'No refresh token' })
+    }
 
     // hash incoming cookie before lookup
     const cookieHash = crypto.createHash('sha256').update(cookie).digest('hex')
