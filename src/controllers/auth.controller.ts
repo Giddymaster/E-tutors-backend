@@ -89,9 +89,15 @@ export const login = async (req: Request, res: Response) => {
     // Store hashed token only
     await prisma.refreshToken.create({ data: { tokenHash: refreshTokenHash, userId: user.id, expiresAt: refreshExpiry } })
 
-    // Cookie settings: secure only if explicitly on HTTPS
-    const isSecure = process.env.NODE_ENV === 'production' && process.env.HTTPS === 'true'
-    res.cookie(REFRESH_TOKEN_COOKIE, refreshToken, { httpOnly: true, secure: isSecure, sameSite: 'lax', expires: refreshExpiry })
+    // Cookie settings: secure in production (Render uses HTTPS), lax sameSite for cross-origin
+    const isSecure = process.env.NODE_ENV === 'production'
+    res.cookie(REFRESH_TOKEN_COOKIE, refreshToken, { 
+      httpOnly: true, 
+      secure: isSecure, 
+      sameSite: isSecure ? 'none' : 'lax', // 'none' requires secure: true in production
+      expires: refreshExpiry,
+      path: '/' // Ensure cookie is sent to all paths
+    })
     res.json({ token: accessToken, user: { id: user.id, name: user.name, email: user.email, role: user.role } })
   } catch (err) {
     console.error(err)
@@ -138,9 +144,15 @@ export const refreshToken = async (req: Request, res: Response) => {
     // remove old hashed token
     await prisma.refreshToken.deleteMany({ where: { tokenHash: cookieHash } })
 
-    // Cookie settings: secure only if explicitly on HTTPS
-    const isSecure = process.env.NODE_ENV === 'production' && process.env.HTTPS === 'true'
-    res.cookie(REFRESH_TOKEN_COOKIE, newRefresh, { httpOnly: true, secure: isSecure, sameSite: 'lax', expires: refreshExpiry })
+    // Cookie settings: secure in production (Render uses HTTPS), none sameSite for cross-origin
+    const isSecure = process.env.NODE_ENV === 'production'
+    res.cookie(REFRESH_TOKEN_COOKIE, newRefresh, { 
+      httpOnly: true, 
+      secure: isSecure, 
+      sameSite: isSecure ? 'none' : 'lax', // 'none' requires secure: true in production
+      expires: refreshExpiry,
+      path: '/' // Ensure cookie is sent to all paths
+    })
     res.json({ token: accessToken })
   } catch (err) {
     console.error('refreshToken error', err)
