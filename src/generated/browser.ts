@@ -92,3 +92,8 @@ export type AISession = Prisma.AISessionModel
  * 
  */
 export type AIMessage = Prisma.AIMessageModel
+/**
+ * Model Newsletter
+ * 
+ */
+export type Newsletter = Prisma.NewsletterModel

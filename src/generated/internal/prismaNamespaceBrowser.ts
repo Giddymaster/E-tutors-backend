@@ -65,7 +65,8 @@ export const ModelName = {
   Message: 'Message',
   Notification: 'Notification',
   AISession: 'AISession',
-  AIMessage: 'AIMessage'
+  AIMessage: 'AIMessage',
+  Newsletter: 'Newsletter'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -294,6 +295,20 @@ export const AIMessageScalarFieldEnum = {
 } as const
 
 export type AIMessageScalarFieldEnum = (typeof AIMessageScalarFieldEnum)[keyof typeof AIMessageScalarFieldEnum]
+
+
+export const NewsletterScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  isConfirmed: 'isConfirmed',
+  confirmationToken: 'confirmationToken',
+  confirmedAt: 'confirmedAt',
+  unsubscribedAt: 'unsubscribedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NewsletterScalarFieldEnum = (typeof NewsletterScalarFieldEnum)[keyof typeof NewsletterScalarFieldEnum]
 
 
 export const SortOrder = {

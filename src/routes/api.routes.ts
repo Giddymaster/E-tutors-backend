@@ -33,6 +33,10 @@ router.get('/students/me', authenticate, getMyStudent);
 router.put('/students/me', authenticate, upsertMyStudent);
 // router.delete('/students/:id', deleteMyStudent);
 
+// Newsletter routes
+import newsletterRouter from './newsletter.routes'
+router.use('/newsletter', newsletterRouter)
+
 // AI Tutor routes
 import aiTutorRouter from './ai-tutor.routes'
 router.use('/ai-tutor', aiTutorRouter)
