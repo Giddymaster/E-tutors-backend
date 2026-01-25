@@ -24,6 +24,10 @@ router.post('/payments/verify-paystack', verifyPaystackPayment);
 // Wallet
 router.use('/wallet', walletRouter)
 
+// Wallet payments (Paystack integration)
+import walletPaymentRouter from './wallet-payment.routes'
+router.use('/wallet-payments', walletPaymentRouter)
+
 // Assignments & proposals
 import assignmentsRoutes from './assignments.routes'
 router.use('/assignments', assignmentsRoutes)
