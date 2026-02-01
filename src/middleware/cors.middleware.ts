@@ -7,10 +7,16 @@ const getCorsConfig = () => {
   
   // Define allowed origins based on environment
   const allowedOrigins = {
-    production: [FRONTEND_URL].filter(Boolean),
+    production: [
+      'https://mastertracktutors.com',
+      'https://www.mastertracktutors.com',
+      FRONTEND_URL
+    ].filter(Boolean),
     staging: [
       'https://staging.tutors-frontend.vercel.app',
       'https://e-tutors-fronted.vercel.app',
+      'https://mastertracktutors.com',
+      'https://www.mastertracktutors.com',
       FRONTEND_URL
     ].filter(Boolean),
     development: [
