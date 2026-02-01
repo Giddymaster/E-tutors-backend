@@ -53,4 +53,8 @@ router.use('/ai-tutor', aiTutorRouter)
 import tutorEarningsRouter from './tutor-earnings.routes'
 router.use('/tutor-earnings', tutorEarningsRouter)
 
+// Admin routes (protected by requireAdmin middleware)
+import adminRouter from './admin.routes'
+router.use('/admin', adminRouter)
+
 export default router;
