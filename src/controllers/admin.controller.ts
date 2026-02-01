@@ -333,7 +333,7 @@ export const updateUserWallet = async (req: Request, res: Response) => {
 }
 
 /**
- * Delete a user (soft delete or hard delete)
+ * Delete a user (cascade delete all related records)
  */
 export const deleteUser = async (req: Request, res: Response) => {
   try {
@@ -344,13 +344,96 @@ export const deleteUser = async (req: Request, res: Response) => {
       return res.status(404).json({ error: 'User not found' })
     }
 
-    // Hard delete - be careful!
-    await prisma.user.delete({ where: { id } })
+    // Prevent deleting admin users
+    if (user.role === 'ADMIN') {
+      return res.status(403).json({ error: 'Cannot delete admin users' })
+    }
 
-    return res.status(200).json({ message: 'User deleted successfully' })
+    // Delete all related records in a transaction
+    await prisma.$transaction(async (tx) => {
+      // Delete AI-related records
+      await tx.aIMessage.deleteMany({ where: { userId: id } })
+      await tx.aISession.deleteMany({ where: { userId: id } })
+
+      // Delete wallet-related records
+      await tx.withdrawalRequest.deleteMany({ where: { userId: id } })
+      await tx.walletTransaction.deleteMany({ where: { userId: id } })
+
+      // Delete messaging records
+      await tx.message.deleteMany({ where: { senderId: id } })
+      await tx.notification.deleteMany({ where: { userId: id } })
+
+      // Delete conversations where user is participant
+      const studentConversations = await tx.conversation.findMany({
+        where: { studentId: id },
+        select: { id: true }
+      })
+      const tutorConversations = await tx.conversation.findMany({
+        where: { tutorId: id },
+        select: { id: true }
+      })
+      const conversationIds = [
+        ...studentConversations.map(c => c.id),
+        ...tutorConversations.map(c => c.id)
+      ]
+      if (conversationIds.length > 0) {
+        await tx.message.deleteMany({ where: { conversationId: { in: conversationIds } } })
+        await tx.conversation.deleteMany({ where: { id: { in: conversationIds } } })
+      }
+
+      // Delete proposals
+      await tx.proposal.deleteMany({ where: { tutorId: id } })
+
+      // Delete bookings
+      await tx.booking.deleteMany({
+        where: {
+          OR: [
+            { studentId: id },
+            { tutorId: id }
+          ]
+        }
+      })
+
+      // Delete reviews (given and received)
+      await tx.review.deleteMany({
+        where: {
+          OR: [
+            { studentId: id },
+            { tutorId: id }
+          ]
+        }
+      })
+
+      // Delete assignments
+      await tx.assignment.deleteMany({
+        where: {
+          OR: [
+            { studentId: id },
+            { tutorId: id }
+          ]
+        }
+      })
+
+      // Delete other records
+      await tx.payment.deleteMany({ where: { userId: id } })
+      await tx.upload.deleteMany({ where: { ownerId: id } })
+      await tx.refreshToken.deleteMany({ where: { userId: id } })
+
+      // Delete profiles
+      await tx.tutorProfile.deleteMany({ where: { userId: id } })
+      await tx.studentProfile.deleteMany({ where: { userId: id } })
+
+      // Finally, delete the user
+      await tx.user.delete({ where: { id } })
+    })
+
+    return res.status(200).json({ message: 'User and all related data deleted successfully' })
   } catch (err: any) {
     console.error('deleteUser error:', err)
-    return res.status(500).json({ error: 'Server error' })
+    return res.status(500).json({ 
+      error: 'Failed to delete user', 
+      details: err.message 
+    })
   }
 }
 
