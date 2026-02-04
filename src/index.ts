@@ -35,6 +35,21 @@ const startServer = (port: number) => {
     console.log(`Server running on port ${port}`)
   })
 
+  // initialize WebSocket server for live session heartbeat and notifications
+  try {
+    // lazy import to avoid circular deps
+    import('./services/websocket.service')
+      .then(({ initWebSocketServer }) => {
+        initWebSocketServer(srv)
+        console.log('WebSocket server initialized')
+      })
+      .catch((err) => {
+        console.warn('Failed to initialize WebSocket server:', err)
+      })
+
+  } catch (err) {
+    console.warn('Failed to initialize WebSocket server (try/catch):', err)
+  }
   srv.on('error', (err: any) => {
     if (err && err.code === 'EADDRINUSE') {
       console.warn(`Port ${port} in use — trying ${port + 1}`)

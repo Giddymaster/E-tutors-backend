@@ -14,6 +14,7 @@ router.get('/sessions', aiTutorController.getSessions)
 router.get('/sessions/:sessionId', aiTutorController.getSession)
 router.post('/sessions/:sessionId/messages', requirePositiveWalletBalance, aiTutorController.sendMessage)
 router.patch('/sessions/:sessionId/end', aiTutorController.endSession)
+router.post('/sessions/:sessionId/extend', requirePositiveWalletBalance, aiTutorController.extendSession)
 
 // Credits routes
 router.get('/credits', aiTutorController.getCredits)
